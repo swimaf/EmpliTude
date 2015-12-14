@@ -3,6 +3,7 @@ package com.example.martinet.Emplitude.Emploi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -152,7 +153,9 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
 
                 Object c = couleur.get(cours.get(i).get("matiere"));
                 if (c != null) {
+                    int color = (int)c;
                     bouton.getBackground().setColorFilter(Integer.parseInt(c.toString()), PorterDuff.Mode.MULTIPLY);
+                    bouton.setTextColor(getColorWB(color));
                 }
                 this.l.addView(bouton);
             }
@@ -168,7 +171,7 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
         this.picker.bringToFront();
         this.picker.findViewById(R.id.annuler).setOnClickListener(new DialogPicker());
         this.picker.findViewById(R.id.valider).setOnClickListener(new DialogPicker());
-        final int[]colorBar = getResources().getIntArray(R.array.colorBar);
+        final int[] colorBar = getResources().getIntArray(R.array.colorBar);
         int id;
         Vector<Button> button = new Vector<>();
         for (int i = 1; i < 5; i++) {
@@ -261,6 +264,20 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
         this.color.setVisibility(View.VISIBLE);
         this.activeButton = (Cour) v;
         return true;
+    }
+
+    public static int getBrightness(int color){
+        return (int)Math.sqrt( Color.red(color) * Color.red(color) * .241 +
+                Color.green(color) * Color.green(color) * .691 +
+                Color.blue(color) * Color.blue(color) * .068);
+    }
+
+    public static int getColorWB(int color){
+        if(getBrightness(color) < 130){
+            return Color.WHITE;
+        }else {
+            return Color.BLACK;
+        }
     }
 
     private class DialogPicker implements View.OnClickListener {

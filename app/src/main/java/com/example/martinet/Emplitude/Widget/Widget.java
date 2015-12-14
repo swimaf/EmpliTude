@@ -14,6 +14,7 @@ import android.widget.RemoteViews;
 
 import com.example.martinet.Emplitude.Accueil;
 import com.example.martinet.Emplitude.Emploi.ADE_information;
+import com.example.martinet.Emplitude.Emploi.Emploi;
 import com.example.martinet.Emplitude.R;
 
 import java.text.SimpleDateFormat;
@@ -52,6 +53,7 @@ public class Widget extends AppWidgetProvider {
         views.setTextViewText(R.id.cours, contenu);
         if (c != null) {
             views.setInt(R.id.cours, "setBackgroundColor", Integer.parseInt(c.toString()));
+            views.setInt(R.id.cours, "setTextColor", Emploi.getColorWB(Integer.parseInt(c.toString())));
         }
         Intent intent = new Intent(context, Accueil.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
