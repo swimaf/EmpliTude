@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Empli\'tude</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Paramètres</string>
+    <string name="groupe">null</string>
+    <string name="nom_appli">Empli\'tude</string>
+    <string name="description">Bienvenue sur la première application de gestion d\'emploi du temps de l\'IUT, cette application va vous permettre de gagner du temps et de ne plus rien oublier. Renseigner vite vos informations pour la tester !</string>
+
+</resources>

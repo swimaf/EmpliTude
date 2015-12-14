@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/martinet/AndroidStudioProjects/Drawer/app/build/intermediates/exploded-aar/com.github.danielnilsson9/color-picker-view/1.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e37902677ad49131b9f8ce9f2d4e736f6e095249">
+        <dex dex="/home/martinet/AndroidStudioProjects/Drawer/app/build/intermediates/pre-dexed/debug/classes-3f5214834f4f22c0363b1fbc43f9522d99204e6c.jar" />
+    </item>
+
+</items>
