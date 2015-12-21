@@ -10,11 +10,13 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.widget.RemoteViews;
 
 import com.example.martinet.Emplitude.Accueil;
 import com.example.martinet.Emplitude.Emploi.ADE_information;
 import com.example.martinet.Emplitude.Emploi.Emploi;
+import com.example.martinet.Emplitude.Emploi.Information;
 import com.example.martinet.Emplitude.R;
 
 import java.text.SimpleDateFormat;
@@ -37,6 +39,8 @@ public class Widget extends AppWidgetProvider {
         this.settings       = context.getSharedPreferences(PREFS_NAME,0);
         this.editor         = settings.edit();
         HashMap couleur = (HashMap) settings.getAll();
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
+        Intent intent;
 
         try {
             ADE_information fichier = new ADE_information();
@@ -44,18 +48,33 @@ public class Widget extends AppWidgetProvider {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Date dateD = (Date) cours.get("dateD");
-        Date dateF = (Date) cours.get("dateF");
-        Object c = couleur.get(cours.get("matiere"));
-        String contenu = this.cours.get("resumer")+" \n"+h.format(dateD)+" - "+h.format(dateF);
 
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
-        views.setTextViewText(R.id.cours, contenu);
-        if (c != null) {
-            views.setInt(R.id.cours, "setBackgroundColor", Integer.parseInt(c.toString()));
-            views.setInt(R.id.cours, "setTextColor", Emploi.getColorWB(Integer.parseInt(c.toString())));
+        if(this.cours != null) {
+            Date dateD = (Date) cours.get("dateD");
+            Date dateF = (Date) cours.get("dateF");
+            Object c = couleur.get(cours.get("matiere"));
+            String contenu = this.cours.get("resumer") + " \n" + this.cours.get("salle") + "\n" + h.format(dateD) + " - " + h.format(dateF);
+
+            views.setTextViewText(R.id.cours, contenu);
+            if (c != null) {
+                views.setInt(R.id.cours, "setBackgroundColor", Integer.parseInt(c.toString()));
+                views.setInt(R.id.cours, "setTextColor", Emploi.getColorWB(Integer.parseInt(c.toString())));
+            }
+
+            Bundle objetbunble = new Bundle();
+            intent = new Intent(context, Information.class);
+            objetbunble.putString("matiere", this.cours.get("matiere") + "");
+            objetbunble.putString("prof", this.cours.get("prof") + "");
+            SimpleDateFormat h = new SimpleDateFormat("HH:mm");
+            objetbunble.putString("dateD", h.format(dateD));
+            objetbunble.putString("dateF", h.format(dateF));
+            objetbunble.putString("resumer", this.cours.get("resumer") + "");
+            objetbunble.putString("salle", this.cours.get("salle") + "");
+            intent.putExtras(objetbunble);
+        }else{
+            intent = new Intent(context, Accueil.class);
         }
-        Intent intent = new Intent(context, Accueil.class);
+
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         views.setOnClickPendingIntent(R.id.cours, pendingIntent);
         appWidgetManager.updateAppWidget(appWidgetIds, views);

@@ -2,8 +2,8 @@ package com.example.martinet.Emplitude.Emploi;
 
 import android.os.AsyncTask;
 
-import com.example.martinet.Emplitude.Fichier;
-import com.example.martinet.Emplitude.Utilisateur;
+import com.example.martinet.Emplitude.Outil.Fichier;
+import com.example.martinet.Emplitude.Outil.Utilisateur;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -39,7 +39,6 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
         this.o = o;
         this.utilisateur = (Utilisateur) Fichier.lire(file, 0);
         this.source = "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources="+utilisateur.getIdentifiant()+"&projectId=1&calType=ical&firstDate="+first+"&lastDate="+last;
-
     }
 
     protected Void doInBackground(Void... params) {
@@ -81,7 +80,7 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
 
             String line;
             while ((line = br.readLine()) != null) {
-                sb.append(line);
+                sb.append(line+"\n");
             }
 
             textResult = sb.toString();

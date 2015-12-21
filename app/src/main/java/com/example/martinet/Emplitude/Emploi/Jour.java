@@ -14,6 +14,11 @@ public class Jour {
         this.calendar = Calendar.getInstance();
         this.calendar.setTime(d);
     }
+    public Boolean est_inferieur(){
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, -1);
+        return calendar.before(c);
+    }
     public String getJour(){
         return semaine[this.calendar.get(Calendar.DAY_OF_WEEK)-1]+" "+this.calendar.get(Calendar.DATE)+" "+mois[this.calendar.get(Calendar.MONTH)];
     }

@@ -23,6 +23,10 @@ import android.widget.Toast;
 
 import com.example.martinet.Emplitude.Emploi.ADE_recuperation;
 import com.example.martinet.Emplitude.Emploi.loadFichier;
+import com.example.martinet.Emplitude.Outil.External;
+import com.example.martinet.Emplitude.Outil.External_retour;
+import com.example.martinet.Emplitude.Outil.Fichier;
+import com.example.martinet.Emplitude.Outil.Utilisateur;
 
 import org.json.JSONArray;
 import java.io.File;

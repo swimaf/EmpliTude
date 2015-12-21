@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.martinet.Emplitude.Emploi.Emploi;
 import com.example.martinet.Emplitude.Emploi.Jour;
@@ -77,36 +78,39 @@ public class MainActivity extends AppCompatActivity
                 MainActivity.this.modifierDate(1);
             }
         });
-
     }
     public void modifierDate(int i){
         calendrier.ajouterJour(i);
-        TextView jour = (TextView) findViewById(R.id.jour);
-        jour.setText(calendrier.getJour());
-        jour.refreshDrawableState();
-        if (i!=0 || premier) {
-            System.out.println("sss");
-            Fragment fragment = null;
-            Class fragmentClass = Emploi.class;
-            Bundle args =new Bundle();
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-                args.putString("dateJour", calendrier.getDateJour());
-                fragment.setArguments(args);
-            } catch (Exception e) {
-                System.out.println("Erreur load fragment");
-            }
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            if(!premier) {
-                if (i < 0) {
-                    ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                } else {
-                    ft.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+        if(!calendrier.est_inferieur()) {
+            TextView jour = (TextView) findViewById(R.id.jour);
+            jour.setText(calendrier.getJour());
+            jour.refreshDrawableState();
+            if (i != 0 || premier) {
+                Fragment fragment = null;
+                Class fragmentClass = Emploi.class;
+                Bundle args = new Bundle();
+                try {
+                    fragment = (Fragment) fragmentClass.newInstance();
+                    args.putString("dateJour", calendrier.getDateJour());
+                    fragment.setArguments(args);
+                } catch (Exception e) {
+                    System.out.println("Erreur load fragment");
                 }
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                if (!premier) {
+                    if (i < 0) {
+                        ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                    } else {
+                        ft.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
+                }
+                premier = false;
+                ft.replace(R.id.frag, fragment);
+                ft.commit();
             }
-            premier = false;
-            ft.replace(R.id.frag, fragment);
-            ft.commit();
+        }else{
+            calendrier.ajouterJour(-i);
+            Toast.makeText(getApplicationContext(), "Vous ne pouvez pas aller par ici !", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -148,10 +152,7 @@ public class MainActivity extends AppCompatActivity
 
     public void onResume(){
         super.onResume();
-        System.out.println("sss");
         if(is_emploi){
-            System.out.println("sss2");
-
             v.setVisibility(View.VISIBLE);
         }
     }

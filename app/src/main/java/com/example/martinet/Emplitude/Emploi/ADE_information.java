@@ -32,27 +32,14 @@ public class ADE_information {
 
     public ADE_information(String date) throws ParseException{
         this.date = date;
-        String line;
-        cours = new Vector<>();
-
-        dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/London"));
-
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            while ((line = br.readLine()) != null) {
-                fichier += line;
-            }
-            this.vide = false;
-        } catch (IOException e1) {
-            e1.printStackTrace();
-            this.vide =true;
-
-        }
-
+        this.init();
     }
 
     public ADE_information() throws ParseException{
+        this.init();
+    }
+
+    public void init(){
         String line;
         cours = new Vector<>();
         dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
@@ -60,15 +47,17 @@ public class ADE_information {
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             while ((line = br.readLine()) != null) {
-                fichier += line;
+                fichier += line+"\n";
             }
             this.vide = false;
         } catch (IOException e1) {
             e1.printStackTrace();
             this.vide =true;
         }
+
     }
 
+    //Recupération des cours
     public Vector<Hashtable> getCours() throws ParseException {
         this.get();
         if(this.vide){
@@ -76,6 +65,8 @@ public class ADE_information {
         }
         return cours;
     }
+
+    //Récupération dernier cour
     public Hashtable getLast() throws ParseException{
         String[] parts = fichier.split(Pattern.quote("BEGIN:VEVENT"));
         String s;
@@ -92,13 +83,15 @@ public class ADE_information {
         }
         Collections.sort(this.cours, new Comparator<Hashtable>() {
             public int compare(Hashtable m1, Hashtable m2) {
-                Date d = (Date)m1.get("dateD");
-                Date d2 = (Date)m2.get("dateD");
+                Date d = (Date) m1.get("dateD");
+                Date d2 = (Date) m2.get("dateD");
                 return d.compareTo(d2);
             }
         });
         return this.cours.get(0);
     }
+
+    //Récupération toutes les cours par date
     public void get() throws ParseException{
         String[] parts = fichier.split(Pattern.quote("BEGIN:VEVENT"));
         String jour, s;
@@ -127,20 +120,40 @@ public class ADE_information {
         return res;
     }
 
+    public String elementMulti(String chaine, String pattern, String split){
+        String res= "";
+        Pattern p = Pattern.compile(pattern, Pattern.DOTALL);
+        Matcher m = p.matcher(chaine);
+        if(m.find()) {
+            res = m.group(0);
+            res = res.split(split)[1];
+        }
+        return res;
+    }
+
+    //Récupération information de un cour
     public Hashtable getCour(String contenu) throws ParseException {
         String description, matiere = "", prof, resum, s;
         Date d2, d;
-        resum = this.element(contenu, "SUMMARY:(.)+LOCATION", "(SUMMARY:)|(LOCATION)");
+        resum = this.element(contenu, "SUMMARY:(.)+", "SUMMARY:");
 
         h.put("resumer", resum);
-        h.put("salle", this.element(contenu, "LOCATION:(.)+DESCRIPTION", "(LOCATION:)|(DESCRIPTION)"));
+        h.put("salle", this.element(contenu, "LOCATION:(.)+", "LOCATION:"));
 
-        description = this.element(contenu, "DESCRIPTION:(.)+", "DESCRIPTION:");
+        description = this.elementMulti(contenu, "DESCRIPTION:(.)+UID", "DESCRIPTION:");
+        Pattern p = Pattern.compile("\n");
+
+        String[] h2 = description.split("\n");
+        description="";
+        for(String sss:h2){
+            sss=sss.trim();
+            description +=sss;
+        }
+
         description = description.split("\\\\n[(][Exporté]")[0];
         String[] v = description.split("\\\\n");
-        System.out.println(description);
 
-        Pattern p = Pattern.compile("[A-Z]{3,}");
+        p = Pattern.compile("[A-Z]{3,}");
         Matcher m;
 
         Boolean fini = false;

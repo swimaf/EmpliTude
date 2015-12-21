@@ -105,6 +105,13 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Vibreur"
+                android:id="@+id/vibreur"
+                android:checked="false" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -57,6 +57,8 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
     private ViewGroup.LayoutParams heureLayout;
     private FrameLayout l;
     private Button button_picker;
+    private Toast toast;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -73,6 +75,7 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
         this.button_picker  = (Button) color.findViewById(R.id.color_5);
         this.swipe          = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
         this.editor         = settings.edit();
+        this.toast          = Toast.makeText(getContext(), "", Toast.LENGTH_SHORT);
         this.cours          = null;
         this.HEIGHT         = this.getHeight();
 
@@ -204,7 +207,8 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
     }
 
     public void setToast(String value){
-        Toast.makeText(getContext(), value, Toast.LENGTH_SHORT).show();
+        toast.setText(value);
+        toast.show();
     }
 
     public int getHeight(){

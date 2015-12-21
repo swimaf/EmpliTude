@@ -1,4 +1,4 @@
-package com.example.martinet.Emplitude;
+package com.example.martinet.Emplitude.Outil;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
