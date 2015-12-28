@@ -1,5 +1,6 @@
 package com.example.martinet.Emplitude.Emploi;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -58,6 +60,7 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
     private FrameLayout l;
     private Button button_picker;
     private Toast toast;
+    private RelativeLayout vide;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,6 +74,7 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
         this.l              = (FrameLayout) view.findViewById(R.id.frame);
         this.g              = (GridLayout) view.findViewById(R.id.heures);
         this.color          = (RelativeLayout) view.findViewById(R.id.color);
+        this.vide           = (RelativeLayout) view.findViewById(R.id.vide);
         this.picker         = (RelativeLayout) view.findViewById(R.id.picker);
         this.button_picker  = (Button) color.findViewById(R.id.color_5);
         this.swipe          = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
@@ -119,7 +123,8 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
             v = new TextView(getContext());
             v.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
             v.setLayoutParams(heureLayout);
-            v.setText(h + "  —");
+            v.setBackgroundResource(R.drawable.border_heure);
+            v.setText(h);
             this.g.addView(v);
         }
     }
@@ -166,7 +171,8 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
         if(cours == null){
             this.setToast("Le planning sur ADE n'a pas été chargé correctement");
         }else if(cours.size() ==0){
-            this.setToast("Vous n'avez pas de cours aujourd'hui !");
+            this.vide.setVisibility(View.VISIBLE);
+            this.vide.getLayoutParams().height = HEIGHT;
         }
     }
 

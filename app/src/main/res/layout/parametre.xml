@@ -32,15 +32,30 @@
                     android:textColor="@color/colorPrimary"
                     android:gravity="center_vertical" />
 
-                <TextView
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="Fréquence de mise à jour :"
-                    android:id="@+id/textView4"
-                    android:layout_below="@+id/emploi"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:gravity="center_vertical" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.04">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fréquence de mise à jour :"
+                        android:id="@+id/textView4"
+                        android:layout_below="@+id/emploi"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical" />
+
+                    <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="43dp"
+                        android:id="@+id/maj"
+                        android:spinnerMode="dialog"
+                        android:background="#13000000" />
+                </LinearLayout>
 
                 <Button
                     android:layout_width="match_parent"
@@ -75,16 +90,31 @@
                     android:textColor="@color/colorPrimary"
                     android:gravity="center_vertical" />
 
-                <TextView
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="Délai de notification de tâche :"
-                    android:id="@+id/textView12"
-                    android:layout_below="@+id/emploi"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:gravity="center_vertical"
-                    android:layout_weight="0.04" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Délai de notification de tâche :"
+                        android:id="@+id/textView12"
+                        android:layout_below="@+id/emploi"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:gravity="center_vertical"
+                        android:layout_weight="0.04"
+                        android:layout_gravity="center_vertical" />
+
+                    <Spinner
+                        android:layout_width="129dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/notif"
+                        android:spinnerMode="dialog"
+                        android:background="#13000000" />
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

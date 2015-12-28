@@ -8,5 +8,17 @@
     <string name="groupe">null</string>
     <string name="nom_appli">Empli\'tude</string>
     <string name="description">Bienvenue sur la première application de gestion d\'emploi du temps de l\'IUT, cette application va vous permettre de gagner du temps et de ne plus rien oublier. Renseigner vite vos informations pour la tester !</string>
-
+    <string-array name="maj">
+        <item>Tout les jours</item>
+        <item>Tout les 3 jours</item>
+        <item>Tout les semaines</item>
+        <item>Tout deux semaines</item>
+        <item>Tout les mois</item>
+    </string-array>
+    <string-array name="notif">
+        <item>1 jour avant</item>
+        <item>2 jours avant</item>
+        <item>1 heure avant</item>
+        <item>4 heures avant</item>
+    </string-array>
 </resources>

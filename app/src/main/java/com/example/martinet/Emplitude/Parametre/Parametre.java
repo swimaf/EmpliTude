@@ -7,13 +7,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.martinet.Emplitude.Accueil;
 import com.example.martinet.Emplitude.R;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by martinet on 13/11/15.
@@ -22,11 +26,24 @@ public class Parametre extends AppCompatActivity {
     final private String store = System.getenv("EXTERNAL_STORAGE") ;
     final private File file = new File(this.store+"/.identifiant.txt");
 
+    private Spinner maj;
+    private Spinner notification;
+
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
         this.setContentView(R.layout.parametre);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        this.maj = (Spinner) findViewById(R.id.maj);
+        this.notification = (Spinner) findViewById(R.id.notif);
+
+        ArrayAdapter<String> majAdapte = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.maj));
+        maj.setAdapter(majAdapte);
+
+        ArrayAdapter<String> notifAdapte = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.notif));
+        notification.setAdapter(notifAdapte);
 
         Button supprimer = (Button)findViewById(R.id.supprimer);
         supprimer.setOnClickListener(new View.OnClickListener() {
