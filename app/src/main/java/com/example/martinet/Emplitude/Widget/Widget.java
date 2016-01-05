@@ -38,10 +38,9 @@ public class Widget extends AppWidgetProvider {
         HashMap couleur = (HashMap) settings.getAll();
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
         Intent intent;
-
         try {
             ADE_information fichier = new ADE_information();
-            this.cours = fichier.getLast();
+            this.cours = fichier.getNext();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,7 +57,7 @@ public class Widget extends AppWidgetProvider {
 
             Bundle objetbunble = new Bundle();
             intent = new Intent(context, Information.class);
-            objetbunble.putSerializable("cours", this.cours);
+            objetbunble.putSerializable("cour", this.cours);
             intent.putExtras(objetbunble);
         }else{
             intent = new Intent(context, Accueil.class);

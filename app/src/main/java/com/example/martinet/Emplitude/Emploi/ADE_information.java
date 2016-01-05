@@ -58,15 +58,24 @@ public class ADE_information {
     }
 
     //Récupération dernier cour
-    public Cours getLast() throws ParseException{
-        Collections.sort(this.allCours, new Comparator<Object>() {
+    public Cours getNext() throws ParseException{
+        Cours c;
+        cours = new Vector<>();
+        Date d = new Date();
+        for(int i =0; i<allCours.size(); i++){
+            c = (Cours)allCours.get(i);
+            if(d.before(c.getDateD())) {
+                this.cours.add(c);
+            }
+        }
+        Collections.sort(this.cours, new Comparator<Object>() {
             public int compare(Object m1, Object m2) {
                 Date d = (((Cours) m1).getDateD());
                 Date d2 = ((Cours) m2).getDateD();
                 return d.compareTo(d2);
             }
         });
-        return (Cours)this.allCours.get(0);
+        return this.cours.get(0);
     }
 
     //Récupération toutes les cours par date
@@ -85,7 +94,8 @@ public class ADE_information {
     }
 
     public Cours getFirstBYDate(Date date) throws ParseException{
-        get();
+        this.date = date;
+        this.get();
         Collections.sort(this.cours, new Comparator<Object>() {
             public int compare(Object m1, Object m2) {
                 Date d = (((Cours) m1).getDateD());
@@ -93,7 +103,7 @@ public class ADE_information {
                 return d.compareTo(d2);
             }
         });
-        return (Cours)this.cours.get(0);
+        return this.cours.get(0);
     }
 
 }
