@@ -9,21 +9,24 @@ import android.widget.TextView;
 
 import com.example.martinet.Emplitude.R;
 
+import java.text.SimpleDateFormat;
+
 
 /**
  * Created by martinet on 04/11/15.
  */
 public class Information extends AppCompatActivity {
 
+    final static private SimpleDateFormat h = new SimpleDateFormat("HH:mm");
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         this.setContentView(R.layout.cour);
         Intent intent = getIntent();
-
+        Cours c = (Cours) intent.getSerializableExtra("cour");
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        this.getSupportActionBar().setTitle(intent.getStringExtra("resumer"));
+        this.getSupportActionBar().setTitle(c.getResumer());
 
         TextView cour = (TextView) findViewById(R.id.infoCour);
         TextView ensei = (TextView) findViewById(R.id.infoEnsei);
@@ -31,11 +34,11 @@ public class Information extends AppCompatActivity {
         TextView heureD = (TextView) findViewById(R.id.infoHeureD);
         TextView heureF = (TextView) findViewById(R.id.infoHeureF);
 
-        cour.setText(intent.getStringExtra("matiere"));
-        ensei.setText(intent.getStringExtra("prof"));
-        salle.setText(intent.getStringExtra("salle"));
-        heureD.setText(intent.getStringExtra("dateD"));
-        heureF.setText(intent.getStringExtra("dateF"));
+        cour.setText(c.getMatiere());
+        ensei.setText(c.getProf());
+        salle.setText(c.getSalle());
+        heureD.setText(h.format(c.getDateD()));
+        heureF.setText(h.format(c.getDateF()));
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

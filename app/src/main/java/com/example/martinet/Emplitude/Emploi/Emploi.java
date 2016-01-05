@@ -1,6 +1,5 @@
 package com.example.martinet.Emplitude.Emploi;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,7 +10,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,24 +31,22 @@ import com.example.martinet.Emplitude.R;
 import com.github.danielnilsson9.colorpickerview.view.ColorPickerView;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Vector;
 
 
-public class Emploi extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, loadFichier, View.OnLongClickListener {
+public class Emploi extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, ADE_retour, View.OnLongClickListener {
     private static final String PREFS_NAME = "Couleur";
     private static String[] heures = new String[]{"08h00", "09h00", "10h00", "11h00", "12h00", "13h00", "14h00", "15h00", "16h00", "17h00", "18h00", "19h00"};
 
     private int HEIGHT;
     private View view;
-    private String dateJour;
+    private Date dateJour;
     private SwipeRefreshLayout swipe;
-    private Vector<Hashtable> cours;
+    private Vector<Cours> cours;
     private RelativeLayout color;
-    private Cour activeButton;
+    private btnCour activeButton;
     private RelativeLayout picker;
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
@@ -68,7 +64,7 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
         //Initialisation des variables
 
         this.view           = inflater.inflate(R.layout.emploi_du_temps, container, false);
-        this.dateJour       = getArguments().getString("dateJour");
+        this.dateJour       = new Date(getArguments().getString("dateJour"));
         this.scrollView     = (ScrollView) view.findViewById(R.id.scrollView3);
         this.settings       = getActivity().getSharedPreferences(PREFS_NAME, 0);
         this.l              = (FrameLayout) view.findViewById(R.id.frame);
@@ -85,18 +81,21 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
 
         this.scrollView.setOnTouchListener(new OnSwipeTouchListener(getContext()) {
             public void onSwipeRight() {
-                MainActivity a = (MainActivity)getActivity();
+                MainActivity a = (MainActivity) getActivity();
                 a.modifierDate(-1);
             }
+
             public void onSwipeLeft() {
-                MainActivity a = (MainActivity)getActivity();
+                MainActivity a = (MainActivity) getActivity();
                 a.modifierDate(1);
             }
+
             public boolean onTouch(View v, MotionEvent event) {
                 color.setVisibility(View.GONE);
                 return gestureDetector.onTouchEvent(event);
             }
         });
+
 
         //Définition du rechargement manuel
 
@@ -140,17 +139,17 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
         HashMap couleur = (HashMap) settings.getAll();
         Date dateD, dateF;
         long diff;
-        Cour bouton;
+        btnCour bouton;
         FrameLayout.LayoutParams layoutButton;
         int height_button, top;
         double minute;
         if(cours != null) {
             for (int i = 0; i < cours.size(); i++) {
-                dateD = (Date) cours.get(i).get("dateD");
-                dateF = (Date) cours.get(i).get("dateF");
+                dateD = cours.get(i).getDateD();
+                dateF = cours.get(i).getDateF();
                 diff = dateF.getTime() - dateD.getTime();
                 height_button = (int) ((this.HEIGHT / 12) * (diff / (1000.0 * 60 * 60)) + ECART);
-                bouton = new Cour(i, cours.get(i).get("resumer") + "", getContext());
+                bouton = new btnCour(i, cours.get(i).getResumer(), getContext());
                 layoutButton = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, height_button);
                 minute = (dateD.getMinutes()) / 60.0;
                 top = (int) (((dateD.getHours() + minute) - 8) * this.HEIGHT / 12 + (ECART * 2));
@@ -159,7 +158,7 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
                 layoutButton.setMargins(10, top, 10, 10);
                 bouton.setLayoutParams(layoutButton);
 
-                Object c = couleur.get(cours.get(i).get("matiere"));
+                Object c = couleur.get(cours.get(i).getMatiere());
                 if (c != null) {
                     int color = (int)c;
                     bouton.getBackground().setColorFilter(Integer.parseInt(c.toString()), PorterDuff.Mode.MULTIPLY);
@@ -194,7 +193,7 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
                     Button b = (Button) v;
                     LinearLayout ll = (LinearLayout) color.findViewById(R.id.color_linear);
                     int k = ll.indexOfChild(b);
-                    String matiere = (String)cours.get(activeButton.getIndex()).get("matiere");
+                    String matiere = cours.get(activeButton.getIndex()).getMatiere();
                     editor.putInt(matiere,colorBar[k]);
                     editor.commit();
                     MainActivity a = (MainActivity)getActivity();
@@ -230,19 +229,11 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
     }
 
     public void onClick(View v) {
-        Cour c = (Cour) v;
+        btnCour c = (btnCour) v;
         int index = c.getIndex();
         Bundle objetbunble = new Bundle();
         Intent intent = new Intent(getContext(), Information.class);
-        objetbunble.putString("matiere", this.cours.get(index).get("matiere") + "");
-        objetbunble.putString("prof", this.cours.get(index).get("prof") + "");
-        Date d = (Date) this.cours.get(index).get("dateD");
-        Date d2 = (Date) this.cours.get(index).get("dateF");
-        SimpleDateFormat h = new SimpleDateFormat("HH:mm");
-        objetbunble.putString("dateD", h.format(d));
-        objetbunble.putString("dateF", h.format(d2));
-        objetbunble.putString("resumer", this.cours.get(index).get("resumer") + "");
-        objetbunble.putString("salle", this.cours.get(index).get("salle") + "");
+        objetbunble.putSerializable("cour", this.cours.get(index));
         intent.putExtras(objetbunble);
         this.startActivity(intent);
         this.getActivity().overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
@@ -253,12 +244,13 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
             ADE_recuperation load = new ADE_recuperation(this);
             load.execute();
         } else {
-            this.retour("Vous n'êtes pas connecté à internet !");
+            ADE_recuperation.INFO = "Vous n'êtes pas connecté à internet !";
+            this.retour(ADE_recuperation.ERROR_INTERNET);
         }
     }
 
-    public void retour(String value) {
-        this.setToast(value);
+    public void retour(int value) {
+        this.setToast(ADE_recuperation.INFO);
         swipe.setRefreshing(false);
     }
 
@@ -272,7 +264,7 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
     @Override
     public boolean onLongClick(View v) {
         this.color.setVisibility(View.VISIBLE);
-        this.activeButton = (Cour) v;
+        this.activeButton = (btnCour) v;
         return true;
     }
 
@@ -302,7 +294,7 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
 
                 activeButton.getBackground().setColorFilter(mColorPickerView.getColor(), PorterDuff.Mode.MULTIPLY);
 
-                String matiere = (String)cours.get(activeButton.getIndex()).get("matiere");
+                String matiere = cours.get(activeButton.getIndex()).getMatiere();
                 editor.putInt(matiere, mColorPickerView.getColor());
                 editor.commit();
                 MainActivity a = (MainActivity)getActivity();

@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+
     public void changeToolbar(){
         ViewGroup tool = (ViewGroup) findViewById(R.id.tool);
         LayoutInflater vi = LayoutInflater.from(this);
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity
                 Bundle args = new Bundle();
                 try {
                     fragment = (Fragment) fragmentClass.newInstance();
-                    args.putString("dateJour", calendrier.getDateJour());
+                    args.putString("dateJour", calendrier.getDate().toString());
                     fragment.setArguments(args);
                 } catch (Exception e) {
                     System.out.println("Erreur load fragment");
@@ -188,7 +189,7 @@ public class MainActivity extends AppCompatActivity
             is_emploi = true;
             fragmentClass = Emploi.class;
             v.setVisibility(View.VISIBLE);
-            args.putString("dateJour", calendrier.getDateJour());
+            args.putString("dateJour", calendrier.getDate().toString());
         } else if (id == R.id.reveil) {
             fragmentClass = Reveil.class;
             is_emploi = false;

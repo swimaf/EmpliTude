@@ -2,8 +2,11 @@ package com.example.martinet.Emplitude;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,8 +24,10 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.martinet.Emplitude.Emploi.ADE_automatique;
 import com.example.martinet.Emplitude.Emploi.ADE_recuperation;
-import com.example.martinet.Emplitude.Emploi.loadFichier;
+import com.example.martinet.Emplitude.Emploi.ADE_retour;
+import com.example.martinet.Emplitude.Emploi.Jour;
 import com.example.martinet.Emplitude.Outil.External;
 import com.example.martinet.Emplitude.Outil.External_retour;
 import com.example.martinet.Emplitude.Outil.Fichier;
@@ -33,6 +38,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -40,13 +46,17 @@ import java.util.TreeMap;
 /**
  * Created by martinet on 16/11/15.
  */
-public class Accueil extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, loadFichier, External_retour {
+public class Accueil extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, ADE_retour, External_retour {
+
+    final private static String PREFS_NAME = "Ade";
 
     final private String store = System.getenv("EXTERNAL_STORAGE") ;
     final private File file = new File(this.store+"/.identifiant.txt");
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     final private String SITE = "http://arnaud-regnier.ovh/recup.php";
 
+    private SharedPreferences preference;
+    private SharedPreferences.Editor editor;
     private Boolean is_etudiant = true;
     private RelativeLayout etudiant;
     private RelativeLayout enseignant;
@@ -61,6 +71,9 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.preference = getSharedPreferences(PREFS_NAME, 0);
+        this.editor = preference.edit();
 
         if(file.exists()){
             if (Build.VERSION.SDK_INT >= 23) {
@@ -80,6 +93,7 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
             button2 = (RadioButton) findViewById(R.id.radioButton2);
             num_enseignant = (EditText) findViewById(R.id.numero);
 
+            editor.putInt("rafraichissement", 7);
             if(isOnline()){
                 try {
                     new External(this, new URL(SITE)).execute();
@@ -93,6 +107,7 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
     }
 
     private void main(){
+        rafraichirAuto();
         Intent intent = new Intent(this, MainActivity.class);
         MainActivity.premier =true;
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
@@ -109,10 +124,6 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
         List<String> list = new ArrayList<String>(groupe.keySet());
         ArrayAdapter<String> departement = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list);
         spinner.setAdapter(departement);
-
-        list = new ArrayList<String>(groupe.get("Informatique").keySet());
-        ArrayAdapter<String> info = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list);
-        spinner2.setAdapter(info);
 
         suivant = (Button) findViewById(R.id.button);
         suivant.setOnClickListener(new View.OnClickListener() {
@@ -183,7 +194,7 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
         }
     }
 
-                @Override
+    @Override
     public void onClick(View v) {
         RadioButton b = (RadioButton)v;
         switch (b.getId()) {
@@ -219,8 +230,8 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {}
 
-    public void retour(String value){
-        if(value == "Mise à jour effectué") {
+    public void retour(int value){
+        if(value == ADE_recuperation.NO_ERREUR) {
             MainActivity.premier = true;
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             finish();
@@ -248,5 +259,22 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
             e.printStackTrace();
         }
         this.connect();
+    }
+
+    public void rafraichirAuto(){
+        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+
+        if(!this.preference.contains("maj")) {
+            Jour jour = new Jour(new Date());
+            jour.ajouterJour(7);
+            this.editor.putString("maj", jour.getDate().toString());
+            this.editor.commit();
+            long seconds = this.preference.getInt("rafraichissement", 7)*24*60*60;
+            Intent intent = new Intent(getApplicationContext(), ADE_automatique.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, 0);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (seconds * 1000), pendingIntent);
+        }
+
+
     }
 }

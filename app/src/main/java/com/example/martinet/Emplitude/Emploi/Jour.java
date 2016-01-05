@@ -22,6 +22,9 @@ public class Jour {
     public String getJour(){
         return semaine[this.calendar.get(Calendar.DAY_OF_WEEK)-1]+" "+this.calendar.get(Calendar.DATE)+" "+mois[this.calendar.get(Calendar.MONTH)];
     }
+    public Date getDate(){
+        return this.calendar.getTime();
+    }
     public String getUrl(){
         return this.calendar.get(Calendar.YEAR)+"-"+(this.calendar.get(Calendar.MONTH)+1)+"-"+this.calendar.get(Calendar.DATE);
     }

@@ -21,4 +21,5 @@
         <item>1 heure avant</item>
         <item>4 heures avant</item>
     </string-array>
+    <string name="service_name">Je sais pas</string>
 </resources>

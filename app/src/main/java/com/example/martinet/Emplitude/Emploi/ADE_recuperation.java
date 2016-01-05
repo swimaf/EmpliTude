@@ -6,14 +6,13 @@ import com.example.martinet.Emplitude.Outil.Fichier;
 import com.example.martinet.Emplitude.Outil.Utilisateur;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
+import java.util.Vector;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -24,13 +23,22 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
 
     final private String store = System.getenv("EXTERNAL_STORAGE") ;
     final private File file = new File(this.store+"/.identifiant.txt");
+    final private File fileCours = new File(this.store+"/ADE.cours");
+
+    public final static int NO_ERREUR = 0;
+    public final static int ERROR_INTERNET = 1;
+    public final static int ERROR_SSL = 2;
+    public final static int ERROR_ADE = 3;
+    public final static int ERROR = 4;
+    public static String INFO = "";
 
     private Utilisateur utilisateur;
     private String textResult;
     private String source;
-    private loadFichier o;
+    private ADE_retour o;
+    private int retour;
 
-    public ADE_recuperation(loadFichier o){
+    public ADE_recuperation(ADE_retour o){
         Jour j = new Jour(new Date());
         String first = j.getUrl();
         j.ajouterJour(14);
@@ -43,7 +51,8 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
 
     protected Void doInBackground(Void... params) {
         URL textUrl;
-
+        retour = ERROR;
+        INFO = "La mise à jour a échouer.";
         TrustManager[] trustAllCerts = new TrustManager[]{
                 new X509TrustManager() {
                     public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -59,13 +68,6 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
         };
 
         try {
-
-        } catch (Exception e) {
-            System.out.println("Erreur SSL");
-        }
-
-
-        try {
             SSLContext sc = SSLContext.getInstance("SSL");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
@@ -73,7 +75,7 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
             textUrl = new URL(source);
             URLConnection connection = textUrl.openConnection();
             InputStream is = connection.getInputStream();
-
+            retour = ERROR_SSL;
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             StringBuilder sb = new StringBuilder();
@@ -84,29 +86,24 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
             }
 
             textResult = sb.toString();
-            File file = new File(store+"/c.ical");
-
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(textResult);
-            bw.close();
+            Vector<Object> cours = ADE_traitement.get(textResult);
+            Fichier.ecrireVector(fileCours, cours);
 
 
         } catch(Exception e) {
             e.printStackTrace();
             textResult = e.toString();
+            retour = ERROR_ADE;
         }
+        retour = NO_ERREUR;
         return null;
     }
 
     @Override
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
-        o.retour("Mise à jour effectué");
+        INFO = "Mise à jour effectué";
+        o.retour(retour);
     }
 
 }
