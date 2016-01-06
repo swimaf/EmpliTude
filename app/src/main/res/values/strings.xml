@@ -21,5 +21,30 @@
         <item>1 heure avant</item>
         <item>4 heures avant</item>
     </string-array>
+
+
+    <!-- EXemple de name : tvrMinutes [-> tv = textView -> r = Reveil -> Minute = ce qu'il fait]-->
+    <!--TextView -->
+    <string name="tvrMinutes">Minutes</string>
+    <string name="tvrTempsPreparation">Temps de préparation :</string>
+    <string name="tvrRepeter">Répéter</string>
+    <string name="tvrRepeterDroite">0 fois 5 min</string><!--C'est un bouton... -->
+    <string name="tvrTempo">Temporisation</string>
+    <string name="tvrTempoDroite">5 min</string><!--C'est un bouton... -->
+    <string name="tvrSon">Son</string>
+    <string name="tvrSonDroite">Défaut</string><!--C'est un bouton... -->
+    <string name="tvrFois">fois</string>
+    <string name="tvrMin">min</string>
+    <!-- Switch -->
+    <string name="srTorche">Lampe torche</string>
+    <string name="srFondu">Démarrage fondu</string>
+    <string name="srVibreur">Vibreur</string>
+    <!--Bouton -->
+    <string name="brValid">OK</string>
+    <string name="brAnnul">Annuler</string>
+
+
+    =======
     <string name="service_name">Je sais pas</string>
+
 </resources>

@@ -27,6 +27,7 @@ import com.example.martinet.Emplitude.Emploi.Jour;
 import com.example.martinet.Emplitude.Parametre.Parametre;
 import com.example.martinet.Emplitude.Propos.Propos;
 import com.example.martinet.Emplitude.Reveil.Reveil;
+import com.example.martinet.Emplitude.Reveil.ReveilActivity;
 import com.example.martinet.Emplitude.Son.Son;
 import com.example.martinet.Emplitude.Todo.Todo;
 
@@ -191,7 +192,7 @@ public class MainActivity extends AppCompatActivity
             v.setVisibility(View.VISIBLE);
             args.putString("dateJour", calendrier.getDate().toString());
         } else if (id == R.id.reveil) {
-            fragmentClass = Reveil.class;
+            fragmentClass = ReveilActivity.class;
             is_emploi = false;
         } else if (id == R.id.todo) {
             fragmentClass = Todo.class;

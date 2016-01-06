@@ -2,67 +2,60 @@
 <items version="2" >
 
     <item
-        jar="/home/martinet/AndroidStudioProjects/empli-tude/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.0/jars/libs/internal_impl-23.1.0.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
-        <dex dex="/home/martinet/AndroidStudioProjects/empli-tude/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.0-d2987360454eefb182bfd0f98b9a8b9262778a8b.jar" />
-    </item>
-    <item
-        jar="/home/martinet/AndroidStudioProjects/Drawer/app/build/intermediates/exploded-aar/com.github.danielnilsson9/color-picker-view/1.4.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="e37902677ad49131b9f8ce9f2d4e736f6e095249">
-        <dex dex="/home/martinet/AndroidStudioProjects/Drawer/app/build/intermediates/pre-dexed/debug/classes-3f5214834f4f22c0363b1fbc43f9522d99204e6c.jar" />
-    </item>
-    <item
-        jar="/home/martinet/AndroidStudioProjects/empli-tude/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
-        <dex dex="/home/martinet/AndroidStudioProjects/empli-tude/app/build/intermediates/pre-dexed/debug/classes-89640e3fd3c7eb91913247ed938af021b2d60a34.jar" />
-    </item>
-    <item
-        jar="/home/martinet/AndroidStudioProjects/empli-tude/app/build/intermediates/exploded-aar/com.github.danielnilsson9/color-picker-view/1.4.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="e37902677ad49131b9f8ce9f2d4e736f6e095249">
-        <dex dex="/home/martinet/AndroidStudioProjects/empli-tude/app/build/intermediates/pre-dexed/debug/classes-74812db94907d53c334d3c3a0d3ed641a2a17099.jar" />
-    </item>
-    <item
-        jar="/home/martinet/AndroidStudioProjects/empli-tude/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="3f151e49c316a5ab2c065969a3b3b55ef9b393fc">
-        <dex dex="/home/martinet/AndroidStudioProjects/empli-tude/app/build/intermediates/pre-dexed/debug/classes-bf573b1ebb9ef06aaad4ce13b1ef71cb4652c60c.jar" />
-    </item>
-    <item
-        jar="/home/martinet/AndroidStudioProjects/empli-tude/app/build/intermediates/exploded-aar/com.android.support/design/23.1.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="19026d31f5d3ae868db81319671a642be5fbba08">
-        <dex dex="/home/martinet/AndroidStudioProjects/empli-tude/app/build/intermediates/pre-dexed/debug/classes-8ce0d663e1dfde588a680a9471979e57b829ce66.jar" />
-    </item>
-    <item
-        jar="/home/martinet/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.0/support-annotations-23.1.0.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
-        <dex dex="/home/martinet/AndroidStudioProjects/empli-tude/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.0-5d7136051fcc7c1514d45fc859e5a2eb5f62d3e2.jar" />
-    </item>
-    <item
-        jar="/home/martinet/AndroidStudioProjects/empli-tude/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.0/jars/classes.jar"
+        jar="C:\Users\Arnaud\Documents\GitHub\empli-tude\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\classes.jar"
         jumboMode="false"
         revision="23.0.2"
         sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
-        <dex dex="/home/martinet/AndroidStudioProjects/empli-tude/app/build/intermediates/pre-dexed/debug/classes-2324c4f1553dc0e67b592dd56e5691f4bd0205eb.jar" />
+        <dex dex="C:\Users\Arnaud\Documents\GitHub\empli-tude\app\build\intermediates\pre-dexed\debug\classes-61064b7ca509a846494dccf85050545506a55b85.jar" />
     </item>
     <item
-        jar="/home/martinet/AndroidStudioProjects/empli-tude/app/build/intermediates/exploded-aar/com.mcxiaoke.volley/library-aar/1.0.0/jars/classes.jar"
+        jar="C:\Users\Arnaud\Documents\GitHub\empli-tude\app\build\intermediates\exploded-aar\com.github.danielnilsson9\color-picker-view\1.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e37902677ad49131b9f8ce9f2d4e736f6e095249">
+        <dex dex="C:\Users\Arnaud\Documents\GitHub\empli-tude\app\build\intermediates\pre-dexed\debug\classes-3c8e2046e777d14379381cbd8bbc7c30067c6caf.jar" />
+    </item>
+    <item
+        jar="C:\Users\Arnaud\Documents\GitHub\empli-tude\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="3f151e49c316a5ab2c065969a3b3b55ef9b393fc">
+        <dex dex="C:\Users\Arnaud\Documents\GitHub\empli-tude\app\build\intermediates\pre-dexed\debug\classes-7c121e8c75e22d0f318353bc754b14e77a9ff57e.jar" />
+    </item>
+    <item
+        jar="C:\Users\Arnaud\Documents\GitHub\empli-tude\app\build\intermediates\exploded-aar\com.mcxiaoke.volley\library-aar\1.0.0\jars\classes.jar"
         jumboMode="false"
         revision="23.0.2"
         sha1="e40b9a81989bd4a846018551c280f8c4d837bf2e">
-        <dex dex="/home/martinet/AndroidStudioProjects/empli-tude/app/build/intermediates/pre-dexed/debug/classes-d7f30da09a124ebe170b70a4bad191a58e203a8d.jar" />
+        <dex dex="C:\Users\Arnaud\Documents\GitHub\empli-tude\app\build\intermediates\pre-dexed\debug\classes-05c6d73a5b015212018e01019713b0159a163835.jar" />
+    </item>
+    <item
+        jar="C:\Users\Arnaud\Documents\GitHub\empli-tude\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="C:\Users\Arnaud\Documents\GitHub\empli-tude\app\build\intermediates\pre-dexed\debug\classes-0fd704dcd22af93a1ccfde44df50c82d3eda2dfc.jar" />
+    </item>
+    <item
+        jar="C:\Users\Arnaud\AppData\Local\Android\sdk1\extras\android\m2repository\com\android\support\support-annotations\23.1.0\support-annotations-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
+        <dex dex="C:\Users\Arnaud\Documents\GitHub\empli-tude\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.0-08eaa900de85d24b2d49b50094daeb48b601dcae.jar" />
+    </item>
+    <item
+        jar="C:\Users\Arnaud\Documents\GitHub\empli-tude\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\libs\internal_impl-23.1.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
+        <dex dex="C:\Users\Arnaud\Documents\GitHub\empli-tude\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.0-51f4af83b37b8ad6cfd6039fdf3fad89181d5a03.jar" />
+    </item>
+    <item
+        jar="C:\Users\Arnaud\Documents\GitHub\empli-tude\app\build\intermediates\exploded-aar\com.android.support\design\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="19026d31f5d3ae868db81319671a642be5fbba08">
+        <dex dex="C:\Users\Arnaud\Documents\GitHub\empli-tude\app\build\intermediates\pre-dexed\debug\classes-6df18d00bb11f9a38cca5ce36f6d648f62b1092b.jar" />
     </item>
 
 </items>
