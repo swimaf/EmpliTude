@@ -71,6 +71,9 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     private Switch switchTorche;
     private Switch switchFondu;
     private NumberPicker npDureePrepa;
+    private NumberPicker nprMinTempo;
+    private NumberPicker nprFoisRepeter;
+    private NumberPicker nprMinRepeter;
     private Button btn1;
     private Button btnSon;
     private View view;
@@ -231,7 +234,13 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     public void initNPTempsPrepa() {
         npDureePrepa.setMaxValue(180);
         npDureePrepa.setMinValue(1);
-        npDureePrepa.setValue(45);
+        if (sharedpreferences.getInt(keyNpDureePrepa,0)>-1) {
+            npDureePrepa.setValue(sharedpreferences.getInt(keyNpDureePrepa, 0));
+        } else{
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putInt(keyNpDureePrepa,45);
+            editor.commit();
+        }
         npDureePrepa.setWrapSelectorWheel(true);//Permet de choisir la valeur au dessus de min soit la valeur max.
         npDureePrepa.setOnValueChangedListener(this);
     }
@@ -269,7 +278,24 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     //----------------------------------------------------------------------------
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-        //Log.i("Valeur acctuel",""+newVal);
+
+        if(picker==npDureePrepa){
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putInt(keyNpDureePrepa,newVal);
+            editor.commit();
+        }else if(picker==nprMinTempo){
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putInt(keyMinTempo,newVal);
+            editor.commit();
+        }else if(picker==nprMinRepeter){
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putInt(keyMinRepetition,newVal);
+            editor.commit();
+        }else if(picker==nprFoisRepeter){
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putInt(keyNbRepetition,newVal);
+            editor.commit();
+    }
     }
 
 
@@ -287,41 +313,63 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     //Log.i = message a affiché dans la consol android studio (.i pour information )
 
     public void appelSwitch() {
+
+        switchVibreur.setChecked(sharedpreferences.getBoolean(keyDSonner,false));
         switchVibreur.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {//Si le switch est activé alors
                     Log.i("vibswitchon", "Vibreur actif");
                     dSonner = true;
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putBoolean(keyDSonner, dSonner);
+                    editor.commit();
                 } else {
                     Log.i("vibswitchoff", "Vibreur innactif");
                     dSonner = false;
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putBoolean(keyDSonner, dSonner);
+                    editor.commit();
+
                 }
             }
         });
-
+        switchFondu.setChecked(sharedpreferences.getBoolean(keyDFondu, false));
         switchFondu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     Log.i("fonduswitchon", "Demarrage fondu actif");
                     dFondu = true;
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putBoolean(keyDFondu, dFondu);
+                    editor.commit();
                 } else {
                     Log.i("fonduswitchoff", "Demarrage fondu innactif");
                     dFondu = false;
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putBoolean(keyDFondu, dFondu);
+                    editor.commit();
                 }
             }
         });
 
+        switchTorche.setChecked(sharedpreferences.getBoolean(keyDTorche,false));
         switchTorche.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     Log.i("torchswitchon", "Lampe torche actif");
                     dTorche = true;
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putBoolean(keyDTorche, dTorche);
+                    editor.commit();
                 } else {
                     Log.i("torchswitchoff", "Lampe torche innactif");
                     dTorche = false;
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putBoolean(keyDTorche, dTorche);
+                    editor.commit();
                 }
             }
         });
@@ -437,7 +485,11 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
 
             }
 
-            nbRepetionRestante--;
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            int tmp = sharedpreferences.getInt(keyNbRepetitionRestante,0);
+            tmp--;
+            editor.putInt(keyNbRepetitionRestante,tmp);
+            editor.commit();
         }
     }
 
@@ -466,7 +518,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         dialogTempo.setContentView(R.layout.dialog_temporisation);
         Button brValiderTempo = (Button) dialogTempo.findViewById(R.id.brValiderTempo);
         Button brAnnulerTempo = (Button) dialogTempo.findViewById(R.id.brAnnulerTempo);
-        final NumberPicker nprMinTempo = (NumberPicker) dialogTempo.findViewById(R.id.nprTempo);
+        nprMinTempo = (NumberPicker) dialogTempo.findViewById(R.id.nprTempo);
         nprMinTempo.setMaxValue(30);
         nprMinTempo.setMinValue(1);
         nprMinTempo.setValue(getMinTempo());//Pour changer valeur aller dans strings.xml
@@ -505,8 +557,8 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         dialogRepeter.setContentView(R.layout.dialog_repeter);
         Button brValiderRepeter = (Button) dialogRepeter.findViewById(R.id.brValiderRepeter);
         Button brAnnulerRepeter = (Button) dialogRepeter.findViewById(R.id.brAnnulerRepeter);
-        final NumberPicker nprFoisRepeter = (NumberPicker) dialogRepeter.findViewById(R.id.nprFoisRepeter);
-        final NumberPicker nprMinRepeter = (NumberPicker) dialogRepeter.findViewById(R.id.nprMinRepeter);
+        nprFoisRepeter = (NumberPicker) dialogRepeter.findViewById(R.id.nprFoisRepeter);
+        nprMinRepeter = (NumberPicker) dialogRepeter.findViewById(R.id.nprMinRepeter);
 
         nprFoisRepeter.setMaxValue(10);
         nprFoisRepeter.setMinValue(0);
@@ -559,7 +611,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
 
     //Y'avais peut etre moyen de faire plus simple pour ses getters.. Mais ils fonctionnent
     //------------------
-    public int getNbFoisRepeter() {
+    public int getNbFoisRepeter() {/*
         int nbFoisRepeter = 0;
         String strTempoNbFoisRepeter;
         char chaTempoNbFoisRepeter;
@@ -577,12 +629,14 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
             strTempoNbFoisRepeter = strTempoNbFoisRepeter.concat(String.valueOf(chaTempoNbFoisRepeter));
             nbFoisRepeter = Integer.parseInt(strTempoNbFoisRepeter);
         }
-        return nbFoisRepeter;
+        return nbFoisRepeter;*/
+        return sharedpreferences.getInt(keyNbRepetition,0);
     }
 
     //------------------
     //------------------
     public static int getMinRepeter() {
+        /*
         int minRepeter = 0;
         String strTempoMinRepeter;
         char chaTempoMinRepeter;
@@ -617,13 +671,14 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                 minRepeter = Integer.parseInt(strTempoMinRepeter);
             }
         }
-        return minRepeter;
+        return minRepeter;*/
+        return sharedpreferences.getInt(keyMinRepetition,0);
     }
 
     //------------------
     //------------------
     public static int getMinTempo() {
-        int minTempo = 0;
+       /* int minTempo = 0;
         String strTempoMinTempo;
         char chaTempoNbFoisRepeter;
         String contenuText = String.valueOf(btnTempo.getText());
@@ -640,23 +695,26 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
             strTempoMinTempo = strTempoMinTempo.concat(String.valueOf(chaTempoNbFoisRepeter));
             minTempo = Integer.parseInt(strTempoMinTempo);
         }
-        return minTempo;
+        return minTempo;*/
+        return sharedpreferences.getInt(keyMinTempo,0);
     }
 
     //--------------------------------------------------------------------
     //-------Methodes pour qui renvoie si les switch sont activé ou non---
     //--------------------------------------------------------------------
     public static boolean getDSonner() {
-        return dSonner;
+        //return dSonner;//vibreur
+        return sharedpreferences.getBoolean(keyDSonner,true);
     }
 
     public static boolean getDFondu() {
-        return dFondu;
+        //return dFondu;
+        return sharedpreferences.getBoolean(keyDFondu,true);
     }
 
     public static boolean getDTorche() {
-
-        return dTorche;
+        return  sharedpreferences.getBoolean(keyDFondu,true);
+        //return dTorche;
     }
 
 

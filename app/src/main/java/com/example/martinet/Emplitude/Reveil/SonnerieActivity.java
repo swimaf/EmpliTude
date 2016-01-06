@@ -16,10 +16,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.example.martinet.Emplitude.MainActivity;
 import com.example.martinet.Emplitude.Outil.OnSwipeTouchListener;
 import com.example.martinet.Emplitude.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import static com.example.martinet.Emplitude.Reveil.AlarmReceiver.*;
 
@@ -32,6 +36,7 @@ classe en interaction avec l'ihm, tout ce qui ce passe pendant que le reveil son
 public class SonnerieActivity extends Activity {
     Button brStop;
     Button brTempo;
+    TextView tvrHeure;
 
 
 
@@ -50,7 +55,8 @@ public class SonnerieActivity extends Activity {
     //-------------Methode pour ouvrir le MainActivity----------------
     //----------------------------------------------------------------
     public void ouvrirMain(){
-        Intent it = new Intent(SonnerieActivity.this,ReveilActivity.class);
+
+        Intent it = new Intent(SonnerieActivity.this,MainActivity.class);
         SonnerieActivity.this.startActivity(it);
     }
     //-----------------------------------------------------------------
@@ -69,6 +75,15 @@ public class SonnerieActivity extends Activity {
         //Bouton repeter
         brTempo = (Button) findViewById(R.id.brRepeterFinal);
         brTempo.setText("Temporiser " + ReveilActivity.getMinTempo() + " min");
+
+        tvrHeure = (TextView) findViewById(R.id.tvrHeure);
+        SimpleDateFormat heure = new SimpleDateFormat("HH");
+        SimpleDateFormat minute = new SimpleDateFormat("mm");
+            Calendar c = Calendar.getInstance();
+            // Je recup heure minute actuel
+            String ha = heure.format(c.getTime());
+            String ma = minute.format(c.getTime());
+        tvrHeure.setText(""+ha+":"+ma);
 
     }
     //----------------------------------------------------------------
