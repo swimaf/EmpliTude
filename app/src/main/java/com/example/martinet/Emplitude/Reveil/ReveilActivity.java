@@ -7,7 +7,6 @@ package com.example.martinet.Emplitude.Reveil;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -203,7 +203,8 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
 
         }else{
             SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putInt(keyMinTempo, getMinTempo());
+            editor.putInt(keyNbRepetition, getNbFoisRepeter());
+            editor.putInt(keyMinRepetition, getMinRepeter());
             editor.commit();
         }
 
