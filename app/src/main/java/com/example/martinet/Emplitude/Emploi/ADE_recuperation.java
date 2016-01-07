@@ -1,0 +1,109 @@
+package com.example.martinet.Emplitude.Emploi;
+
+import android.os.AsyncTask;
+
+import com.example.martinet.Emplitude.Outil.Fichier;
+import com.example.martinet.Emplitude.Outil.Utilisateur;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Date;
+import java.util.Vector;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
+
+    final private String store = System.getenv("EXTERNAL_STORAGE") ;
+    final private File file = new File(this.store+"/.identifiant.txt");
+    final private File fileCours = new File(this.store+"/ADE.cours");
+
+    public final static int NO_ERREUR = 0;
+    public final static int ERROR_INTERNET = 1;
+    public final static int ERROR_SSL = 2;
+    public final static int ERROR_ADE = 3;
+    public final static int ERROR = 4;
+    public static String INFO = "";
+
+    private Utilisateur utilisateur;
+    private String textResult;
+    private String source;
+    private ADE_retour o;
+    private int retour;
+
+    public ADE_recuperation(ADE_retour o){
+        Jour j = new Jour(new Date());
+        String first = j.getUrl();
+        j.ajouterJour(14);
+        String last =j.getUrl();
+        j.ajouterJour(-5);
+        this.o = o;
+        this.utilisateur = (Utilisateur) Fichier.lire(file, 0);
+        this.source = "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources="+utilisateur.getIdentifiant()+"&projectId=1&calType=ical&firstDate="+first+"&lastDate="+last;
+    }
+
+    protected Void doInBackground(Void... params) {
+        URL textUrl;
+        retour = ERROR;
+        INFO = "La mise à jour a échouer.";
+        TrustManager[] trustAllCerts = new TrustManager[]{
+                new X509TrustManager() {
+                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                        return null;
+                    }
+                    public void checkClientTrusted(
+                            java.security.cert.X509Certificate[] certs, String authType) {
+                    }
+                    public void checkServerTrusted(
+                            java.security.cert.X509Certificate[] certs, String authType) {
+                    }
+                }
+        };
+
+        try {
+            SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+            textUrl = new URL(source);
+            URLConnection connection = textUrl.openConnection();
+            InputStream is = connection.getInputStream();
+            retour = ERROR_SSL;
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+            StringBuilder sb = new StringBuilder();
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line+"\n");
+            }
+
+            textResult = sb.toString();
+            Vector<Object> cours = ADE_traitement.get(textResult);
+            Fichier.ecrireVector(fileCours, cours);
+
+
+        } catch(Exception e) {
+            e.printStackTrace();
+            textResult = e.toString();
+            retour = ERROR_ADE;
+        }
+        retour = NO_ERREUR;
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void result) {
+        super.onPostExecute(result);
+        INFO = "Mise à jour effectué";
+        o.retour(retour);
+    }
+
+}
