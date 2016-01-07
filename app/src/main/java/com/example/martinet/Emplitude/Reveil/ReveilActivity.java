@@ -268,9 +268,9 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     //----------------------------------------------------------------------------
     //Pour ouvrir quand sa sonne une nouvelle fenetre avec arreter/reporter/message
     //----------------------------------------------------------------------------
-    public static void ouvrirSonnerieActivity() {
-        Intent it = new Intent(mContext, SonnerieActivity.class);
-        mContext.startActivity(it);
+    public void ouvrirSonnerieActivity() {
+        Intent it = new Intent(getActivity(), SonnerieActivity.class);
+        startActivity(it);
     }
 
     //----------------------------------------------------------------------------
@@ -630,7 +630,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
             nbFoisRepeter = Integer.parseInt(strTempoNbFoisRepeter);
         }
         return nbFoisRepeter;*/
-        return sharedpreferences.getInt(keyNbRepetition,0);
+        return sharedpreferences.getInt(keyNbRepetition, 0);
     }
 
     //------------------
@@ -695,8 +695,9 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
             strTempoMinTempo = strTempoMinTempo.concat(String.valueOf(chaTempoNbFoisRepeter));
             minTempo = Integer.parseInt(strTempoMinTempo);
         }
-        return minTempo;*/
-        return sharedpreferences.getInt(keyMinTempo,0);
+        return minTempo;
+       // return sharedpreferences.getInt(keyMinTempo,0);*/
+        return  5;
     }
 
     //--------------------------------------------------------------------

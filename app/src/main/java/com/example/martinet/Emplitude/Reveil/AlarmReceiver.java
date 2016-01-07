@@ -9,6 +9,7 @@ Classe qui defini les action a faire au moment ou le reveil sonne
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Camera;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -27,6 +28,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
     private View view;
     private Camera camera;
     private Camera.Parameters p ;
+    ReveilActivity r;
     //MainActivity m;
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -40,7 +42,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         ringtone = RingtoneManager.getRingtone(context, uri);
         ringtone.play();
 
-
+/*
         //Faire Virbrer le telephone
         if(ReveilActivity.getDSonner()) {
             Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -64,9 +66,13 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
                     }
                 }
             });
-        }
+        }*/
         //m.lanceur();
-        ReveilActivity.ouvrirSonnerieActivity();
+      //  r = new ReveilActivity();
+      //  r.ouvrirSonnerieActivity();
+        Intent intentone = new Intent(context.getApplicationContext(), SonnerieActivity.class);
+        intentone.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intentone);
         //INTENT PAR DESSUS L'ecran
         // repeter();
     }
