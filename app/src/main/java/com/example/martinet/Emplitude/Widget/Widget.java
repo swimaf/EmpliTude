@@ -28,7 +28,7 @@ public class Widget extends AppWidgetProvider {
     private Cours cours;
     private static SimpleDateFormat h = new SimpleDateFormat("HH:mm");
     private static final String PREFS_NAME = "Couleur";
-
+    public static int i =0;
     private SharedPreferences settings;
 
     @Override
@@ -63,7 +63,8 @@ public class Widget extends AppWidgetProvider {
             intent = new Intent(context, Accueil.class);
         }
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         views.setOnClickPendingIntent(R.id.cours, pendingIntent);
         appWidgetManager.updateAppWidget(appWidgetIds, views);
     }

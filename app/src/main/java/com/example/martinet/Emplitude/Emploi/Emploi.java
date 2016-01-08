@@ -64,7 +64,7 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
         //Initialisation des variables
 
         this.view           = inflater.inflate(R.layout.emploi_du_temps, container, false);
-        this.dateJour       = new Date(getArguments().getString("dateJour"));
+        this.dateJour       = new Date();
         this.scrollView     = (ScrollView) view.findViewById(R.id.scrollView3);
         this.settings       = getActivity().getSharedPreferences(PREFS_NAME, 0);
         this.l              = (FrameLayout) view.findViewById(R.id.frame);
@@ -157,7 +157,7 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
                 bouton.setOnLongClickListener(this);
                 layoutButton.setMargins(10, top, 10, 10);
                 bouton.setLayoutParams(layoutButton);
-
+                bouton.bringToFront();
                 Object c = couleur.get(cours.get(i).getMatiere());
                 if (c != null) {
                     int color = (int)c;
