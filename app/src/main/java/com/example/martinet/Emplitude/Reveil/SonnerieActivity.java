@@ -7,6 +7,7 @@ package com.example.martinet.Emplitude.Reveil;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -37,6 +38,8 @@ public class SonnerieActivity extends Activity {
     Button brStop;
     Button brTempo;
     TextView tvrHeure;
+    public static SharedPreferences sharedpreferences;
+
 
 
 
@@ -70,11 +73,12 @@ public class SonnerieActivity extends Activity {
     //-------------Methode pour initialiser les variables-------------
     //----------------------------------------------------------------
     public void init(){
+ 
         brStop = (Button) findViewById(R.id.brStop);
 
         //Bouton repeter
         brTempo = (Button) findViewById(R.id.brRepeterFinal);
-        brTempo.setText("Temporiser " + ReveilActivity.getMinTempo() + " min");
+        brTempo.setText("Temporiser " + sharedpreferences.getInt(keyMinTempo,0) + " min");
 
         tvrHeure = (TextView) findViewById(R.id.tvrHeure);
         SimpleDateFormat heure = new SimpleDateFormat("HH");
