@@ -31,8 +31,10 @@ import com.example.martinet.Emplitude.R;
 import com.github.danielnilsson9.colorpickerview.view.ColorPickerView;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Vector;
 
 
@@ -61,57 +63,57 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        //Initialisation des variables
+            //Initialisation des variables
 
-        this.view           = inflater.inflate(R.layout.emploi_du_temps, container, false);
-        this.dateJour       = new Date();
-        this.scrollView     = (ScrollView) view.findViewById(R.id.scrollView3);
-        this.settings       = getActivity().getSharedPreferences(PREFS_NAME, 0);
-        this.l              = (FrameLayout) view.findViewById(R.id.frame);
-        this.g              = (GridLayout) view.findViewById(R.id.heures);
-        this.color          = (RelativeLayout) view.findViewById(R.id.color);
-        this.vide           = (RelativeLayout) view.findViewById(R.id.vide);
-        this.picker         = (RelativeLayout) view.findViewById(R.id.picker);
-        this.button_picker  = (Button) color.findViewById(R.id.color_5);
-        this.swipe          = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
-        this.editor         = settings.edit();
-        this.toast          = Toast.makeText(getContext(), "", Toast.LENGTH_SHORT);
-        this.cours          = null;
-        this.HEIGHT         = this.getHeight();
+            this.view           = inflater.inflate(R.layout.emploi_du_temps, container, false);
+            this.dateJour       = new Date(getArguments().getLong("dateJour"));
+            this.scrollView     = (ScrollView) view.findViewById(R.id.scrollView3);
+            this.settings       = getActivity().getSharedPreferences(PREFS_NAME, 0);
+            this.l              = (FrameLayout) view.findViewById(R.id.frame);
+            this.g              = (GridLayout) view.findViewById(R.id.heures);
+            this.color          = (RelativeLayout) view.findViewById(R.id.color);
+            this.vide           = (RelativeLayout) view.findViewById(R.id.vide);
+            this.picker         = (RelativeLayout) view.findViewById(R.id.picker);
+            this.button_picker  = (Button) color.findViewById(R.id.color_5);
+            this.swipe          = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+            this.editor         = settings.edit();
+            this.toast          = Toast.makeText(getContext(), "", Toast.LENGTH_SHORT);
+            this.cours          = null;
+            this.HEIGHT         = this.getHeight();
 
-        this.scrollView.setOnTouchListener(new OnSwipeTouchListener(getContext()) {
-            public void onSwipeRight() {
-                MainActivity a = (MainActivity) getActivity();
-                a.modifierDate(-1);
-            }
+            this.scrollView.setOnTouchListener(new OnSwipeTouchListener(getContext()) {
+                public void onSwipeRight() {
+                    MainActivity a = (MainActivity) getActivity();
+                    a.modifierDate(-1);
+                }
 
-            public void onSwipeLeft() {
-                MainActivity a = (MainActivity) getActivity();
-                a.modifierDate(1);
-            }
+                public void onSwipeLeft() {
+                    MainActivity a = (MainActivity) getActivity();
+                    a.modifierDate(1);
+                }
 
-            public boolean onTouch(View v, MotionEvent event) {
-                color.setVisibility(View.GONE);
-                return gestureDetector.onTouchEvent(event);
-            }
-        });
+                public boolean onTouch(View v, MotionEvent event) {
+                    color.setVisibility(View.GONE);
+                    return gestureDetector.onTouchEvent(event);
+                }
+            });
 
 
-        //Définition du rechargement manuel
+            //Définition du rechargement manuel
 
-        this.swipe.setColorSchemeColors(getResources().getIntArray(R.array.spinner));
-        this.swipe.setOnRefreshListener(this);
+            this.swipe.setColorSchemeColors(getResources().getIntArray(R.array.spinner));
+            this.swipe.setOnRefreshListener(this);
 
-        //Titre de la toolbar
-        this.getActivity().setTitle("Emploi du temps");
+            //Titre de la toolbar
+            this.getActivity().setTitle("Emploi du temps");
 
-        //Appel des methodes d'affichages des différentes parties
+            //Appel des methodes d'affichages des différentes parties
 
-        this.loadHeures();      //Chargement de la bar des heures
-        this.loadCours();       //Chargement des différents boutons et de leur informations
-        this.loadCouleurs();    //Chargement du module de couleur
+            this.loadHeures();      //Chargement de la bar des heures
+            this.loadCours();       //Chargement des différents boutons et de leur informations
+            this.loadCouleurs();    //Chargement du module de couleur
 
-        return this.view;
+            return this.view;
     }
 
     public void loadHeures(){
@@ -141,7 +143,7 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
         long diff;
         btnCour bouton;
         FrameLayout.LayoutParams layoutButton;
-        int height_button, top;
+        int height_button, top, color;
         double minute;
         if(cours != null) {
             for (int i = 0; i < cours.size(); i++) {
@@ -157,12 +159,13 @@ public class Emploi extends Fragment implements View.OnClickListener, SwipeRefre
                 bouton.setOnLongClickListener(this);
                 layoutButton.setMargins(10, top, 10, 10);
                 bouton.setLayoutParams(layoutButton);
-                bouton.bringToFront();
                 Object c = couleur.get(cours.get(i).getMatiere());
                 if (c != null) {
-                    int color = (int)c;
-                    bouton.getBackground().setColorFilter(Integer.parseInt(c.toString()), PorterDuff.Mode.MULTIPLY);
+                    color = (int)c;
+                    bouton.getBackground().setColorFilter(Integer.parseInt(c.toString()), PorterDuff.Mode.DARKEN);
                     bouton.setTextColor(getColorWB(color));
+                }else{
+                    bouton.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.DARKEN);
                 }
                 this.l.addView(bouton);
             }

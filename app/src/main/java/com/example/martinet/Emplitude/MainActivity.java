@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity
                 Bundle args = new Bundle();
                 try {
                     fragment = (Fragment) fragmentClass.newInstance();
-                    args.putString("dateJour", calendrier.getDate().toString());
+                    args.putLong("dateJour", calendrier.getDate().getTime());
                     fragment.setArguments(args);
                 } catch (Exception e) {
                     System.out.println("Erreur load fragment");
