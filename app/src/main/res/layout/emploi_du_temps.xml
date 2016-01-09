@@ -1,84 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:picker="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="match_parent"
+    android:layout_width="match_parent"
     android:orientation="vertical"
-    android:id="@+id/flag"
+    android:contextClickable="true"
+    android:clickable="true">
+
+    <RelativeLayout android:orientation="vertical"
+    android:id="@+id/emploi_jour"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/picker"
-        android:background="#2cdddddd"
-        android:padding="20dp"
-        android:backgroundTint="#8b212121"
-        android:backgroundTintMode="add"
-        android:visibility="gone">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:elevation="8dp"
-            android:background="#ffffff"
-            android:padding="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Choisir une couleur :"
-                android:id="@+id/textView6"
-                android:layout_gravity="center_horizontal|top"
-                android:gravity="center_vertical"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
-
-            <com.github.danielnilsson9.colorpickerview.view.ColorPickerView
-                android:id="@id/colorpickerview__color_picker_view"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                picker:alphaChannelVisible="true"
-                android:layout_gravity="center"
-                android:layout_alignWithParentIfMissing="false"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Valider"
-                android:id="@+id/valider"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Annuler"
-                android:id="@+id/annuler"
-                android:layout_alignTop="@+id/valider"
-                android:layout_centerHorizontal="true" />
-
-        </RelativeLayout>
-    </RelativeLayout>
+    android:background="@color/white"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="false"
+        android:clickable="true"
+        android:contextClickable="true">
 
     <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:contextClickable="true">
 
         <ScrollView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/scrollView3"
+            android:id="@+id/swiper"
             android:layout_alignTop="@+id/textView6"
-            android:layout_centerHorizontal="true">
+            android:layout_centerHorizontal="true"
+            android:clickable="false"
+            android:contextClickable="false">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
@@ -87,7 +39,7 @@
                 android:rowCount="12"
                 android:columnCount="34"
                 android:orientation="vertical"
-                android:id="@+id/gridLayout3" >
+                android:id="@+id/reloader" >
 
                 <GridLayout
                     android:layout_width="match_parent"
@@ -135,7 +87,9 @@
         android:background="@color/material_grey_600"
         android:elevation="5dp"
         android:visibility="gone"
-        android:id="@+id/color">
+        android:id="@+id/color"
+        android:clickable="true"
+        android:contextClickable="true">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -206,5 +160,8 @@
         </LinearLayout>
 
     </RelativeLayout>
+
+</RelativeLayout>
+
 
 </RelativeLayout>

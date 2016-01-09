@@ -19,7 +19,7 @@ public class ADE_information {
 
     private Date date;
     private Boolean vide;
-    private Vector<Cours> cours;
+    private Vector<Cour> cours;
     private Vector<Object> allCours;
     private SimpleDateFormat dateFormat;
 
@@ -44,7 +44,7 @@ public class ADE_information {
         }
     }
     //Recupération des cours
-    public Vector<Cours> getCours() throws ParseException {
+    public Vector<Cour> getCours() throws ParseException {
         this.get();
         if(this.vide){
             return null;
@@ -53,34 +53,34 @@ public class ADE_information {
     }
 
     //Récupération dernier cour
-    public Cours getNext() throws ParseException{
-        Cours c;
+    public Cour getNext() throws ParseException{
+        Cour c;
         cours = new Vector<>();
         Date d = new Date();
         for(int i =0; i<allCours.size(); i++){
-            c = (Cours)allCours.get(i);
+            c = (Cour)allCours.get(i);
             if(d.before(c.getDateD())) {
                 this.cours.add(c);
             }
         }
         Collections.sort(this.cours, new Comparator<Object>() {
             public int compare(Object m1, Object m2) {
-                Date d = (((Cours) m1).getDateD());
-                Date d2 = ((Cours) m2).getDateD();
+                Date d = (((Cour) m1).getDateD());
+                Date d2 = ((Cour) m2).getDateD();
                 return d.compareTo(d2);
             }
         });
         return this.cours.get(0);
     }
 
-    //Récupération toutes les cours par date
+    //Récupération tous les cours par date
     public void get(){
         this.cours = new Vector<>();
-        Cours c;
+        Cour c;
         Jour j = new Jour(this.date);
         Jour j2;
         for(int i =0; i<allCours.size(); i++){
-            c = (Cours)allCours.get(i);
+            c = (Cour)allCours.get(i);
             j2 = new Jour(c.getDateD());
             if(j.getDateJour().equals(j2.getDateJour())) {
                 this.cours.add(c);
@@ -88,13 +88,13 @@ public class ADE_information {
         }
     }
 
-    public Cours getFirstBYDate(Date date) throws ParseException{
+    public Cour getFirstBYDate(Date date) throws ParseException{
         this.date = date;
         this.get();
         Collections.sort(this.cours, new Comparator<Object>() {
             public int compare(Object m1, Object m2) {
-                Date d = (((Cours) m1).getDateD());
-                Date d2 = ((Cours) m2).getDateD();
+                Date d = (((Cour) m1).getDateD());
+                Date d2 = ((Cour) m2).getDateD();
                 return d.compareTo(d2);
             }
         });

@@ -24,7 +24,7 @@ public class Information extends AppCompatActivity {
 
         this.setContentView(R.layout.cour);
         Intent intent = getIntent();
-        Cours c = (Cours) intent.getSerializableExtra("cour");
+        Cour c = (Cour) intent.getSerializableExtra("cour");
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setTitle(c.getResumer());
 

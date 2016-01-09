@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:picker="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp" >
+
+        <com.github.danielnilsson9.colorpickerview.view.ColorPickerView
+            android:id="@id/colorpickerview__color_picker_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            picker:alphaChannelVisible="true" />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/buttonbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="right"
+        android:paddingBottom="10dp">
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Annuler"
+            android:background="?attr/selectableItemBackground"
+            android:elevation="0dp" />
+
+        <Button
+            android:id="@+id/okButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@android:string/ok"
+            android:background="?attr/selectableItemBackground"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -111,9 +111,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Bundle args =new Bundle();
         Class fragmentClass = null;
 
-        ViewGroup tool = (ViewGroup)findViewById(R.id.tool);
-        tool.removeView(tool.findViewById(R.id.action_emploi));
-
         if (id == R.id.emploi) {
             fragmentClass = Emploi.class;
         } else if (id == R.id.reveil) {

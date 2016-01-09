@@ -1,7 +1,5 @@
 package com.example.martinet.Emplitude.Outil;
 
-import com.example.martinet.Emplitude.Emploi.Cours;
-
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;

@@ -15,8 +15,7 @@ import android.widget.RemoteViews;
 
 import com.example.martinet.Emplitude.Accueil;
 import com.example.martinet.Emplitude.Emploi.ADE_information;
-import com.example.martinet.Emplitude.Emploi.Cours;
-import com.example.martinet.Emplitude.Emploi.Emploi;
+import com.example.martinet.Emplitude.Emploi.Cour;
 import com.example.martinet.Emplitude.Emploi.Information;
 import com.example.martinet.Emplitude.Emploi.JourEmploi;
 import com.example.martinet.Emplitude.R;
@@ -26,7 +25,7 @@ import java.util.HashMap;
 
 public class Widget extends AppWidgetProvider {
 
-    private Cours cours;
+    private Cour cours;
     private static SimpleDateFormat h = new SimpleDateFormat("HH:mm");
     private static final String PREFS_NAME = "Couleur";
     public static int i =0;
