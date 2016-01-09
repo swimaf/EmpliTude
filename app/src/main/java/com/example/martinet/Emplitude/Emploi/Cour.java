@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by martinet on 04/01/16.
  */
 
-public class Cours implements Serializable{
+public class Cour implements Serializable{
 
     private String matiere;
     private Date dateD;
@@ -16,7 +16,7 @@ public class Cours implements Serializable{
     private String salle;
     private String resumer;
 
-    public Cours(String resumer,String matiere, Date dateD, Date dateF, String prof, String salle){
+    public Cour(String resumer, String matiere, Date dateD, Date dateF, String prof, String salle){
         this.matiere = matiere;
         this.resumer = resumer;
         this.dateD = dateD;
