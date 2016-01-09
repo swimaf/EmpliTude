@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.martinet.Emplitude" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.martinet.Emplitude.Accueil"
+            android:label="@string/nom_appli"
+            android:theme="@style/AppTheme.Action" >
+        </activity>
+        <activity
+            android:name="com.example.martinet.Emplitude.MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|navigation"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name="com.example.martinet.Emplitude.Emploi.Information"
+            android:label="Cours"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name="com.example.martinet.Emplitude.Parametre.Parametre"
+            android:label="Paramètres"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name="com.example.martinet.Emplitude.Propos.Propos"
+            android:label="A Propos"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name="com.example.martinet.Emplitude.Introduction"
+            android:theme="@style/AppTheme.Action" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Todo.Ajouter"
+            android:label="Ajouter une tâche"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name="com.example.martinet.Emplitude.Reveil.SonnerieActivity"
+            android:label="Activite_Sonnerie"
+            android:theme="@style/AppTheme">
+        </activity>
+
+
+        <receiver android:name="com.example.martinet.Emplitude.Reveil.AlarmReceiver"/>
+        <receiver
+            android:name=".Widget.Widget"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget" />
+        </receiver>
+        <receiver android:name=".Emploi.ADE_automatique"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".Outil.EvenementInternet"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+
+
+</manifest>
