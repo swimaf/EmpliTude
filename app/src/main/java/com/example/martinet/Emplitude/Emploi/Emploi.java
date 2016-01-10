@@ -151,7 +151,7 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
 
     public void onRefresh() {
         if (isOnline()) {
-            ADE_recuperation load = new ADE_recuperation(this);
+            ADE_recuperation load = new ADE_recuperation(this, getContext());
             load.execute();
         } else {
             ADE_recuperation.INFO = "Vous n'êtes pas connecté à internet !";

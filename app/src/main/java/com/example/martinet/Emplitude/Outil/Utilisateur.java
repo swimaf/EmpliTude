@@ -2,9 +2,7 @@ package com.example.martinet.Emplitude.Outil;
 
 import java.io.Serializable;
 
-/**
- * Created by martinet on 17/11/15.
- */
+
 public class Utilisateur implements Serializable{
     private String identifiant;
     private String type;

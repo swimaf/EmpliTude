@@ -4,6 +4,8 @@ package com.example.martinet.Emplitude.Emploi;
  * Created by martinet on 11/11/15.
  */
 
+import android.content.Context;
+
 import com.example.martinet.Emplitude.Constants;
 import com.example.martinet.Emplitude.Outil.Fichier;
 
@@ -22,13 +24,16 @@ public class ADE_information {
     private Vector<Cour> cours;
     private Vector<Object> allCours;
     private SimpleDateFormat dateFormat;
+    private Context context;
 
 
-    public ADE_information(Date date){
+    public ADE_information(Date date, Context context){
+        this.context = context;
         this.date = date;
         this.init();
     }
-    public ADE_information(){
+    public ADE_information(Context context){
+        this.context = context;
         this.init();
     }
 
@@ -36,7 +41,7 @@ public class ADE_information {
         dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
         dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/London"));
 
-        allCours = Fichier.readAll(Constants.courFile);
+        allCours = Fichier.readAll(Constants.courFile, context);
         if(allCours != null){
             this.vide = false;
         }else{

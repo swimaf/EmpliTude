@@ -11,11 +11,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.martinet.Emplitude.Emploi.Emploi;
 import com.example.martinet.Emplitude.Parametre.Parametre;
@@ -26,7 +23,6 @@ import com.example.martinet.Emplitude.Todo.Todo;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private ActionBarDrawerToggle toggle;
     private Fragment fragment;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         changeFragment(null, Emploi.class);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        toggle = new ActionBarDrawerToggle(
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();

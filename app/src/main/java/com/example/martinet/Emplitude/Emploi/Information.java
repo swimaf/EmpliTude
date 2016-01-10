@@ -12,9 +12,6 @@ import com.example.martinet.Emplitude.R;
 import java.text.SimpleDateFormat;
 
 
-/**
- * Created by martinet on 04/11/15.
- */
 public class Information extends AppCompatActivity {
 
     final static private SimpleDateFormat h = new SimpleDateFormat("HH:mm");

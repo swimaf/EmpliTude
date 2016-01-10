@@ -1,5 +1,6 @@
 package com.example.martinet.Emplitude.Emploi;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.example.martinet.Emplitude.Constants;
@@ -33,15 +34,17 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
     private String source;
     private ADE_retour o;
     private int retour;
+    private Context context;
 
-    public ADE_recuperation(ADE_retour o){
+    public ADE_recuperation(ADE_retour o, Context c){
         Jour j = new Jour(new Date());
         String first = j.getUrl();
         j.ajouterJour(14);
         String last =j.getUrl();
         j.ajouterJour(-5);
         this.o = o;
-        this.utilisateur = (Utilisateur) Fichier.lire(Constants.identifiantFile, 0);
+        this.context =c;
+        this.utilisateur = (Utilisateur) Fichier.lire(Constants.identifiantFile,context, 0);
         this.source = "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources="+utilisateur.getIdentifiant()+"&projectId=1&calType=ical&firstDate="+first+"&lastDate="+last;
     }
 
@@ -83,7 +86,7 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
 
             textResult = sb.toString();
             Vector<Object> cours = ADE_traitement.get(textResult);
-            Fichier.ecrireVector(Constants.courFile, cours);
+            Fichier.ecrireVector(Constants.courFile, context, cours);
 
 
         } catch(Exception e) {

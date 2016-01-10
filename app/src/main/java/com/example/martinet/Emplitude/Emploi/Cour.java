@@ -3,9 +3,6 @@ package com.example.martinet.Emplitude.Emploi;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by martinet on 04/01/16.
- */
 
 public class Cour implements Serializable{
 

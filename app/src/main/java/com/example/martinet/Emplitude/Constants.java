@@ -7,6 +7,6 @@ import java.io.File;
  */
 public class Constants {
     final static public String store = System.getenv("EXTERNAL_STORAGE");
-    final static public File courFile = new File(store+"/ADE.cours");
-    final static public File identifiantFile = new File(store+"/.identifiant.txt");
+    final static public String courFile ="ADE.cours";
+    final static public String identifiantFile = ".identifiant.txt";
 }

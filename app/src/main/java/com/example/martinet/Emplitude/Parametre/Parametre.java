@@ -13,21 +13,15 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.martinet.Emplitude.Accueil;
+import com.example.martinet.Emplitude.Constants;
+import com.example.martinet.Emplitude.Outil.Fichier;
 import com.example.martinet.Emplitude.R;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by martinet on 13/11/15.
- */
 public class Parametre extends AppCompatActivity {
-    final private String store = System.getenv("EXTERNAL_STORAGE") ;
-    final private File file = new File(this.store+"/.identifiant.txt");
-
-    private Spinner maj;
-    private Spinner notification;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -36,8 +30,8 @@ public class Parametre extends AppCompatActivity {
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        this.maj = (Spinner) findViewById(R.id.maj);
-        this.notification = (Spinner) findViewById(R.id.notif);
+        Spinner maj = (Spinner) findViewById(R.id.maj);
+        Spinner notification = (Spinner) findViewById(R.id.notif);
 
         ArrayAdapter<String> majAdapte = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.maj));
         maj.setAdapter(majAdapte);
@@ -49,7 +43,7 @@ public class Parametre extends AppCompatActivity {
         supprimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                file.delete();
+                Fichier.delete(Constants.identifiantFile, getBaseContext());
                 Intent intent = new Intent(Parametre.this, Accueil.class);
                 startActivity(intent);
                 finish();

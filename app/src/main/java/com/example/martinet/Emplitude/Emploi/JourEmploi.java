@@ -1,18 +1,9 @@
 package com.example.martinet.Emplitude.Emploi;
 
-/**
- * Created by martinet on 09/01/16.
- */
-
-import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -23,9 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -96,7 +85,7 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
 
     public void loadCours() {
         try {
-            ADE_information fichier = new ADE_information(this.dateJour);
+            ADE_information fichier = new ADE_information(this.dateJour, getContext());
             this.cours = fichier.getCours();
         } catch (ParseException e) {
             e.printStackTrace();

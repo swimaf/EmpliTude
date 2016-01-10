@@ -9,10 +9,6 @@ import android.content.Intent;
 import com.example.martinet.Emplitude.Emploi.ADE_automatique;
 
 
-/**
- * Created by martinet on 02/01/16.
- */
-
 public class EvenementInternet extends BroadcastReceiver{
 
     public void onReceive(Context context, Intent intent) {

@@ -3,9 +3,6 @@ package com.example.martinet.Emplitude.Emploi;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by martinet on 11/11/15.
- */
 public class Jour {
     private Calendar calendar;
     final private String[] semaine ={"DIM.", "LUN.", "MAR.", "MER.", "JEU.", "VEN.", "SAM."};

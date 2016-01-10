@@ -39,7 +39,7 @@ public class Widget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
         Intent intent;
         try {
-            ADE_information fichier = new ADE_information();
+            ADE_information fichier = new ADE_information(context);
             this.cours = fichier.getNext();
         } catch (Exception e) {
             e.printStackTrace();

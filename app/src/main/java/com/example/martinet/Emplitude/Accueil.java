@@ -50,13 +50,9 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
 
     final private static String PREFS_NAME = "Ade";
 
-    final private String store = System.getenv("EXTERNAL_STORAGE") ;
-    final private File file = new File(this.store+"/.identifiant.txt");
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     final private String SITE = "http://arnaud-regnier.ovh/recup.php";
 
-    private SharedPreferences preference;
-    private SharedPreferences.Editor editor;
     private Boolean is_etudiant = true;
     private RelativeLayout etudiant;
     private RelativeLayout enseignant;
@@ -68,6 +64,8 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
     private EditText num_enseignant;
     private Boolean appel;
     private TreeMap<String, TreeMap> groupe;
+    private SharedPreferences preference;
+    private SharedPreferences.Editor editor;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,13 +73,13 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
         this.preference = getSharedPreferences(PREFS_NAME, 0);
         this.editor = preference.edit();
 
-        if(file.exists()){
-            if (Build.VERSION.SDK_INT >= 23) {
+        if(Fichier.existe(Constants.identifiantFile, getBaseContext())){
+            /*if (Build.VERSION.SDK_INT >= 23) {
                 appel = true;
                 permission();
-            } else {
+            } else {*/
                 main();
-            }
+            //}
         }else {
             setContentView(R.layout.choix);
             appel = false;
@@ -94,6 +92,7 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
             num_enseignant = (EditText) findViewById(R.id.numero);
 
             editor.putInt("rafraichissement", 7);
+            editor.commit();
             if(isOnline()){
                 try {
                     new External(this, new URL(SITE)).execute();
@@ -107,9 +106,7 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
     }
 
     private void main(){
-        rafraichirAuto();
         Intent intent = new Intent(this, MainActivity.class);
-        //MainActivity.premier =true;
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
         this.startActivity(intent);
         this.finish();
@@ -121,19 +118,19 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
 
         spinner.setOnItemSelectedListener(this);
 
-        List<String> list = new ArrayList<String>(groupe.keySet());
-        ArrayAdapter<String> departement = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list);
+        List<String> list = new ArrayList<>(groupe.keySet());
+        ArrayAdapter<String> departement = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, list);
         spinner.setAdapter(departement);
 
         suivant = (Button) findViewById(R.id.button);
         suivant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= 23) {
-                    permission();
-                } else {
-                    next();
-                }
+                /*if (Build.VERSION.SDK_INT >= 23) {
+                    permission();*/
+                /*} else {*/
+                next();
+                /*}*/
             }
         });
     }
@@ -155,8 +152,8 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
         }else{
             e = new Utilisateur(num_enseignant.getText().toString(),"Enseignant");
         }
-        Fichier.ecrire(file, e);
-        ADE_recuperation load = new ADE_recuperation(Accueil.this);
+        Fichier.ecrire(Constants.identifiantFile,getBaseContext(), e);
+        ADE_recuperation load = new ADE_recuperation(Accueil.this, getBaseContext());
         load.execute();
     }
 
@@ -214,8 +211,8 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        List list = new ArrayList<String>(groupe.get(parent.getItemAtPosition(position)).keySet());
-        ArrayAdapter<String> info = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list);
+        List list = new ArrayList<>(groupe.get(parent.getItemAtPosition(position)).keySet());
+        ArrayAdapter<String> info = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, list);
         spinner2.setAdapter(info);
     }
 
@@ -260,20 +257,4 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
         this.connect();
     }
 
-    public void rafraichirAuto(){
-        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-
-        if(!this.preference.contains("maj")) {
-            Jour jour = new Jour(new Date());
-            jour.ajouterJour(7);
-            this.editor.putString("maj", jour.getDate().toString());
-            this.editor.commit();
-            long seconds = this.preference.getInt("rafraichissement", 7)*24*60*60;
-            Intent intent = new Intent(getApplicationContext(), ADE_automatique.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, intent, 0);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (seconds * 1000), pendingIntent);
-        }
-
-
-    }
 }

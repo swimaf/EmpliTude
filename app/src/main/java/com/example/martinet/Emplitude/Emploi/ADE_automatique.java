@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -26,18 +27,26 @@ import com.example.martinet.Emplitude.R;
 
 public class ADE_automatique extends BroadcastReceiver implements ADE_retour{
 
+    final private static String PREFS_NAME = "Ade";
+
     private Context context;
+    private SharedPreferences preference;
+    private SharedPreferences.Editor editor;
 
     public void onReceive(Context context, Intent intent) {
         this.context = context;
         //Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         //vibrator.vibrate(2000);
+
+        this.preference = context.getSharedPreferences(PREFS_NAME, 0);
+        this.editor = preference.edit();
+
         if(!connected(context)){
             receiver(PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
         }else{
             NotificationCompat.Builder mBuilder =
                     (NotificationCompat.Builder) new NotificationCompat.Builder(context)
-                            .setSmallIcon(R.drawable.ic_edit)
+                            .setSmallIcon(R.drawable.ic_event_light)
                             .setContentTitle("Empli'tude")
                             .setContentText("Mise à jour auto effectué");
             Intent resultIntent = new Intent(context, Accueil.class);
@@ -67,7 +76,7 @@ public class ADE_automatique extends BroadcastReceiver implements ADE_retour{
     @Override
     public void retour(int value) {
         if(value != ADE_recuperation.ERROR_ADE){
-            int seconds = 1800;
+            int seconds = 20;
             Intent i = new Intent(context,ADE_automatique.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 123456789, i, 0);
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
