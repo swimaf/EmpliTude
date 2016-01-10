@@ -52,15 +52,9 @@ public class Introduction extends Activity implements View.OnClickListener {
 
 
     }
-    public boolean isOnline() {
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
-    }
 
     public void onClick(View v) {
-        if(isOnline()) {
+        if(Constants.CONNECTED(getBaseContext())) {
             Intent intent = new Intent(this, Accueil.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
             startActivity(intent);
@@ -72,16 +66,15 @@ public class Introduction extends Activity implements View.OnClickListener {
 
     public void rafraichirAuto(){
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-        Date date = new Date(this.preference.getLong("time", 0));
-        Date now = new Date();
-        System.out.println(date.getTime() - now.getTime());
-        if(!this.preference.contains("maj") || date.before(now)) {
+        long time = this.preference.getLong("time", 0);
+        System.out.println(time - System.currentTimeMillis() );
+        if(time - System.currentTimeMillis() < 0 ) {
             Jour jour = new Jour(new Date());
             jour.ajouterJour(7);
             System.out.println("ssss");
             //long seconds = this.preference.getInt("rafraichissement", 7)*24*60*60;
-            long seconds = this.preference.getInt("rafraichissement", 7)*20;
-            this.editor.putLong("time", jour.getDate().getTime()+seconds*1000);
+            long seconds = this.preference.getInt("rafraichissement", 7)*50;
+            this.editor.putLong("time", System.currentTimeMillis()+seconds*1000);
             this.editor.commit();
 
             Intent intent = new Intent(getApplicationContext(), ADE_automatique.class);
@@ -89,5 +82,4 @@ public class Introduction extends Activity implements View.OnClickListener {
             alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (seconds * 1000), pendingIntent);
         }
     }
-
 }

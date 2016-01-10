@@ -1,7 +1,6 @@
 package com.example.martinet.Emplitude.Emploi;
 
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -12,18 +11,14 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Vibrator;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.NotificationCompat;
 
 import com.example.martinet.Emplitude.Accueil;
-import com.example.martinet.Emplitude.MainActivity;
+import com.example.martinet.Emplitude.Constants;
 import com.example.martinet.Emplitude.Outil.EvenementInternet;
 import com.example.martinet.Emplitude.R;
 
-/**
- * Created by martinet on 02/01/16.
- */
 
 public class ADE_automatique extends BroadcastReceiver implements ADE_retour{
 
@@ -40,31 +35,27 @@ public class ADE_automatique extends BroadcastReceiver implements ADE_retour{
 
         this.preference = context.getSharedPreferences(PREFS_NAME, 0);
         this.editor = preference.edit();
-
-        if(!connected(context)){
-            receiver(PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
+        if("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())){
+            long time = this.preference.getLong("time", 0);
+            if(time - System.currentTimeMillis() < 0 ) {
+                suivant();
+            }else {
+                Intent i = new Intent(context,ADE_automatique.class);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, i, 0);
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+            }
         }else{
-            NotificationCompat.Builder mBuilder =
-                    (NotificationCompat.Builder) new NotificationCompat.Builder(context)
-                            .setSmallIcon(R.drawable.ic_event_light)
-                            .setContentTitle("Empli'tude")
-                            .setContentText("Mise à jour auto effectué");
-            Intent resultIntent = new Intent(context, Accueil.class);
+            this.suivant();
+        }
+    }
 
-
-            TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-            stackBuilder.addParentStack(Accueil.class);
-            stackBuilder.addNextIntent(resultIntent);
-            PendingIntent resultPendingIntent =
-                    stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-            mBuilder.setContentIntent(resultPendingIntent);
-            NotificationManager mNotificationManager =
-                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            mNotificationManager.notify(10, mBuilder.build());
-
-
-
-            receiver(PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
+    public void suivant(){
+        if (!Constants.CONNECTED(context)) {
+            receiver(PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
+        } else {
+            ADE_recuperation load = new ADE_recuperation(this, context);
+            load.execute();
         }
     }
 
@@ -76,18 +67,44 @@ public class ADE_automatique extends BroadcastReceiver implements ADE_retour{
     @Override
     public void retour(int value) {
         if(value != ADE_recuperation.ERROR_ADE){
-            int seconds = 20;
+
+            NotificationCompat.Builder mBuilder =
+                    (NotificationCompat.Builder) new NotificationCompat.Builder(context)
+                            .setSmallIcon(R.drawable.ic_event_light)
+                            .setContentTitle("Empli'tude")
+                            .setContentText("Mise à jour auto effectué");
+            Intent resultIntent = new Intent(context, Accueil.class);
+
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+            stackBuilder.addParentStack(Accueil.class);
+            stackBuilder.addNextIntent(resultIntent);
+            PendingIntent resultPendingIntent =
+                    stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+            mBuilder.setContentIntent(resultPendingIntent);
+            NotificationManager mNotificationManager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            mNotificationManager.notify(10, mBuilder.build());
+
+            receiver(PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
+
+
+            long seconds = this.preference.getInt("rafraichissement", 7)*24*60*60;
+            //long seconds = this.preference.getInt("rafraichissement", 7)*2;
             Intent i = new Intent(context,ADE_automatique.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 123456789, i, 0);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, i, 0);
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (seconds * 1000), pendingIntent);
+            this.editor.putLong("time", System.currentTimeMillis()+seconds*1000);
+            this.editor.commit();
+
+        }else{
+            long seconds = 30*60;
+            Intent i = new Intent(context,ADE_automatique.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, i, 0);
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
             alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (seconds * 1000), pendingIntent);
         }
     }
 
-    public Boolean connected(Context context) {
-        ConnectivityManager cm =(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
-        return isConnected;
-    }
+
 }

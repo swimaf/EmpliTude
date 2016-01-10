@@ -1,12 +1,18 @@
 package com.example.martinet.Emplitude;
 
-import java.io.File;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
-/**
- * Created by martinet on 09/01/16.
- */
+
 public class Constants {
     final static public String store = System.getenv("EXTERNAL_STORAGE");
     final static public String courFile ="ADE.cours";
     final static public String identifiantFile = ".identifiant.txt";
+
+    public static Boolean CONNECTED(Context context) {
+        ConnectivityManager cm =(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnected();
+    }
 }

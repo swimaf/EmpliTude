@@ -93,7 +93,7 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
 
             editor.putInt("rafraichissement", 7);
             editor.commit();
-            if(isOnline()){
+            if(Constants.CONNECTED(getBaseContext())){
                 try {
                     new External(this, new URL(SITE)).execute();
                 } catch (MalformedURLException e) {
@@ -214,13 +214,6 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
         List list = new ArrayList<>(groupe.get(parent.getItemAtPosition(position)).keySet());
         ArrayAdapter<String> info = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, list);
         spinner2.setAdapter(info);
-    }
-
-    public boolean isOnline() {
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
     }
 
 

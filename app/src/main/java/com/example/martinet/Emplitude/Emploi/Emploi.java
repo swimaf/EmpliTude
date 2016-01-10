@@ -22,6 +22,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.martinet.Emplitude.Constants;
 import com.example.martinet.Emplitude.Outil.OnSwipeTouchListener;
 import com.example.martinet.Emplitude.R;
 import java.util.Date;
@@ -150,20 +151,13 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
     }
 
     public void onRefresh() {
-        if (isOnline()) {
+        if (Constants.CONNECTED(getContext())) {
             ADE_recuperation load = new ADE_recuperation(this, getContext());
             load.execute();
         } else {
             ADE_recuperation.INFO = "Vous n'êtes pas connecté à internet !";
             this.retour(ADE_recuperation.ERROR_INTERNET);
         }
-    }
-
-    public boolean isOnline() {
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return (networkInfo != null && networkInfo.isConnected());
     }
 
     public void retour(int value) {
