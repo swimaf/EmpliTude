@@ -25,14 +25,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.TextView;
 
 
 import com.example.martinet.Emplitude.R;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -47,6 +51,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     public static final String keyDFondu = "keyDFondu";
     public static final String keyDTorche = "keyDTorche";
     public static final String keyNpDureePrepa = "keyNpDureePrepa";
+    public static final String keyDActivDesactiv = "keyDActivDesactiv";
     public static final String keyNbRepetition = "keyNbRepetition";
     public static final String keyNbRepetitionRestante = "keyNbRepetitionRestante";
     public static final String keyMinRepetition = "keyMinRepetition";
@@ -59,6 +64,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     public static boolean dSonner = false;
     public static boolean dFondu = false;
     public static boolean dTorche = false;
+    public static boolean dActivDesaciv = true;
     public static int nbRepetionRestante = 0;
     private static int timeHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
     private static int timeMinute = Calendar.getInstance().get(Calendar.MINUTE);
@@ -67,9 +73,15 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     private FragmentActivity myContext;
 
     private TextView textView1;
+    private TextView tvrTempsPreparation;
+    private TextView tvrMinutes;
+    private TextView tvrRepeter;
+    private TextView tvrSon;
+    private TextView tvrTempo;
     private Switch switchVibreur;
     private Switch switchTorche;
     private Switch switchFondu;
+    private Switch switchActivDesactiv;
     private NumberPicker npDureePrepa;
     private NumberPicker nprMinTempo;
     private NumberPicker nprFoisRepeter;
@@ -77,6 +89,8 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     private Button btn1;
     private Button btnSon;
     private View view;
+    private LinearLayout lyGeneral;
+
 
 
 
@@ -192,6 +206,8 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         switchVibreur = (Switch) view.findViewById(R.id.srVibreur);
         switchTorche = (Switch) view.findViewById(R.id.srTorche);
         switchFondu = (Switch) view.findViewById(R.id.srFondu);
+        switchActivDesactiv = (Switch) view.findViewById(R.id.srActiv);
+
 
         //NumberPicker
         npDureePrepa = (NumberPicker) view.findViewById(R.id.nprTempsPreparation);
@@ -224,7 +240,13 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
 
         btnSon = (Button) view.findViewById(R.id.brSonDroite);
 
+        lyGeneral = (LinearLayout) view.findViewById(R.id.lyGeneral);
 
+        tvrMinutes = (TextView) view.findViewById(R.id.tvrMinutes);
+        tvrRepeter = (TextView) view.findViewById(R.id.tvrRepeter);
+        tvrSon = (TextView) view.findViewById(R.id.tvrSon);
+        tvrTempsPreparation = (TextView) view.findViewById(R.id.tvrTempsPreparation);
+        tvrTempo = (TextView) view.findViewById(R.id.tvrTempo);
 
     }
 
@@ -313,7 +335,78 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     //Log.i = message a affiché dans la consol android studio (.i pour information )
 
     public void appelSwitch() {
+        switchActivDesactiv.setChecked(sharedpreferences.getBoolean(keyDActivDesactiv,false));
+        switchActivDesactiv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {//Si le switch est activé alors
+                    Log.i("test", "Reveil actif");
+                   //lyGeneral.setBackgroundColor(getResources().getColor(R.color.white));
+                    switchActivDesactiv.setText("Activé");
+                    dActivDesaciv=true;
+                    switchFondu.setEnabled(true);
+                    switchFondu.setFocusable(true);
+                    switchTorche.setEnabled(true);
+                    switchTorche.setFocusable(true);
+                    switchVibreur.setEnabled(true);
+                    switchVibreur.setFocusable(true);
+                    btnRepeter.setEnabled(true);
+                    btnRepeter.setFocusable(true);
+                    btnTempo.setEnabled(true);
+                    btnTempo.setFocusable(true);
+                    btnSon.setEnabled(true);
+                    btnSon.setFocusable(true);
+                    npDureePrepa.setEnabled(true);
+                    npDureePrepa.setFocusable(true);
+                    btnSon.setTextColor(getResources().getColor(R.color.black));
+                    btnRepeter.setTextColor(getResources().getColor(R.color.black));
+                    btnTempo.setTextColor(getResources().getColor(R.color.black));
+                    tvrRepeter.setTextColor(getResources().getColor(R.color.black));
+                    tvrSon.setTextColor(getResources().getColor(R.color.black));
+                    tvrMinutes.setTextColor(getResources().getColor(R.color.black));
+                    tvrTempsPreparation.setTextColor(getResources().getColor(R.color.black));
+                    tvrTempo.setTextColor(getResources().getColor(R.color.black));
 
+
+
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putBoolean(keyDActivDesactiv, dActivDesaciv);
+                    editor.commit();
+                } else {
+                    Log.i("test", "Reveil innactif");
+                    //lyGeneral.setBackgroundColor(getResources().getColor(R.color.grisDesactiv));
+                    switchActivDesactiv.setText("Désactivé");
+                    dActivDesaciv = false;
+                    switchFondu.setEnabled(false);
+                    switchFondu.setFocusable(false);
+                    switchTorche.setEnabled(false);
+                    switchTorche.setFocusable(false);
+                    switchVibreur.setEnabled(false);
+                    switchVibreur.setFocusable(false);
+                    btnRepeter.setEnabled(false);
+                    btnRepeter.setFocusable(false);
+                    btnTempo.setEnabled(false);
+                    btnTempo.setFocusable(false);
+                    btnSon.setEnabled(false);
+                    btnSon.setFocusable(false);
+                    npDureePrepa.setEnabled(false);
+                    npDureePrepa.setFocusable(false);
+                    btnSon.setTextColor(getResources().getColor(R.color.grisDesactiv));
+                    btnRepeter.setTextColor(getResources().getColor(R.color.grisDesactiv));
+                    btnTempo.setTextColor(getResources().getColor(R.color.grisDesactiv));
+                    tvrRepeter.setTextColor(getResources().getColor(R.color.grisDesactiv));
+                    tvrSon.setTextColor(getResources().getColor(R.color.grisDesactiv));
+                    tvrMinutes.setTextColor(getResources().getColor(R.color.grisDesactiv));
+                    tvrTempsPreparation.setTextColor(getResources().getColor(R.color.grisDesactiv));
+                    tvrTempo.setTextColor(getResources().getColor(R.color.grisDesactiv));
+
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putBoolean(keyDActivDesactiv, dActivDesaciv);
+                    editor.commit();
+
+                }
+            }
+        });
         switchVibreur.setChecked(sharedpreferences.getBoolean(keyDSonner,false));
         switchVibreur.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
