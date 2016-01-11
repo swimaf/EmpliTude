@@ -12,24 +12,34 @@ import android.widget.TextView;
 
 import com.example.martinet.Emplitude.R;
 
+import java.util.Vector;
+
 public class Adapter extends ArrayAdapter<String>{
 
     private final Activity context;
-    private final String[] web;
+    private final Vector<Object> lesTaches;
 
-    public Adapter(Activity context, String[] web) {
-        super(context, R.layout.todo_tache, web);
+    public Adapter(Activity context, Vector taches) {
+        super(context, R.layout.todo_tache, taches);
         this.context = context;
-        this.web = web;
+        this.lesTaches = taches;
     }
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView= inflater.inflate(R.layout.todo_tache, null, true);
         TextView tache = (TextView) rowView.findViewById(R.id.tache);
+        TextView matiere = (TextView) rowView.findViewById(R.id.matiere);
+        TextView date = (TextView) rowView.findViewById(R.id.date);
 
-        tache.setText(web[position]);
+        try {
+            Tache t = (Tache) lesTaches.get(position);
+            tache.setText(t.getNom());
+            matiere.setText("Matière : " + t.getMatiere());
+            date.setText("Date : " + t.getDate());
+        }catch (Exception e){
 
+        }
         return rowView;
     }
 }

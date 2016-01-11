@@ -34,18 +34,18 @@
                 android:textColor="@color/colorPrimary" />
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Matière :"
-                android:id="@+id/textView25" />
+                android:id="@+id/matiere" />
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Date :"
-                android:id="@+id/textView26" />
+                android:id="@+id/date" />
 
         </LinearLayout>
 

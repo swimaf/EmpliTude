@@ -28,7 +28,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText" />
+                android:id="@+id/nom" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -42,7 +42,11 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText3" />
+                android:inputType="date"
+                android:ems="10"
+                android:id="@+id/date"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,7 +59,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText2" />
+                android:id="@+id/matiere" />
 
         </LinearLayout>
     </ScrollView>
