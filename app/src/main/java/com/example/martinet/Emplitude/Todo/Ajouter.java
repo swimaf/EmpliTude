@@ -1,5 +1,6 @@
 package com.example.martinet.Emplitude.Todo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -25,6 +26,7 @@ import java.util.Vector;
 public class Ajouter extends AppCompatActivity {
 
 
+
     private FloatingActionButton suivant;
     private EditText nom, date, matiere;
     private Vector<Object> listeTaches;
@@ -42,10 +44,8 @@ public class Ajouter extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Tache t = new Tache(nom.getText().toString(), matiere.getText().toString(), new Date(date.getText().toString()));
-                listeTaches = Fichier.readAll(Constants.tacheFile, getBaseContext());
-                listeTaches.add(t);
-                Fichier.ecrireVector(Constants.tacheFile, getBaseContext(), listeTaches);
-                ((Todo)((MainActivity) getParent()).getFragment()).rafraichir(listeTaches);
+                Todo.mesTaches.add(t);
+                setResult(Activity.RESULT_OK);
                 finish();
             }
         });

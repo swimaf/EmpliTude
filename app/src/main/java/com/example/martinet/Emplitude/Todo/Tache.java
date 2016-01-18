@@ -11,6 +11,8 @@ import java.util.Date;
  */
 public class Tache implements Serializable{
 
+    private static int SERIAL = 0;
+    private int id;
     private String nom, matiere;
     private Date date;
     private DateFormat dateF = DateFormat.getDateInstance(DateFormat.FULL);
@@ -19,6 +21,8 @@ public class Tache implements Serializable{
         this.nom = nom;
         this.date = date;
         this.matiere = matiere;
+        this.id = SERIAL;
+        SERIAL++;
     }
 
     public String getNom() {
@@ -29,9 +33,7 @@ public class Tache implements Serializable{
         this.nom = nom;
     }
 
-    public String getMatiere() {
-        return matiere;
-    }
+    public String getMatiere() { return matiere; }
 
     public void setMatiere(String matiere) {
         this.matiere = matiere;
@@ -44,4 +46,6 @@ public class Tache implements Serializable{
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public int getId(){ return this.id;}
 }

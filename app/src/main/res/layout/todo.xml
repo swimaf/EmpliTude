@@ -24,7 +24,7 @@
             android:layout_height="431dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Aucune tache"
-            android:id="@+id/textView5"
+            android:id="@+id/aucune"
             android:layout_gravity="center_horizontal"
             android:gravity="center_vertical|center_horizontal"
             android:textStyle="bold|italic"
