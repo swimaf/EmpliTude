@@ -15,7 +15,10 @@ import com.example.martinet.Emplitude.Constants;
 import com.example.martinet.Emplitude.Outil.Fichier;
 import com.example.martinet.Emplitude.R;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.Vector;
 
 /**
@@ -24,6 +27,14 @@ import java.util.Vector;
 public class Todo extends Fragment{
 
     public static Vector<Object> mesTaches;
+
+    private Calendar cal = new GregorianCalendar(Locale.FRANCE);
+    private Date dateJour = new Date();
+
+
+
+
+
 
     private ListView list;
     private FloatingActionButton action;
@@ -58,9 +69,11 @@ public class Todo extends Fragment{
     public void creationListeTaches (){
         if (mesTaches.size() == 0){
             aucune.setVisibility(View.VISIBLE);
+            list.setVisibility(View.GONE);
         }else {
             Adapter adapter = new Adapter(getActivity(), mesTaches);
             aucune.setVisibility(View.GONE);
+            list.setVisibility(View.VISIBLE);
             list.setAdapter(adapter);
             list.smoothScrollToPosition(2);
             list.setSelection(2);
@@ -71,16 +84,15 @@ public class Todo extends Fragment{
 
         if(resultCode == Activity.RESULT_OK){
             this.creationListeTaches();
-            System.out.println("truc dedans");
         }
         if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
         }
     }
 
-    public void onDestroyView(){
-        super.onDestroyView();
-        Fichier.ecrireVector(Constants.tacheFile, getContext(),mesTaches);
+    public void onStop(){
+        Fichier.ecrireVector(Constants.tacheFile, getContext(),Todo.mesTaches);
+        super.onStop();
     }
 
 }

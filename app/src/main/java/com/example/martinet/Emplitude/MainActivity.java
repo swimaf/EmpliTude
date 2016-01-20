@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.martinet.Emplitude.Emploi.Emploi;
+import com.example.martinet.Emplitude.Outil.Fichier;
 import com.example.martinet.Emplitude.Parametre.Parametre;
 import com.example.martinet.Emplitude.Propos.Propos;
 import com.example.martinet.Emplitude.Reveil.ReveilActivity;
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             this.changeActivity(Parametre.class);
             return false;
         }
-        this.changeFragment(args,fragmentClass);
+        this.changeFragment(args, fragmentClass);
         return true;
     }
 

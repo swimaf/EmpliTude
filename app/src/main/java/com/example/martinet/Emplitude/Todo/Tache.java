@@ -15,7 +15,6 @@ public class Tache implements Serializable{
     private int id;
     private String nom, matiere;
     private Date date;
-    private DateFormat dateF = DateFormat.getDateInstance(DateFormat.FULL);
 
     public Tache (String nom, String matiere, Date date){
         this.nom = nom;
@@ -39,9 +38,7 @@ public class Tache implements Serializable{
         this.matiere = matiere;
     }
 
-    public String getDate() {
-        return dateF.format(date);
-    }
+    public Date getDate() { return date; }
 
     public void setDate(Date date) {
         this.date = date;
