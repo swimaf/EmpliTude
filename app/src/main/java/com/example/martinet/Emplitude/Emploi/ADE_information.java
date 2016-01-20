@@ -33,7 +33,7 @@ public class ADE_information {
         this.init();
     }
     public ADE_information(Context context){
-        this.context = context;
+        this.context = this.context;
         this.init();
     }
 

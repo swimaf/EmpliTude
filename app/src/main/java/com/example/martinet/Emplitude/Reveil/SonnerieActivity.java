@@ -6,6 +6,7 @@ package com.example.martinet.Emplitude.Reveil;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,7 +34,11 @@ public class SonnerieActivity extends Activity {
     Button brStop;
     Button brTempo;
     TextView tvrHeure;
+    public static final String MesPREFERENCES = "mesPreferences";
     public static SharedPreferences sharedpreferences;
+    private ReveilActivity reveilActivity;
+
+    // public static SharedPreferences sharedpreferences;
 
 
 
@@ -63,19 +68,25 @@ public class SonnerieActivity extends Activity {
     //--------------Methode pour arreter l'alarme----------------------
     //-----------------------------------------------------------------
     public void arreterAlarm(){
-        ReveilActivity.cancelAlarm();
+
+        reveilActivity.cancelAlarm();
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putInt(ReveilActivity.keyNbRepetitionRestante, 0);
+        editor.commit();
         couperSonnerie();
     }
     //----------------------------------------------------------------
     //-------------Methode pour initialiser les variables-------------
     //----------------------------------------------------------------
     public void init(){
- 
+        sharedpreferences = getSharedPreferences(MesPREFERENCES, Context.MODE_PRIVATE);
         brStop = (Button) findViewById(R.id.brStop);
 
+        reveilActivity = new ReveilActivity();
         //Bouton repeter
         brTempo = (Button) findViewById(R.id.brRepeterFinal);
-        //brTempo.setText("Temporiser " + sharedpreferences.getInt(keyMinTempo,0) + " min");
+        int tmp = sharedpreferences.getInt(ReveilActivity.keyMinTempo, 0);
+        brTempo.setText("Temporiser " +tmp+ " min");
 
         tvrHeure = (TextView) findViewById(R.id.tvrHeure);
         SimpleDateFormat heure = new SimpleDateFormat("HH");
@@ -122,14 +133,14 @@ public class SonnerieActivity extends Activity {
     //--methode pour faire sonner le temps souhaiter par l'utilisateur puis couper la sonnerie.--
     //-------------------------------------------------------------------------------------------
     public void repeter(){
-        if(ReveilActivity.nbRepetionRestante!=0){
-            final int tmp = (ReveilActivity.minRepetition)*60000;//60000 c'est 1mn en ms
+        if(sharedpreferences.getInt(ReveilActivity.keyNbRepetitionRestante,0)!=0){
+            final int tmp = (sharedpreferences.getInt(ReveilActivity.keyMinRepetition,0))*60000;//60000 c'est 1mn en ms
             Thread temspAttente = new Thread(){
                 public void run() {
                     try {
                         sleep(tmp);
                         arreterAlarm();
-                        ReveilActivity.setAlarmRepeter();
+                        reveilActivity.setAlarmRepeter();
                         ouvrirMain();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
