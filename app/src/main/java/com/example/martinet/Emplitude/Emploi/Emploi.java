@@ -31,6 +31,8 @@ import java.util.Vector;
 
 public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshListener, ADE_retour {
 
+    private long CONST_DURATION_OF_DAY = 1000 * 60 * 60 * 24;
+
     public static Jour calendrier = new Jour(new Date());
     private View viewAction;
     private FragmentActivity activity;
@@ -66,7 +68,6 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
         this.swiper.setOnTouchListener(new OnSwipeTouchListener(getContext()) {
             public void onSwipeRight() {
                 modifierDate(-1);
-                colorBarVisibility(View.GONE);
             }
 
             public void onSwipeLeft() {
@@ -75,6 +76,7 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
             }
 
             public boolean onTouch(View v, MotionEvent event) {
+                colorBarVisibility(View.GONE);
                 return gestureDetector.onTouchEvent(event);
             }
         });
@@ -109,30 +111,40 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
     public void modifierDate(int i){
         calendrier.ajouterJour(i);
         if(!calendrier.est_inferieur()) {
-            TextView jour = (TextView) viewAction.findViewById(R.id.jour);
-            jour.setText(calendrier.getJour());
 
-            Fragment fragment = null;
-            Class fragmentClass = JourEmploi.class;
-            Bundle args = new Bundle();
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-                args.putLong("dateJour", calendrier.getDate().getTime());
-                fragment.setArguments(args);
-            } catch (Exception e) {
-                System.out.println("Erreur load fragment");
-            }
-            FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-            if (i != 0) {
-                if (i < 0) {
-                    ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                } else {
-                    ft.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+            long diff = Math.abs(calendrier.getDate().getTime() - System.currentTimeMillis());
+            int nombre_jour = (int)(diff/CONST_DURATION_OF_DAY);
+
+            if(nombre_jour < 14){
+
+                TextView jour = (TextView) viewAction.findViewById(R.id.jour);
+                jour.setText(calendrier.getJour());
+
+                Fragment fragment = null;
+                Class fragmentClass = JourEmploi.class;
+                Bundle args = new Bundle();
+                try {
+                    fragment = (Fragment) fragmentClass.newInstance();
+                    args.putLong("dateJour", calendrier.getDate().getTime());
+                    fragment.setArguments(args);
+                } catch (Exception e) {
+                    System.out.println("Erreur load fragment");
                 }
+                FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+                if (i != 0) {
+                    if (i < 0) {
+                        ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                    } else {
+                        ft.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
+                }
+                this.fragment = fragment;
+                ft.replace(R.id.reloader, fragment);
+                ft.commit();
+            }else{
+                calendrier.ajouterJour(-i);
+                Toast.makeText(activity.getApplicationContext(), "Vous ne pouvez pas aller plus loin !", Toast.LENGTH_SHORT).show();
             }
-            this.fragment = fragment;
-            ft.replace(R.id.reloader, fragment);
-            ft.commit();
 
         }else{
             calendrier.ajouterJour(-i);

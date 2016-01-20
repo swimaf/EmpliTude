@@ -7,23 +7,24 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp" >
+        android:padding="20dp"
+        android:measureWithLargestChild="false">
 
         <com.github.danielnilsson9.colorpickerview.view.ColorPickerView
             android:id="@id/colorpickerview__color_picker_view"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             picker:alphaChannelVisible="true" />
-
-    </RelativeLayout>
-
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/buttonbar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="right"
