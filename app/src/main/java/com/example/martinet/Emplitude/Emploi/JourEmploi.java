@@ -84,12 +84,9 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
     }
 
     public void loadCours() {
-        try {
-            ADE_information fichier = new ADE_information(this.dateJour, getContext());
-            this.cours = fichier.getCours();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        ADE_information fichier = new ADE_information(this.dateJour, getContext());
+        this.cours = fichier.getCours();
+
         int ECART = (int) (HEIGHT / (60.0));
         HashMap couleur = (HashMap) settings.getAll();
         Date dateD, dateF;

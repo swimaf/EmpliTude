@@ -33,7 +33,7 @@ public class ADE_information {
         this.init();
     }
     public ADE_information(Context context){
-        this.context = this.context;
+        this.context = context;
         this.init();
     }
 
@@ -49,7 +49,7 @@ public class ADE_information {
         }
     }
     //Recupération des cours
-    public Vector<Cour> getCours() throws ParseException {
+    public Vector<Cour> getCours() {
         this.get();
         if(this.vide){
             return null;
@@ -58,7 +58,7 @@ public class ADE_information {
     }
 
     //Récupération dernier cour
-    public Cour getNext() throws ParseException{
+    public Cour getNext(){
         Cour c;
         cours = new Vector<>();
         Date d = new Date();
@@ -96,6 +96,7 @@ public class ADE_information {
     public Cour getFirstBYDate(Date date) throws ParseException{
         this.date = date;
         this.get();
+
         Collections.sort(this.cours, new Comparator<Object>() {
             public int compare(Object m1, Object m2) {
                 Date d = (((Cour) m1).getDateD());
