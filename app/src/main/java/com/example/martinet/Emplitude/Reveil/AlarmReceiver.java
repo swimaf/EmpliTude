@@ -37,7 +37,8 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         //MainActivity.getTextView2().setText("Go en maths :p !");
 
         //Faire jouer la sonerie
-        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);//Le son qui va sonner ( de base j'ai mis ici TYPE_ALARM )
+        Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context,RingtoneManager.TYPE_ALARM);
+        //Le son qui va sonner ( de base j'ai mis ici TYPE_ALARM )
 
         ringtone = RingtoneManager.getRingtone(context, uri);
         ringtone.play();

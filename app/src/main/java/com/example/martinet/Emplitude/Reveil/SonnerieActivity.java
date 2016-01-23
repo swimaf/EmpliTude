@@ -5,7 +5,9 @@ package com.example.martinet.Emplitude.Reveil;
  */
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Fragment;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,7 +38,9 @@ public class SonnerieActivity extends Activity {
     TextView tvrHeure;
     public static final String MesPREFERENCES = "mesPreferences";
     public static SharedPreferences sharedpreferences;
-    private ReveilActivity reveilActivity;
+    private ArreterAlarm arreterAlarm;
+    AlarmManager alarmManager;
+    PendingIntent pendingIntent;
 
     // public static SharedPreferences sharedpreferences;
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +49,7 @@ public class SonnerieActivity extends Activity {
         init();
         listeners();
 
-        repeter();
+        //repeter();
         final Window win = getWindow();
         win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
                 WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
@@ -67,7 +71,7 @@ public class SonnerieActivity extends Activity {
     //-----------------------------------------------------------------
     public void arreterAlarm(){
 
-        reveilActivity.cancelAlarmEtSetReveil();
+        arreterAlarm.cancelAlarmEtSetReveil();
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putInt(ReveilActivity.keyNbRepetitionRestante, 0);
         editor.commit();
@@ -81,7 +85,16 @@ public class SonnerieActivity extends Activity {
         sharedpreferences = getSharedPreferences(MesPREFERENCES, Context.MODE_PRIVATE);
         brStop = (Button) findViewById(R.id.brStop);
 
-        reveilActivity = new ReveilActivity();
+        //AlarmManager
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        //Itent
+        Intent myIntent = new Intent(SonnerieActivity.this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(SonnerieActivity.this, 0, myIntent, 0);
+
+
+
+        arreterAlarm = new ArreterAlarm(SonnerieActivity.this,alarmManager,pendingIntent);
         //Bouton repeter
         brTempo = (Button) findViewById(R.id.brRepeterFinal);
         int tmp = sharedpreferences.getInt(ReveilActivity.keyMinTempo, 0);
@@ -131,7 +144,7 @@ public class SonnerieActivity extends Activity {
     //-------------------------------------------------------------------------------------------
     //--methode pour faire sonner le temps souhaiter par l'utilisateur puis couper la sonnerie.--
     //-------------------------------------------------------------------------------------------
-    public void repeter(){
+   /* public void repeter(){
         if(sharedpreferences.getInt(ReveilActivity.keyNbRepetitionRestante,0)!=0){
             final int tmp = (sharedpreferences.getInt(ReveilActivity.keyMinRepetition,0))*60000;//60000 c'est 1mn en ms
             Thread temspAttente = new Thread(){
@@ -148,5 +161,5 @@ public class SonnerieActivity extends Activity {
             };
             temspAttente.start();
         }
-    }
+    }*/
 }
