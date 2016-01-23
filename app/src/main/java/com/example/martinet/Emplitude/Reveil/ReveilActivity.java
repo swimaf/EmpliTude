@@ -377,8 +377,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                     tvrSon.setTextColor(getResources().getColor(R.color.black));
                     tvrMinutes.setTextColor(getResources().getColor(R.color.black));
                     tvrTempsPreparation.setTextColor(getResources().getColor(R.color.black));
-                    tvrTempo.setTextColor(getResources().getColor(R.color.black));
-                    setAlarm();
+                    proAlarm = new ProgrammerAlarm(getContext(),alarmManager,pendingIntent);
                     proAlarm.setAlarmAuto();
 
 
@@ -672,6 +671,13 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     }
 
     public void cancelAlarm() {
+        nbRepetionRestante = 0;
+        if (alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
+        }
+    }
+    public void cancelAlarmEtSetReveil() {
+        proAlarm = new ProgrammerAlarm(getContext(),alarmManager,pendingIntent);
         proAlarm.setAlarmAuto();
         nbRepetionRestante = 0;
         if (alarmManager != null) {

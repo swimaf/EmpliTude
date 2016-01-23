@@ -111,7 +111,7 @@ public class ADE_information {
 
             }
         });
-        System.out.println("je renvoi null");
+        System.out.println("je renvoi null ou un cour");
         if (compteur == 1) {
             return this.cours.get(0);
         } else {

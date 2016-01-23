@@ -67,7 +67,7 @@ public class SonnerieActivity extends Activity {
     //-----------------------------------------------------------------
     public void arreterAlarm(){
 
-        reveilActivity.cancelAlarm();
+        reveilActivity.cancelAlarmEtSetReveil();
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putInt(ReveilActivity.keyNbRepetitionRestante, 0);
         editor.commit();

@@ -46,11 +46,13 @@ public class ProgrammerAlarm {
         Date dactu = new Date();
         Calendar cal = GregorianCalendar.getInstance();
         Calendar calActu = GregorianCalendar.getInstance();
+        boolean jpasser = false; // si jpasser == true ca veut dire que on est passer sur le jour d'apres aujourdhui
 
         Date d = new Date();
         d=null;
-        while(d==null){ // Tant que la le premier cour de la journee n'existe pas, on va sur le jour suivant ATTENTION SI IL YA  PAS DE JOUR SUIVANT BOUCLE INFINI
-
+        int i = 0;
+        while(d==null && i <= 100){ // Tant que la le premier cour de la journee n'existe pas, on va sur le jour suivant ATTENTION SI IL YA  PAS DE JOUR SUIVANT BOUCLE INFINI
+        i++;
                 System.out.println("Je suis rentré dans la boucle null");
                 cour = adeInfo.getFirstBYDate(dSonner);
                 System.out.println(cour);
@@ -60,22 +62,23 @@ public class ProgrammerAlarm {
                 }// on recup l'heure du premier cour
 
             dSonner.setTime(dSonner.getTime() + 86400000); // On passe a la journee d'apres
+            jpasser = true;
         }
         System.out.println("Je suis sorti de la boucle null");
-        cal.setTime(d); // on defini la date ou il doit sonner
+//        cal.setTime(d); // on defini la date ou il doit sonner
         calActu.setTime(dactu);
-        if(cal.get(Calendar.HOUR_OF_DAY)>=calActu.get(Calendar.HOUR_OF_DAY)){// Si la premiere heure de cour de la journee est passer alors on programme le reveil sur la premiere heure du jour suivant
+        if((cal.get(Calendar.HOUR_OF_DAY)>=calActu.get(Calendar.HOUR_OF_DAY))&&jpasser==false){// Si la premiere heure de cour de la journee est passer alors on programme le reveil sur la premiere heure du jour suivant
             dSonner.setTime(dSonner.getTime() + 86400000);// On passe au jour d'apres
 
                 d = adeInfo.getFirstBYDate(dSonner).getDateD(); // on recup l'heure du cour
 
             while(d==null){ // Tant que la le premier cour de la journee n'existe pas, on va sur le jour suivant ATTENTION SI IL YA  PAS DE JOUR SUIVANT BOUCLE INFINI
 
-                System.out.println("Je suis rentré dans la boucle null");
+                System.out.println("Je suis rentré dans la boucle null2");
                 cour = adeInfo.getFirstBYDate(dSonner);
                 System.out.println(cour);
                 if(cour!=null) {
-                    System.out.println("Je suis dans le if");
+                    System.out.println("Je suis dans le if2");
                     d = adeInfo.getFirstBYDate(dSonner).getDateD();
                 }// on recup l'heure du premier cour
 
@@ -102,15 +105,17 @@ public class ProgrammerAlarm {
 
         //Set l'alarme
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//Choix en fonction de la version d'android
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
         } else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
 
         }
         int tempo = cal.get(Calendar.HOUR_OF_DAY);
         int tempoM = cal.get(Calendar.MINUTE);
+        int tempoJ = cal.get(Calendar.DAY_OF_MONTH);
 
-        String s = String.valueOf(tempo+":"+tempoM);
+
+        String s = String.valueOf(tempo+":"+tempoM+" -> jour :"+tempoJ);
         Log.i("alarm auto set", s);
         //setAlarmRepeter();
     }
