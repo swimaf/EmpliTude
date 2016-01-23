@@ -25,6 +25,7 @@ public class ADE_information {
     private Vector<Object> allCours;
     private SimpleDateFormat dateFormat;
     private Context context;
+    private int compteur;
 
 
     public ADE_information(Date date, Context context){
@@ -98,18 +99,23 @@ public class ADE_information {
         this.date = date;
         this.get();
 
+
         Collections.sort(this.cours, new Comparator<Object>() {
+
             public int compare(Object m1, Object m2) {
                 Date d = (((Cour) m1).getDateD());
                 Date d2 = ((Cour) m2).getDateD();
                 System.out.println("Je renvoi un cour");
+                compteur = 1;
                 return d.compareTo(d2);
 
             }
         });
         System.out.println("je renvoi null");
-      // return this.cours.get(0);
-        return null;
+        if (compteur == 1) {
+            return this.cours.get(0);
+        } else {
+            return null;
+        }
     }
-
 }

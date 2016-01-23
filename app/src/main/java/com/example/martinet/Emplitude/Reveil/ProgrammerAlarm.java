@@ -69,10 +69,17 @@ public class ProgrammerAlarm {
 
                 d = adeInfo.getFirstBYDate(dSonner).getDateD(); // on recup l'heure du cour
 
-            while(d==null){ // si on est tombé sur un jour il a pas cour, on re boucle jusqu'au prochain cour ATTENTION SI IL YA  PAS DE JOUR SUIVANT BOUCLE INFINI
+            while(d==null){ // Tant que la le premier cour de la journee n'existe pas, on va sur le jour suivant ATTENTION SI IL YA  PAS DE JOUR SUIVANT BOUCLE INFINI
+
+                System.out.println("Je suis rentré dans la boucle null");
+                cour = adeInfo.getFirstBYDate(dSonner);
+                System.out.println(cour);
+                if(cour!=null) {
+                    System.out.println("Je suis dans le if");
                     d = adeInfo.getFirstBYDate(dSonner).getDateD();
-                
-                dSonner.setTime(dSonner.getTime() + 86400000);
+                }// on recup l'heure du premier cour
+
+                dSonner.setTime(dSonner.getTime() + 86400000); // On passe a la journee d'apres
             }
             cal.setTime(d); // On re met a jour l'objet calandar qui contient la date ou il doit sonner
         }
