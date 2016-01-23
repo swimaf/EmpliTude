@@ -39,14 +39,12 @@ public class SonnerieActivity extends Activity {
     private ReveilActivity reveilActivity;
 
     // public static SharedPreferences sharedpreferences;
-
-
-
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sonnerie_activity);
         init();
         listeners();
+
         repeter();
         final Window win = getWindow();
         win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |

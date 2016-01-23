@@ -54,6 +54,7 @@ public class ADE_information {
         if(this.vide){
             return null;
         }
+        System.out.println(this.cours.size() );
         return cours;
     }
 
@@ -93,7 +94,7 @@ public class ADE_information {
         }
     }
 
-    public Cour getFirstBYDate(Date date) throws ParseException{
+    public Cour getFirstBYDate(Date date) {
         this.date = date;
         this.get();
 
@@ -101,10 +102,14 @@ public class ADE_information {
             public int compare(Object m1, Object m2) {
                 Date d = (((Cour) m1).getDateD());
                 Date d2 = ((Cour) m2).getDateD();
+                System.out.println("Je renvoi un cour");
                 return d.compareTo(d2);
+
             }
         });
-        return this.cours.get(0);
+        System.out.println("je renvoi null");
+      // return this.cours.get(0);
+        return null;
     }
 
 }

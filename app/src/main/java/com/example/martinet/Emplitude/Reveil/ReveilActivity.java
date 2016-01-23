@@ -97,7 +97,8 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     private View view;
     private LinearLayout lyGeneral;
     private int tmpa;
-    private ADE_information adeInfo;
+    private ProgrammerAlarm proAlarm;
+
 
 
 
@@ -117,7 +118,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         appelListeners();
         appelSwitch();
         initNPTempsPrepa();
-        setAlarmAuto();
+        proAlarm.setAlarmAuto();
 
         return this.view;
     }
@@ -257,7 +258,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
 
        tmpa = sharedpreferences.getInt(keyNbRepetitionRestante, 0);
 
-        adeInfo = new ADE_information(getContext());
+        proAlarm = new ProgrammerAlarm(getContext(),alarmManager,pendingIntent);
 
     }
 
@@ -378,7 +379,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                     tvrTempsPreparation.setTextColor(getResources().getColor(R.color.black));
                     tvrTempo.setTextColor(getResources().getColor(R.color.black));
                     setAlarm();
-                    setAlarmAuto();
+                    proAlarm.setAlarmAuto();
 
 
                     SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -486,7 +487,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     //==========================SETTER D'ALARM==========================
     //==================================================================
     //==================================================================
-    private void setAlarmAuto() {
+   /* private void setAlarmAuto() {
         Calendar calendar = Calendar.getInstance();
 
         Date dSonner = new Date();
@@ -552,7 +553,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         String s = String.valueOf(tempo+":"+tempoM);
         Log.i("alarm auto set",s);
         //setAlarmRepeter();
-    }
+    }*/
 
     private void setAlarm() {
         Calendar calendar = Calendar.getInstance();
@@ -671,7 +672,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     }
 
     public void cancelAlarm() {
-        setAlarmAuto();
+        proAlarm.setAlarmAuto();
         nbRepetionRestante = 0;
         if (alarmManager != null) {
             alarmManager.cancel(pendingIntent);
