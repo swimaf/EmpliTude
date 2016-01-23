@@ -65,7 +65,7 @@ public class ProgrammerAlarm {
             jpasser = true;
         }
         System.out.println("Je suis sorti de la boucle null");
-//        cal.setTime(d); // on defini la date ou il doit sonner
+        cal.setTime(d); // on defini la date ou il doit sonner
         calActu.setTime(dactu);
         if((cal.get(Calendar.HOUR_OF_DAY)>=calActu.get(Calendar.HOUR_OF_DAY))&&jpasser==false){// Si la premiere heure de cour de la journee est passer alors on programme le reveil sur la premiere heure du jour suivant
             dSonner.setTime(dSonner.getTime() + 86400000);// On passe au jour d'apres

@@ -73,6 +73,7 @@ public class SonnerieActivity extends Activity {
         editor.commit();
         couperSonnerie();
     }
+
     //----------------------------------------------------------------
     //-------------Methode pour initialiser les variables-------------
     //----------------------------------------------------------------

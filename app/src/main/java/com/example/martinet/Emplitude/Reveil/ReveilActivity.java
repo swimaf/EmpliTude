@@ -671,15 +671,15 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     }
 
     public void cancelAlarm() {
-        nbRepetionRestante = 0;
+        //nbRepetionRestante = 0;
         if (alarmManager != null) {
             alarmManager.cancel(pendingIntent);
         }
     }
     public void cancelAlarmEtSetReveil() {
-        proAlarm = new ProgrammerAlarm(getContext(),alarmManager,pendingIntent);
+        proAlarm = new ProgrammerAlarm(this.getContext(),alarmManager,pendingIntent);
         proAlarm.setAlarmAuto();
-        nbRepetionRestante = 0;
+       //nbRepetionRestante = 0;
         if (alarmManager != null) {
             alarmManager.cancel(pendingIntent);
         }
