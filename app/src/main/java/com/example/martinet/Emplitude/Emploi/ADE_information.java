@@ -55,7 +55,6 @@ public class ADE_information {
         if(this.vide){
             return null;
         }
-        System.out.println(this.cours.size() );
         return cours;
     }
 
@@ -99,23 +98,19 @@ public class ADE_information {
         this.date = date;
         this.get();
 
-
         Collections.sort(this.cours, new Comparator<Object>() {
 
             public int compare(Object m1, Object m2) {
                 Date d = (((Cour) m1).getDateD());
                 Date d2 = ((Cour) m2).getDateD();
-                System.out.println("Je renvoi un cour");
-                compteur = 1;
                 return d.compareTo(d2);
 
             }
         });
-        System.out.println("je renvoi null ou un cour");
-        if (compteur == 1) {
-            return this.cours.get(0);
-        } else {
+        if (this.cours.size() == 0) {
             return null;
+        } else {
+            return this.cours.get(0);
         }
     }
 }
