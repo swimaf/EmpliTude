@@ -25,12 +25,16 @@ public class ProgrammerAlarm {
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private Cour cour;
+    public static final String MesPREFERENCES = "mesPreferences";
+    public static SharedPreferences sharedpreferences;
 
     public ProgrammerAlarm(Context c,AlarmManager a,PendingIntent p){
         adeInfo = new ADE_information(c);
         alarmManager = a;
         pendingIntent = p;
         cour = new Cour();
+        sharedpreferences = c.getSharedPreferences(MesPREFERENCES, Context.MODE_PRIVATE);
+
     }
 
     //==================================================================
@@ -120,6 +124,46 @@ public class ProgrammerAlarm {
         //setAlarmRepeter();
     }
 
+
+    public void setAlarmTempo() {
+        int tps = sharedpreferences.getInt(ReveilActivity.keyMinTempo, 0);// Je recupere la valeur de tempo ( que j'ajouterais apres )
+        SimpleDateFormat heure = new SimpleDateFormat("HH");
+        SimpleDateFormat minute = new SimpleDateFormat("mm");
+
+        Calendar c = Calendar.getInstance();
+        // Je recup heure minute actuel
+        String ha = heure.format(c.getTime());
+        String ma = minute.format(c.getTime());
+        // Conversion en int
+        int entierHa = Integer.parseInt(ha);
+        int entierMa = Integer.parseInt(ma);
+        Log.i("heureAcctuel", ha);
+        Log.i("minAcctuel", ma);
+
+        if (entierMa + tps >= 60) {//Ex : si il est 6h58 que je tempo de 5mn, je peux pas dire je sonne a la 63ème minute
+            entierMa = (entierMa + tps) - 60;// j'adiitionne j'obtiens 63, j'enleve 60, j'ai 3
+            entierHa++;// je rajoute 1h car j'ai enlever 60mn
+        } else {//sinon j'ai juste a ajouter les minute |ex : j'ajoute 5 mn si il esty 6h20
+            entierMa = entierMa + tps;//20+5 = 25mn et les heures on pas changé
+        }
+        //variable tempo pour test console ( supprimable car fonctionne )
+        String hap = String.valueOf(entierHa);
+        String map = String.valueOf(entierMa);
+        //affichage console
+        Log.i("heureDeReport", hap);
+        Log.i("minDeReport", map);
+        Calendar calendar = Calendar.getInstance();
+        //Met dans un object calendar l'heure ou il doit sonner puis la minute
+        calendar.set(Calendar.HOUR_OF_DAY, entierHa);
+        calendar.set(Calendar.MINUTE, entierMa);
+        //Set l'alarme
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//Choix en fonction de la version d'android
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        } else {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+        }
+    }
 
 
 

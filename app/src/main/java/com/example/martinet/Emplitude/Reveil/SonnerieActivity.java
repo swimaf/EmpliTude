@@ -39,6 +39,7 @@ public class SonnerieActivity extends Activity {
     public static final String MesPREFERENCES = "mesPreferences";
     public static SharedPreferences sharedpreferences;
     private ArreterAlarm arreterAlarm;
+    private ProgrammerAlarm programmerAlarm;
     AlarmManager alarmManager;
     PendingIntent pendingIntent;
 
@@ -93,6 +94,8 @@ public class SonnerieActivity extends Activity {
         pendingIntent = PendingIntent.getBroadcast(SonnerieActivity.this, 0, myIntent, 0);
 
 
+        programmerAlarm = new ProgrammerAlarm(SonnerieActivity.this,alarmManager,pendingIntent);
+
 
         arreterAlarm = new ArreterAlarm(SonnerieActivity.this,alarmManager,pendingIntent);
         //Bouton repeter
@@ -131,7 +134,7 @@ public class SonnerieActivity extends Activity {
         View.OnClickListener listenerTempo = new View.OnClickListener() {
             public void onClick(View view) {
                 arreterAlarm();
-                ReveilActivity.setAlarmTempo();
+                programmerAlarm.setAlarmTempo();
                 ouvrirMain();
                 //penser a onDelete ?
             }
