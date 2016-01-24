@@ -44,7 +44,7 @@ public class DialogDate extends DialogFragment{
         return dialog;
     }
 
-    private void setOnDateSetListener(OnDateSetListener listener) {
+    private void setOnDateSetListener(DatePickerDialog.OnDateSetListener listener) {
         this.onDateSetListener = listener;
     }
 
