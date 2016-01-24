@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.martinet.Emplitude.Constants;
 import com.example.martinet.Emplitude.MainActivity;
 import com.example.martinet.Emplitude.R;
 
@@ -40,24 +41,22 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
     private FrameLayout l;
     private RelativeLayout vide;
 
+    public JourEmploi(Date date){
+        this.dateJour =date;
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         //Initialisation des variables
 
         View view = inflater.inflate(R.layout.emploi_du_jour, container, false);
-        this.dateJour = new Date(getArguments().getLong("dateJour"));
         this.settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
         this.l = (FrameLayout) view.findViewById(R.id.frame);
         this.grille = (GridLayout) view.findViewById(R.id.heures);
         this.vide = (RelativeLayout) view.findViewById(R.id.vide);
         this.editor = settings.edit();
         this.cours = null;
-        this.HEIGHT = this.getHeight();
-
-
-        //Définition du rechargement manuel
-
+        this.HEIGHT = Constants.getHeight(getContext());
 
         //Appel des methodes d'affichages des différentes parties
 
@@ -84,12 +83,9 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
     }
 
     public void loadCours() {
-        try {
-            ADE_information fichier = new ADE_information(this.dateJour, getContext());
-            this.cours = fichier.getCours();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        ADE_information fichier = new ADE_information(this.dateJour, getContext());
+        this.cours = fichier.getCours();
+
         int ECART = (int) (HEIGHT / (60.0));
         HashMap couleur = (HashMap) settings.getAll();
         Date dateD, dateF;
@@ -141,18 +137,6 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
     }
 
 
-    public int getHeight() {
-        DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
-        int width = metrics.widthPixels;
-        int height = metrics.heightPixels;
-        if (width > height) {
-            height = width - 150;
-        } else {
-            height = height - 150;
-        }
-        return height;
-    }
-
     public void onClick(View v) {
 
         Bundle objetbunble = new Bundle();
@@ -167,7 +151,7 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
 
     public void reloadJour(int number){
         Emploi e = (Emploi) ((MainActivity) getActivity()).getFragment();
-        e.modifierDate(number);
+        e.refresh();
     }
 
 

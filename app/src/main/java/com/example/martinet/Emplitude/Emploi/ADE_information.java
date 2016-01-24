@@ -25,6 +25,7 @@ public class ADE_information {
     private Vector<Object> allCours;
     private SimpleDateFormat dateFormat;
     private Context context;
+    private int compteur;
 
 
     public ADE_information(Date date, Context context){
@@ -49,7 +50,7 @@ public class ADE_information {
         }
     }
     //Recupération des cours
-    public Vector<Cour> getCours() throws ParseException {
+    public Vector<Cour> getCours() {
         this.get();
         if(this.vide){
             return null;
@@ -58,7 +59,7 @@ public class ADE_information {
     }
 
     //Récupération dernier cour
-    public Cour getNext() throws ParseException{
+    public Cour getNext(){
         Cour c;
         cours = new Vector<>();
         Date d = new Date();
@@ -93,17 +94,23 @@ public class ADE_information {
         }
     }
 
-    public Cour getFirstBYDate(Date date) throws ParseException{
+    public Cour getFirstBYDate(Date date) {
         this.date = date;
         this.get();
+
         Collections.sort(this.cours, new Comparator<Object>() {
+
             public int compare(Object m1, Object m2) {
                 Date d = (((Cour) m1).getDateD());
                 Date d2 = ((Cour) m2).getDateD();
                 return d.compareTo(d2);
+
             }
         });
-        return this.cours.get(0);
+        if (this.cours.size() == 0) {
+            return null;
+        } else {
+            return this.cours.get(0);
+        }
     }
-
 }

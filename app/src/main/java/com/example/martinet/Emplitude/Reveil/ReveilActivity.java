@@ -34,12 +34,18 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 
+import com.example.martinet.Emplitude.Constants;
+import com.example.martinet.Emplitude.Emploi.ADE_information;
 import com.example.martinet.Emplitude.R;
 
 import org.w3c.dom.Text;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 
 public class ReveilActivity extends Fragment implements NumberPicker.OnValueChangeListener {
@@ -90,6 +96,8 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     private Button btnSon;
     private View view;
     private LinearLayout lyGeneral;
+    private int tmpa;
+    private ProgrammerAlarm proAlarm;
 
 
 
@@ -110,7 +118,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         appelListeners();
         appelSwitch();
         initNPTempsPrepa();
-
+        proAlarm.setAlarmAuto();
 
         return this.view;
     }
@@ -248,6 +256,10 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         tvrTempsPreparation = (TextView) view.findViewById(R.id.tvrTempsPreparation);
         tvrTempo = (TextView) view.findViewById(R.id.tvrTempo);
 
+       tmpa = sharedpreferences.getInt(keyNbRepetitionRestante, 0);
+
+        proAlarm = new ProgrammerAlarm(getContext(),alarmManager,pendingIntent);
+
     }
 
     //----------------------------------------------------------------------------
@@ -365,8 +377,8 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                     tvrSon.setTextColor(getResources().getColor(R.color.black));
                     tvrMinutes.setTextColor(getResources().getColor(R.color.black));
                     tvrTempsPreparation.setTextColor(getResources().getColor(R.color.black));
-                    tvrTempo.setTextColor(getResources().getColor(R.color.black));
-
+                    proAlarm = new ProgrammerAlarm(getContext(),alarmManager,pendingIntent);
+                    proAlarm.setAlarmAuto();
 
 
                     SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -399,7 +411,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                     tvrMinutes.setTextColor(getResources().getColor(R.color.grisDesactiv));
                     tvrTempsPreparation.setTextColor(getResources().getColor(R.color.grisDesactiv));
                     tvrTempo.setTextColor(getResources().getColor(R.color.grisDesactiv));
-
+                    cancelAlarm();
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putBoolean(keyDActivDesactiv, dActivDesaciv);
                     editor.commit();
@@ -474,11 +486,80 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     //==========================SETTER D'ALARM==========================
     //==================================================================
     //==================================================================
+   /* private void setAlarmAuto() {
+        Calendar calendar = Calendar.getInstance();
 
+        Date dSonner = new Date();
+        Date dactu = new Date();
+        Calendar cal = GregorianCalendar.getInstance();
+        Calendar calActu = GregorianCalendar.getInstance();
+
+        Date d = new Date();
+        d=null;
+        while(d==null){ // Tant que la le premier cour de la journee n'existe pas, on va sur le jour suivant ATTENTION SI IL YA  PAS DE JOUR SUIVANT BOUCLE INFINI
+            try {
+                d = adeInfo.getFirstBYDate(dSonner).getDateD(); // on recup l'heure du premier cour
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            dSonner.setTime(dSonner.getTime() + 86400000); // On passe a la journee d'apres
+        }
+        cal.setTime(d); // on defini la date ou il doit sonner
+        calActu.setTime(dactu);
+        if(cal.get(Calendar.HOUR_OF_DAY)>=calActu.get(Calendar.HOUR_OF_DAY)){// Si la premiere heure de cour de la journee est passer alors on programme le reveil sur la premiere heure du jour suivant
+            dSonner.setTime(dSonner.getTime() + 86400000);// On passe au jour d'apres
+            try {
+                d = adeInfo.getFirstBYDate(dSonner).getDateD(); // on recup l'heure du cour
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            while(d==null){ // si on est tombé sur un jour il a pas cour, on re boucle jusqu'au prochain cour ATTENTION SI IL YA  PAS DE JOUR SUIVANT BOUCLE INFINI
+                try {
+                    d = adeInfo.getFirstBYDate(dSonner).getDateD();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                dSonner.setTime(dSonner.getTime() + 86400000);
+            }
+            cal.setTime(d); // On re met a jour l'objet calandar qui contient la date ou il doit sonner
+        }
+
+
+
+        //Met dans un object calendar l'heure ou il doit sonner puis la minute
+
+
+        calendar.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
+                calendar.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
+
+
+            //Set les repetitions
+            nbRepetionRestante = getNbFoisRepeter();
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putInt(keyNbRepetitionRestante, nbRepetionRestante);
+            editor.commit();
+
+            //Set l'alarme
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//Choix en fonction de la version d'android
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            } else {
+                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+            }
+        int tempo = cal.get(Calendar.HOUR_OF_DAY);
+        int tempoM = cal.get(Calendar.MINUTE);
+
+        String s = String.valueOf(tempo+":"+tempoM);
+        Log.i("alarm auto set",s);
+        //setAlarmRepeter();
+    }*/
 
     private void setAlarm() {
         Calendar calendar = Calendar.getInstance();
         //Met dans un object calendar l'heure ou il doit sonner puis la minute
+
+
+
         calendar.set(Calendar.HOUR_OF_DAY, timeHour);
         calendar.set(Calendar.MINUTE, timeMinute);
         //Set les repetitions
@@ -486,7 +567,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putInt(keyNbRepetitionRestante, nbRepetionRestante);
         editor.commit();
-        minRepetition = getMinRepeter();
+
         //Set l'alarme
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//Choix en fonction de la version d'android
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
@@ -494,6 +575,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
         }
+
         //setAlarmRepeter();
     }
 
@@ -538,11 +620,13 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         }
     }
 
-    public static void setAlarmRepeter() {
-        int tps = 5 + minRepetition;//Intervale entre les deux sonneries -> Faudrait faire un constante
+    public void setAlarmRepeter() {
+
+        int tps = Constants.intervaleSonnerieRepeter + minRepetition;//Intervale entre les deux sonneries -> Faudrait faire un constante
         SimpleDateFormat heure = new SimpleDateFormat("HH");
         SimpleDateFormat minute = new SimpleDateFormat("mm");
-        if (sharedpreferences.getInt(keyNbRepetitionRestante, 0) != 0) {
+
+        if (tmpa!= 0) {
             Calendar c = Calendar.getInstance();
             // Je recup heure minute actuel
             String ha = heure.format(c.getTime());
@@ -586,8 +670,16 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         }
     }
 
-    public static void cancelAlarm() {
-        nbRepetionRestante = 0;
+    public void cancelAlarm() {
+        //nbRepetionRestante = 0;
+        if (alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
+        }
+    }
+    public void cancelAlarmEtSetReveil() {
+        proAlarm = new ProgrammerAlarm(this.getContext(),alarmManager,pendingIntent);
+        proAlarm.setAlarmAuto();
+       //nbRepetionRestante = 0;
         if (alarmManager != null) {
             alarmManager.cancel(pendingIntent);
         }
