@@ -13,6 +13,8 @@ import com.example.martinet.Emplitude.MainActivity;
 import com.example.martinet.Emplitude.R;
 import com.github.danielnilsson9.colorpickerview.view.ColorPickerView;
 
+import java.util.ListIterator;
+
 public class ColorPicker extends DialogFragment {
 
     @Override
@@ -30,8 +32,8 @@ public class ColorPicker extends DialogFragment {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JourEmploi fragmentAppeler = (JourEmploi) ((Emploi) ((MainActivity) getActivity()).getFragment()).getFragment();
-                fragmentAppeler.setColorButton(mColorPickerView.getColor());
+
+                ((Emploi)((MainActivity)getActivity()).getFragment()).getFragment().setColorButton(mColorPickerView.getColor());
                 dismiss();
             }
         });
