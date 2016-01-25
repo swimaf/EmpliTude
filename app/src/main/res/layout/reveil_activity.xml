@@ -96,14 +96,7 @@
         android:id="@+id/stackView4"
         android:layout_gravity="center_horizontal" />
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:layout_marginLeft="@dimen/mrBordureH"
-        android:layout_marginRight="@dimen/mrBordureH"
-        android:background="#CECECE" />
-
-    <LinearLayout
+        <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
