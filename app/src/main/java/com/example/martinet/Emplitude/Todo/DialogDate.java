@@ -20,10 +20,11 @@ import java.util.Locale;
  */
 public class DialogDate extends DialogFragment{
 
-    private OnDateSetListener onDateSetListener;
+    private static final String MOVE_IN_DATE_KEY = "monPicker";
+    private DatePickerDialog.OnDateSetListener onDateSetListener;
 
-    static DialogDate newInstance(Date date, OnDateSetListener onDateSetListener) {
-        DialogDate pickerFragment = new DatePickerFragment();
+    static DialogDate newInstance(Date date, DatePickerDialog.OnDateSetListener onDateSetListener) {
+        DialogDate pickerFragment = new DialogDate();
         pickerFragment.setOnDateSetListener(onDateSetListener);
 
         //Pass the date in a bundle.

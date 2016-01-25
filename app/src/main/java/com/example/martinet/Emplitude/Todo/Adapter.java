@@ -5,6 +5,7 @@ package com.example.martinet.Emplitude.Todo;
  */
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.example.martinet.Emplitude.MainActivity;
 import com.example.martinet.Emplitude.R;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Vector;
 
 public class Adapter extends ArrayAdapter<String>{
@@ -40,7 +42,9 @@ public class Adapter extends ArrayAdapter<String>{
         TextView date = (TextView) rowView.findViewById(R.id.date);
         ImageButton modif = (ImageButton) rowView.findViewById(R.id.modifier);
         ImageButton supp = (ImageButton) rowView.findViewById(R.id.supprimer);
+        Date jour = new Date();
         final Tache t;
+
 
         try {
             t = (Tache) lesTaches.get(position);
@@ -48,20 +52,19 @@ public class Adapter extends ArrayAdapter<String>{
             matiere.setText("Matière : " + t.getMatiere());
             Jour j = new Jour(t.getDate());
             date.setText("Date : " + j.getJour());
-        }catch (Exception e){
+            if(jour.after(t.getDate())){
+                rowView.findViewById(R.id.tacheLayout).setBackgroundResource(R.color.tacheGris);
+            }
+        }catch (Exception e){}
 
-        }
+
+
 
         modif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle objetbunble = new Bundle();
-                objetbunble.putSerializable("Tache", (Tache) lesTaches.get(position));
-                Intent intent = new Intent(getContext(), Ajouter.class);
-                intent.putExtras(objetbunble);
-                intent.putExtra("position",position);
-                context.startActivityForResult(intent, 1);
-                context.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                Todo t=(Todo)((MainActivity)context).getFragment();
+                t.modifierTache(position, (Tache) lesTaches.get(position));
             }
         });
 
@@ -73,12 +76,7 @@ public class Adapter extends ArrayAdapter<String>{
                 t.creationListeTaches();
             }
         });
-
-
         return rowView;
     }
-
-    public void deleteTache (int id){
-
-    }
+    
 }

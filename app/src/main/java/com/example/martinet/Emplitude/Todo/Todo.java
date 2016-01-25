@@ -12,10 +12,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.martinet.Emplitude.Constants;
+import com.example.martinet.Emplitude.Emploi.Cour;
 import com.example.martinet.Emplitude.Outil.Fichier;
 import com.example.martinet.Emplitude.R;
 
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -71,6 +74,13 @@ public class Todo extends Fragment{
             aucune.setVisibility(View.VISIBLE);
             list.setVisibility(View.GONE);
         }else {
+            Collections.sort(mesTaches, new Comparator<Object>() {
+                public int compare(Object m1, Object m2) {
+                    Date d = ((Tache)m1).getDate();
+                    Date d2 = ((Tache)m2).getDate();
+                    return d.compareTo(d2);
+                }
+            });
             Adapter adapter = new Adapter(getActivity(), mesTaches);
             aucune.setVisibility(View.GONE);
             list.setVisibility(View.VISIBLE);
@@ -85,14 +95,20 @@ public class Todo extends Fragment{
         if(resultCode == Activity.RESULT_OK){
             this.creationListeTaches();
         }
-        if (resultCode == Activity.RESULT_CANCELED) {
-                //Write your code if there's no result
-        }
     }
 
     public void onStop(){
         Fichier.ecrireVector(Constants.tacheFile, getContext(),Todo.mesTaches);
         super.onStop();
+    }
+
+    public void modifierTache(int position, Tache tache){
+        Bundle objetbunble = new Bundle();
+        objetbunble.putSerializable("Tache", tache);
+        Intent intent = new Intent(getContext(), Ajouter.class);
+        intent.putExtras(objetbunble);
+        intent.putExtra("position", position);
+        startActivityForResult(intent, 1);
     }
 
 }

@@ -7,6 +7,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="windowBackground">#fafafa</color>
+    <color name="tacheGris">#1a000000</color>
     <array name="spinner">
         <item>#24c6d5</item>
         <item>#57dd86</item>
@@ -22,4 +23,5 @@
         <item>#FFEB3B</item>
         <item>#FFFFFF</item>
     </array>
+
 </resources>
