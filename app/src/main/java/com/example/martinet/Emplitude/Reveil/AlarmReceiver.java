@@ -23,7 +23,8 @@ import android.widget.Switch;
 
 public class AlarmReceiver extends WakefulBroadcastReceiver {
     //Varianle qui fait sonner le reveil
-    public static Ringtone ringtone;
+    public  static Ringtone ringtone;
+    public  static Vibrator v;
     private Switch torch;
     private View view;
     private Camera camera;
@@ -37,7 +38,6 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         //MainActivity.getTextView2().setText("Go en maths :p !");
 
         //Faire jouer la sonerie
-        Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context,RingtoneManager.TYPE_ALARM);
 
         Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
@@ -46,13 +46,14 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         ringtone = RingtoneManager.getRingtone(context, alert);
         ringtone.play();
 
-/*
+        v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+
         //Faire Virbrer le telephone
         if(ReveilActivity.getDSonner()) {
-            Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            v.vibrate(2000); // faire sonne en serie quand repeter
+            long[] pattern = { 0, 2000, 1000 };
+            v.vibrate(pattern,0); // faire sonne en serie quand repeter
         }
-
+/*
         if(ReveilActivity.getDTorche()) {
             this.camera         = Camera.open();
             this.p              = camera.getParameters();
@@ -83,8 +84,9 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
 
     //methode pour couper le reveil ( appeler dans le mainactivity)
-    public static void couperSonnerie(){
+    public  static void couperSonnerie(){
         ringtone.stop();
+        v.cancel();
     }
 
 

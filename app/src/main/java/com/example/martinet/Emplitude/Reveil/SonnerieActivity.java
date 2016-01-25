@@ -11,7 +11,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -40,6 +44,7 @@ public class SonnerieActivity extends Activity {
     public static SharedPreferences sharedpreferences;
     private ArreterAlarm arreterAlarm;
     private ProgrammerAlarm programmerAlarm;
+    private AlarmReceiver alarmReceiver;
     AlarmManager alarmManager;
     PendingIntent pendingIntent;
 
@@ -76,7 +81,14 @@ public class SonnerieActivity extends Activity {
         SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.putInt(ReveilActivity.keyNbRepetitionRestante, 0);
         editor.commit();
-        couperSonnerie();
+        Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+
+        //Le son qui va sonner ( de base j'ai mis ici TYPE_ALARM )
+        AlarmReceiver.ringtone.stop();
+        if(AlarmReceiver.v.hasVibrator()) {
+            AlarmReceiver.v.cancel();
+        }
+
     }
 
     //----------------------------------------------------------------
@@ -88,6 +100,8 @@ public class SonnerieActivity extends Activity {
 
         //AlarmManager
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        alarmReceiver = new AlarmReceiver();
 
         //Itent
         Intent myIntent = new Intent(SonnerieActivity.this, AlarmReceiver.class);

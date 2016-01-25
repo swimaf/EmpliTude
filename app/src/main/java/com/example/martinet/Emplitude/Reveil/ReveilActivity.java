@@ -373,6 +373,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                     btnSon.setTextColor(getResources().getColor(R.color.black));
                     btnRepeter.setTextColor(getResources().getColor(R.color.black));
                     btnTempo.setTextColor(getResources().getColor(R.color.black));
+                    tvrTempo.setTextColor(getResources().getColor(R.color.black));
                     tvrRepeter.setTextColor(getResources().getColor(R.color.black));
                     tvrSon.setTextColor(getResources().getColor(R.color.black));
                     tvrMinutes.setTextColor(getResources().getColor(R.color.black));
