@@ -90,36 +90,7 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/mrBordureH"
-        android:layout_marginRight="@dimen/mrBordureH"
-        android:layout_marginBottom="@dimen/mrBordureV"
-        android:layout_marginTop="@dimen/mrBordureV">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tvrRepeter"
-            android:id="@+id/tvrRepeter"
-            android:textSize="@dimen/tvrItems"
-            android:textColor="#000" />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/tvrRepeterDroite"
-            android:id="@+id/brRepeterDroite"
-            android:textSize="@dimen/tvrItems"
-            android:textColor="#000"
-            android:gravity="right"
-            android:background="@android:color/transparent"
-
-            />
-    </LinearLayout>
-    <StackView
+        <StackView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/stackView4"

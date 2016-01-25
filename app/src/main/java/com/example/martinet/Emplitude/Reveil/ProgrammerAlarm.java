@@ -6,12 +6,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
-
-import com.example.martinet.Emplitude.Constants;
 import com.example.martinet.Emplitude.Emploi.ADE_information;
 import com.example.martinet.Emplitude.Emploi.Cour;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;

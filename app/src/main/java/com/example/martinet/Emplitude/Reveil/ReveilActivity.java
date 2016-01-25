@@ -15,7 +15,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -25,28 +24,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.TextView;
-
-
 import com.example.martinet.Emplitude.Constants;
-import com.example.martinet.Emplitude.Emploi.ADE_information;
 import com.example.martinet.Emplitude.R;
-
-import org.w3c.dom.Text;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-
 
 public class ReveilActivity extends Fragment implements NumberPicker.OnValueChangeListener {
     //---------------------------------------------------------------
@@ -77,7 +64,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     private static PendingIntent pendingIntent;
     private static Context mContext;
     private FragmentActivity myContext;
-
     private TextView textView1;
     private TextView tvrTempsPreparation;
     private TextView tvrMinutes;
@@ -95,7 +81,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     private Button btn1;
     private Button btnSon;
     private View view;
-    private LinearLayout lyGeneral;
     private int tmpa;
     private ProgrammerAlarm proAlarm;
 
@@ -171,19 +156,11 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
             }
         };
 
-        /*//Listener2 -> bouton couper l'alarme
-        OnClickListener listener2 = new OnClickListener() {
-            public void onClick(View view) {
-                textView2.setText("");
-                cancelAlarm();
-                couperSonnerie();
-            }
-        };*/
+
 
         //Set On Click Listener
         btn1.setOnClickListener(listener1);
-//        btn2.setOnClickListener(listener2);
-        btnRepeter.setOnClickListener(listenerRepeter);
+        //btn2.setOnClickListener(listener2);
         btnTempo.setOnClickListener(listenerTemporisation);
         btnSon.setOnClickListener(listenerSon);
 
@@ -200,7 +177,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         //TextViews
         textView1 = (TextView) view.findViewById(R.id.msg1);
         textView1.setText(timeHour + ":" + timeMinute);
-        //textView2 = (TextView) findViewById(R.id.msg2);
 
 
         //AlarmManager
@@ -223,17 +199,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         //Button
         btn1 = (Button) view.findViewById(R.id.button1);//Bouton programmer pour test
         //btn2 = (Button) findViewById(R.id.button2);//Bouton arreter pour test
-        btnRepeter = (Button) view.findViewById(R.id.brRepeterDroite);
 
-        if((sharedpreferences.contains(keyNbRepetition)) && sharedpreferences.contains(keyMinRepetition)) {
-            btnRepeter.setText(String.valueOf(sharedpreferences.getInt(keyNbRepetition, 0)) + " fois " + String.valueOf(sharedpreferences.getInt(keyMinRepetition, 0)) + " min");
-
-        }else{
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putInt(keyNbRepetition, getNbFoisRepeter());
-            editor.putInt(keyMinRepetition, getMinRepeter());
-            editor.commit();
-        }
 
         btnTempo = (Button) view.findViewById(R.id.brTempoDroite);
 
@@ -248,10 +214,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
 
         btnSon = (Button) view.findViewById(R.id.brSonDroite);
 
-        lyGeneral = (LinearLayout) view.findViewById(R.id.lyGeneral);
-
         tvrMinutes = (TextView) view.findViewById(R.id.tvrMinutes);
-        tvrRepeter = (TextView) view.findViewById(R.id.tvrRepeter);
         tvrSon = (TextView) view.findViewById(R.id.tvrSon);
         tvrTempsPreparation = (TextView) view.findViewById(R.id.tvrTempsPreparation);
         tvrTempo = (TextView) view.findViewById(R.id.tvrTempo);
@@ -344,7 +307,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     //-------Methode pour savoir si les switch sont activé ou non----
     //---------------------------------------------------------------
 
-    //Log.i = message a affiché dans la consol android studio (.i pour information )
 
     public void appelSwitch() {
         switchActivDesactiv.setChecked(sharedpreferences.getBoolean(keyDActivDesactiv,false));
@@ -353,7 +315,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {//Si le switch est activé alors
                     Log.i("test", "Reveil actif");
-                   //lyGeneral.setBackgroundColor(getResources().getColor(R.color.white));
                     switchActivDesactiv.setText("Activé");
                     dActivDesaciv=true;
                     switchFondu.setEnabled(true);
@@ -387,7 +348,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                     editor.commit();
                 } else {
                     Log.i("test", "Reveil innactif");
-                    //lyGeneral.setBackgroundColor(getResources().getColor(R.color.grisDesactiv));
                     switchActivDesactiv.setText("Désactivé");
                     dActivDesaciv = false;
                     switchFondu.setEnabled(false);
@@ -487,97 +447,19 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     //==========================SETTER D'ALARM==========================
     //==================================================================
     //==================================================================
-   /* private void setAlarmAuto() {
-        Calendar calendar = Calendar.getInstance();
 
-        Date dSonner = new Date();
-        Date dactu = new Date();
-        Calendar cal = GregorianCalendar.getInstance();
-        Calendar calActu = GregorianCalendar.getInstance();
-
-        Date d = new Date();
-        d=null;
-        while(d==null){ // Tant que la le premier cour de la journee n'existe pas, on va sur le jour suivant ATTENTION SI IL YA  PAS DE JOUR SUIVANT BOUCLE INFINI
-            try {
-                d = adeInfo.getFirstBYDate(dSonner).getDateD(); // on recup l'heure du premier cour
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            dSonner.setTime(dSonner.getTime() + 86400000); // On passe a la journee d'apres
-        }
-        cal.setTime(d); // on defini la date ou il doit sonner
-        calActu.setTime(dactu);
-        if(cal.get(Calendar.HOUR_OF_DAY)>=calActu.get(Calendar.HOUR_OF_DAY)){// Si la premiere heure de cour de la journee est passer alors on programme le reveil sur la premiere heure du jour suivant
-            dSonner.setTime(dSonner.getTime() + 86400000);// On passe au jour d'apres
-            try {
-                d = adeInfo.getFirstBYDate(dSonner).getDateD(); // on recup l'heure du cour
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            while(d==null){ // si on est tombé sur un jour il a pas cour, on re boucle jusqu'au prochain cour ATTENTION SI IL YA  PAS DE JOUR SUIVANT BOUCLE INFINI
-                try {
-                    d = adeInfo.getFirstBYDate(dSonner).getDateD();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                dSonner.setTime(dSonner.getTime() + 86400000);
-            }
-            cal.setTime(d); // On re met a jour l'objet calandar qui contient la date ou il doit sonner
-        }
-
-
-
-        //Met dans un object calendar l'heure ou il doit sonner puis la minute
-
-
-        calendar.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
-                calendar.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
-
-
-            //Set les repetitions
-            nbRepetionRestante = getNbFoisRepeter();
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putInt(keyNbRepetitionRestante, nbRepetionRestante);
-            editor.commit();
-
-            //Set l'alarme
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//Choix en fonction de la version d'android
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            } else {
-                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
-            }
-        int tempo = cal.get(Calendar.HOUR_OF_DAY);
-        int tempoM = cal.get(Calendar.MINUTE);
-
-        String s = String.valueOf(tempo+":"+tempoM);
-        Log.i("alarm auto set",s);
-        //setAlarmRepeter();
-    }*/
 
     private void setAlarm() {
         Calendar calendar = Calendar.getInstance();
         //Met dans un object calendar l'heure ou il doit sonner puis la minute
-
-
-
         calendar.set(Calendar.HOUR_OF_DAY, timeHour);
         calendar.set(Calendar.MINUTE, timeMinute);
-        //Set les repetitions
-        nbRepetionRestante = getNbFoisRepeter();
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putInt(keyNbRepetitionRestante, nbRepetionRestante);
-        editor.commit();
-
         //Set l'alarme
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//Choix en fonction de la version d'android
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         } else {
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
         }
-
-        //setAlarmRepeter();
     }
 
     //Fonction pour re set automatiquement l'alarme apres un tempo
@@ -713,7 +595,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         brValiderTempo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //btnTempo.setText(String.valueOf(nprMinTempo.getValue()) + " min");
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putInt(keyMinTempo, nprMinTempo.getValue());
                 editor.commit();
@@ -747,11 +628,8 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         nprMinRepeter = (NumberPicker) dialogRepeter.findViewById(R.id.nprMinRepeter);
 
         nprFoisRepeter.setMaxValue(10);
-        nprFoisRepeter.setMinValue(0);
-        nprFoisRepeter.setValue(getNbFoisRepeter());//Pour changer valeur aller dans strings.xml
         nprMinRepeter.setMaxValue(30);
         nprMinRepeter.setMinValue(1);
-        nprMinRepeter.setValue(getMinRepeter());//Pour changer valeur aller dans strings.xml
         nprFoisRepeter.setWrapSelectorWheel(true);//Permet de faire la roulette vers le haut ( au dessus de min pour arriver sur max )
         nprFoisRepeter.setOnValueChangedListener(this);
         nprMinRepeter.setWrapSelectorWheel(true);
@@ -791,98 +669,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     //==================================================================
 
 
-    public int getDureePrepa() {
-        return Integer.valueOf(npDureePrepa.getValue());
-    }
-
-    //Y'avais peut etre moyen de faire plus simple pour ses getters.. Mais ils fonctionnent
-    //------------------
-    public int getNbFoisRepeter() {/*
-        int nbFoisRepeter = 0;
-        String strTempoNbFoisRepeter;
-        char chaTempoNbFoisRepeter;
-        String contenuText = String.valueOf(btnRepeter.getText());
-        char chaTempoA1 = contenuText.charAt(1);
-        if (chaTempoA1 == ' ') {
-            chaTempoNbFoisRepeter = contenuText.charAt(0);
-            strTempoNbFoisRepeter = String.valueOf(chaTempoNbFoisRepeter);
-            nbFoisRepeter = Integer.parseInt(strTempoNbFoisRepeter);
-
-        } else {
-            chaTempoNbFoisRepeter = contenuText.charAt(0);
-            strTempoNbFoisRepeter = String.valueOf(chaTempoNbFoisRepeter);
-            chaTempoNbFoisRepeter = contenuText.charAt(1);
-            strTempoNbFoisRepeter = strTempoNbFoisRepeter.concat(String.valueOf(chaTempoNbFoisRepeter));
-            nbFoisRepeter = Integer.parseInt(strTempoNbFoisRepeter);
-        }
-        return nbFoisRepeter;*/
-        return sharedpreferences.getInt(keyNbRepetition, 0);
-    }
-
-    //------------------
-    //------------------
-    public static int getMinRepeter() {
-        /*
-        int minRepeter = 0;
-        String strTempoMinRepeter;
-        char chaTempoMinRepeter;
-        String contenuText = String.valueOf(btnRepeter.getText());
-        char chaTempoA1 = contenuText.charAt(1);
-        char chaTempoA8 = contenuText.charAt(8);
-        char chaTempoA9 = contenuText.charAt(9);
-        if (chaTempoA1 == ' ') {
-            if (chaTempoA8 == ' ') {
-                chaTempoMinRepeter = contenuText.charAt(7);
-                strTempoMinRepeter = String.valueOf(chaTempoMinRepeter);
-                minRepeter = Integer.parseInt(strTempoMinRepeter);
-
-            } else {
-                chaTempoMinRepeter = contenuText.charAt(7);
-                strTempoMinRepeter = String.valueOf(chaTempoMinRepeter);
-                chaTempoMinRepeter = contenuText.charAt(8);
-                strTempoMinRepeter = strTempoMinRepeter.concat(String.valueOf(chaTempoMinRepeter));
-                minRepeter = Integer.parseInt(strTempoMinRepeter);
-            }
-        } else {
-            if (chaTempoA9 == ' ') {
-                chaTempoMinRepeter = contenuText.charAt(8);
-                strTempoMinRepeter = String.valueOf(chaTempoMinRepeter);
-                minRepeter = Integer.parseInt(strTempoMinRepeter);
-
-            } else {
-                chaTempoMinRepeter = contenuText.charAt(8);
-                strTempoMinRepeter = String.valueOf(chaTempoMinRepeter);
-                chaTempoMinRepeter = contenuText.charAt(9);
-                strTempoMinRepeter = strTempoMinRepeter.concat(String.valueOf(chaTempoMinRepeter));
-                minRepeter = Integer.parseInt(strTempoMinRepeter);
-            }
-        }
-        return minRepeter;*/
-        return sharedpreferences.getInt(keyMinRepetition,0);
-    }
-
-    //------------------
-    //------------------
     public static int getMinTempo() {
-       /* int minTempo = 0;
-        String strTempoMinTempo;
-        char chaTempoNbFoisRepeter;
-        String contenuText = String.valueOf(btnTempo.getText());
-        char chaTempoA1 = contenuText.charAt(1);
-        if (chaTempoA1 == ' ') {
-            chaTempoNbFoisRepeter = contenuText.charAt(0);
-            strTempoMinTempo = String.valueOf(chaTempoNbFoisRepeter);
-            minTempo = Integer.parseInt(strTempoMinTempo);
-
-        } else {
-            chaTempoNbFoisRepeter = contenuText.charAt(0);
-            strTempoMinTempo = String.valueOf(chaTempoNbFoisRepeter);
-            chaTempoNbFoisRepeter = contenuText.charAt(1);
-            strTempoMinTempo = strTempoMinTempo.concat(String.valueOf(chaTempoNbFoisRepeter));
-            minTempo = Integer.parseInt(strTempoMinTempo);
-        }
-        return minTempo;
-       // return sharedpreferences.getInt(keyMinTempo,0);*/
         return  5;
     }
 
@@ -903,7 +690,4 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         return  sharedpreferences.getBoolean(keyDFondu,true);
         //return dTorche;
     }
-
-
-
 }
