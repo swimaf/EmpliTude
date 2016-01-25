@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Todo.mesTaches = Fichier.readAll(Constants.tacheFile, getBaseContext());
+
     }
 
 

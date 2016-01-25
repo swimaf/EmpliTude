@@ -26,6 +26,4 @@ dependencies {
     compile 'com.android.support:design:23.1.0'
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     compile "com.github.danielnilsson9:color-picker-view:1.4.0@aar"
-    compile 'com.github.castorflex.verticalviewpager:library:19.0.1'
-
 }

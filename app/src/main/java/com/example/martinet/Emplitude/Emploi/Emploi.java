@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.martinet.Emplitude.Constants;
+import com.example.martinet.Emplitude.Outil.Jour;
 import com.example.martinet.Emplitude.R;
 
 import java.util.Date;
@@ -74,10 +75,15 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
                 Jour calendar = new Jour(new Date());
                 calendar.ajouterJour(page);
                 setDateTitle(calendar.getJour());
+                colorBarVisibility(ViewGroup.GONE);
             }
 
-            public void onPageScrollStateChanged(int state) {}
-            public void onPageScrolled(int arg0, float arg1, int arg2) {}
+            public void onPageScrollStateChanged(int state) {
+                colorBarVisibility(ViewGroup.GONE);
+            }
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+                colorBarVisibility(ViewGroup.GONE);
+            }
         });
         return view;
     }

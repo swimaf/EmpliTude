@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import com.example.martinet.Emplitude.Constants;
 import com.example.martinet.Emplitude.Outil.Fichier;
+import com.example.martinet.Emplitude.Outil.Jour;
 import com.example.martinet.Emplitude.Outil.Utilisateur;
 
 import java.io.BufferedReader;

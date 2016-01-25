@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/bordure_x4_corner"
-        android:id="@+id/tacheLayout">
+        android:id="@+id/tacheLayout"
+        android:elevation="2dp">
 
         <LinearLayout
             android:orientation="vertical"

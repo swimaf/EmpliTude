@@ -31,14 +31,6 @@ public class Todo extends Fragment{
 
     public static Vector<Object> mesTaches;
 
-    private Calendar cal = new GregorianCalendar(Locale.FRANCE);
-    private Date dateJour = new Date();
-
-
-
-
-
-
     private ListView list;
     private FloatingActionButton action;
     private TextView aucune;
@@ -52,8 +44,6 @@ public class Todo extends Fragment{
         this.list = (ListView) view.findViewById(R.id.taches);
         this.action = (FloatingActionButton) view.findViewById(R.id.fab);
         this.aucune = (TextView) view.findViewById(R.id.aucune);
-
-        mesTaches = Fichier.readAll(Constants.tacheFile, getContext());
 
         this.creationListeTaches();
 

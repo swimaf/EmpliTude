@@ -4,10 +4,6 @@ package com.example.martinet.Emplitude.Todo;
  * Created by florian on 21/12/15.
  */
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.martinet.Emplitude.Emploi.Jour;
+import com.example.martinet.Emplitude.Outil.Jour;
 import com.example.martinet.Emplitude.MainActivity;
 import com.example.martinet.Emplitude.R;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.Vector;
 
@@ -43,7 +38,7 @@ public class Adapter extends ArrayAdapter<String>{
         ImageButton modif = (ImageButton) rowView.findViewById(R.id.modifier);
         ImageButton supp = (ImageButton) rowView.findViewById(R.id.supprimer);
         Date jour = new Date();
-        final Tache t;
+        Tache t;
 
 
         try {

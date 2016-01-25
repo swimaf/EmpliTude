@@ -7,13 +7,14 @@
 
 
     <ScrollView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/scrollView"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="0dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp">
+        android:layout_marginTop="0dp"
+        android:fillViewport="false">
 
         <LinearLayout
             android:orientation="vertical"
@@ -164,7 +165,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Taches :"
+                android:text="Tâches :"
                 android:id="@+id/textView2"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="0.04"
@@ -178,12 +179,18 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:text="Aucune tache."
-                android:id="@+id/textView3"
+                android:text="Aucune tâche."
+                android:id="@+id/aucune"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="0.0"
                 android:gravity="center_vertical|center_horizontal"
                 android:textStyle="bold|italic" />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/taches"
+                android:nestedScrollingEnabled="true" />
 
         </LinearLayout>
 

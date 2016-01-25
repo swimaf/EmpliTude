@@ -2,14 +2,9 @@ package com.example.martinet.Emplitude;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,21 +19,18 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.martinet.Emplitude.Emploi.ADE_automatique;
 import com.example.martinet.Emplitude.Emploi.ADE_recuperation;
 import com.example.martinet.Emplitude.Emploi.ADE_retour;
-import com.example.martinet.Emplitude.Emploi.Jour;
 import com.example.martinet.Emplitude.Outil.External;
 import com.example.martinet.Emplitude.Outil.External_retour;
 import com.example.martinet.Emplitude.Outil.Fichier;
 import com.example.martinet.Emplitude.Outil.Utilisateur;
 
 import org.json.JSONArray;
-import java.io.File;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
 
