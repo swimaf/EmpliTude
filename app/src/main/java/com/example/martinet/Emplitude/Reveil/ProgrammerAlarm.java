@@ -6,12 +6,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
-
-import com.example.martinet.Emplitude.Constants;
 import com.example.martinet.Emplitude.Emploi.ADE_information;
 import com.example.martinet.Emplitude.Emploi.Cour;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -69,10 +65,14 @@ public class ProgrammerAlarm {
             jpasser = true;
         }
         System.out.println("Je suis sorti de la boucle null");
+        int tps = sharedpreferences.getInt(ReveilActivity.keyNpDureePrepa, 0);
         cal.setTime(d); // on defini la date ou il doit sonner
+        cal.add(Calendar.MINUTE, -tps);
+
         calActu.setTime(dactu);
-        if((cal.get(Calendar.HOUR_OF_DAY)>=calActu.get(Calendar.HOUR_OF_DAY))&&jpasser==false){// Si la premiere heure de cour de la journee est passer alors on programme le reveil sur la premiere heure du jour suivant
-            dSonner.setTime(dSonner.getTime() + 86400000);// On passe au jour d'apres
+        if((cal.get(Calendar.HOUR_OF_DAY)<=calActu.get(Calendar.HOUR_OF_DAY))){// Si la premiere heure de cour de la journee est passer alors on programme le reveil sur la premiere heure du jour suivant
+            System.out.println("je suis passer dans le deuxieme if");
+           // dSonner.setTime(dSonner.getTime() + 86400000);// On passe au jour d'apres
 
                 d = adeInfo.getFirstBYDate(dSonner).getDateD(); // on recup l'heure du cour
 
@@ -88,12 +88,16 @@ public class ProgrammerAlarm {
 
                 dSonner.setTime(dSonner.getTime() + 86400000); // On passe a la journee d'apres
             }
+            int tps2 = sharedpreferences.getInt(ReveilActivity.keyNpDureePrepa, 0);
             cal.setTime(d); // On re met a jour l'objet calandar qui contient la date ou il doit sonner
+            cal.add(Calendar.MINUTE, -tps2);
+
         }
 
 
 
         //Met dans un object calendar l'heure ou il doit sonner puis la minute
+
 
 
         calendar.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
