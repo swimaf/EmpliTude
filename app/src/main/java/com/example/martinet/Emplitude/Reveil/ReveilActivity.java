@@ -6,6 +6,7 @@ package com.example.martinet.Emplitude.Reveil;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -26,6 +27,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.Switch;
@@ -83,6 +86,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     private View view;
     private int tmpa;
     private ProgrammerAlarm proAlarm;
+    private ImageButton help;
 
 
 
@@ -156,13 +160,30 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
             }
         };
 
+        OnClickListener listenerhelp = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+                dialog.setTitle("Aide");
+                TextView editText = new TextView(mContext);
+                editText.setText("Selectionner la durée dont vous avez besoin entre votre réveil et votre arrivé en cour.\n Le temps de préparation sélectionner determinera l'heure de  sonnerie reveil");
+                LinearLayout linearLayout= new LinearLayout(mContext);
+                linearLayout.setPadding(20, 10, 20, 10);
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                linearLayout.addView(editText);
+                dialog.setView(linearLayout);
+                dialog.show();
 
+
+            }
+        };
 
         //Set On Click Listener
         btn1.setOnClickListener(listener1);
         //btn2.setOnClickListener(listener2);
         btnTempo.setOnClickListener(listenerTemporisation);
         btnSon.setOnClickListener(listenerSon);
+        help.setOnClickListener(listenerhelp);
 
 
     }
@@ -200,7 +221,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         btn1 = (Button) view.findViewById(R.id.button1);//Bouton programmer pour test
         //btn2 = (Button) findViewById(R.id.button2);//Bouton arreter pour test
 
-
+        help = (ImageButton) view.findViewById(R.id.ibrhelp);
         btnTempo = (Button) view.findViewById(R.id.brTempoDroite);
 
         if(sharedpreferences.contains(keyMinTempo)) {
@@ -323,8 +344,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                     switchTorche.setFocusable(true);
                     switchVibreur.setEnabled(true);
                     switchVibreur.setFocusable(true);
-                    btnRepeter.setEnabled(true);
-                    btnRepeter.setFocusable(true);
                     btnTempo.setEnabled(true);
                     btnTempo.setFocusable(true);
                     btnSon.setEnabled(true);
@@ -332,10 +351,8 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                     npDureePrepa.setEnabled(true);
                     npDureePrepa.setFocusable(true);
                     btnSon.setTextColor(getResources().getColor(R.color.black));
-                    btnRepeter.setTextColor(getResources().getColor(R.color.black));
                     btnTempo.setTextColor(getResources().getColor(R.color.black));
                     tvrTempo.setTextColor(getResources().getColor(R.color.black));
-                    tvrRepeter.setTextColor(getResources().getColor(R.color.black));
                     tvrSon.setTextColor(getResources().getColor(R.color.black));
                     tvrMinutes.setTextColor(getResources().getColor(R.color.black));
                     tvrTempsPreparation.setTextColor(getResources().getColor(R.color.black));
@@ -356,8 +373,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                     switchTorche.setFocusable(false);
                     switchVibreur.setEnabled(false);
                     switchVibreur.setFocusable(false);
-                    btnRepeter.setEnabled(false);
-                    btnRepeter.setFocusable(false);
                     btnTempo.setEnabled(false);
                     btnTempo.setFocusable(false);
                     btnSon.setEnabled(false);
@@ -365,9 +380,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                     npDureePrepa.setEnabled(false);
                     npDureePrepa.setFocusable(false);
                     btnSon.setTextColor(getResources().getColor(R.color.grisDesactiv));
-                    btnRepeter.setTextColor(getResources().getColor(R.color.grisDesactiv));
                     btnTempo.setTextColor(getResources().getColor(R.color.grisDesactiv));
-                    tvrRepeter.setTextColor(getResources().getColor(R.color.grisDesactiv));
                     tvrSon.setTextColor(getResources().getColor(R.color.grisDesactiv));
                     tvrMinutes.setTextColor(getResources().getColor(R.color.grisDesactiv));
                     tvrTempsPreparation.setTextColor(getResources().getColor(R.color.grisDesactiv));

@@ -1,13 +1,23 @@
 package com.example.martinet.Emplitude.Reveil;
 
 import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
+import android.support.v4.app.TaskStackBuilder;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
+
+import com.example.martinet.Emplitude.Accueil;
 import com.example.martinet.Emplitude.Emploi.ADE_information;
 import com.example.martinet.Emplitude.Emploi.Cour;
+import com.example.martinet.Emplitude.R;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,6 +31,7 @@ public class ProgrammerAlarm {
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private Cour cour;
+    private Context context;
     public static final String MesPREFERENCES = "mesPreferences";
     public static SharedPreferences sharedpreferences;
 
@@ -28,6 +39,7 @@ public class ProgrammerAlarm {
         adeInfo = new ADE_information(c);
         alarmManager = a;
         pendingIntent = p;
+        context = c;
         cour = new Cour();
         sharedpreferences = c.getSharedPreferences(MesPREFERENCES, Context.MODE_PRIVATE);
 
@@ -121,11 +133,65 @@ public class ProgrammerAlarm {
         int tempo = cal.get(Calendar.HOUR_OF_DAY);
         int tempoM = cal.get(Calendar.MINUTE);
         int tempoJ = cal.get(Calendar.DAY_OF_MONTH);
+        int tempoMo = cal.get(Calendar.MONTH);
+        String Mon = "";
+        switch (tempoMo){
+            case 0 : Mon = "Janvier";
+                break;
+            case 1 : Mon = "Fevrier";
+                break;
+            case 2 : Mon = "Mars";
+                break;
+            case 3 : Mon = "Avril";
+                break;
+            case 4 : Mon = "Mai";
+                break;
+            case 5 : Mon = "Juin";
+                break;
+            case 6 : Mon = "Juillet";
+                break;
+            case 7 : Mon = "Aout";
+                break;
+            case 8 : Mon = "Septembre";
+                break;
+            case 9 : Mon = "Octobre";
+                break;
+            case 10 : Mon = "Novembre";
+                break;
+            case 11 : Mon = "Decembre";
+                break;
+            default:
+                Mon = "";
+                break;
 
 
-        String s = String.valueOf(tempo+":"+tempoM+" -> jour :"+tempoJ);
+        }
+
+
+
+        String s = String.valueOf(tempo + ":" + tempoM + " -> jour :" + tempoJ);
         Log.i("alarm auto set", s);
-        //setAlarmRepeter();
+
+
+
+        NotificationCompat.Builder mBuilder =
+                (NotificationCompat.Builder) new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.ic_alarm)
+                        .setContentTitle("Empli'tude")
+                        .setContentText("Réveil programmé le "+tempoJ+" "+Mon+" à "+tempo+":"+tempoM);
+        Intent resultIntent = new Intent(context, Accueil.class);
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        stackBuilder.addParentStack(Accueil.class);
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(10, mBuilder.build());
+
+
     }
 
 

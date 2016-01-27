@@ -31,6 +31,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
     public static Ringtone ringtone;
     public static Vibrator v;
     private Thread thread;
+    public static MediaPlayer mMediaPlayer;
 
     public void onReceive(Context context, Intent intent) {
 
@@ -43,7 +44,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         ringtone = RingtoneManager.getRingtone(context, alert);
         ringtone.play();*/
 
-        MediaPlayer mMediaPlayer = new MediaPlayer();
+         mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         int aug = 0;
@@ -62,7 +63,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
                 e.printStackTrace();
             }
 
-        //audioManager.setStreamVolume(AudioManager.STREAM_ALARM, audioManager.getStreamMaxVolume(audioManager.STREAM_ALARM), 0);
+        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, audioManager.getStreamMaxVolume(audioManager.STREAM_ALARM), 0);
             mMediaPlayer.start();
 
 

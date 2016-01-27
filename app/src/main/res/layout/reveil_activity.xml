@@ -45,22 +45,41 @@
             android:background="#384248"
             android:textColor="#fff"
             android:layout_weight="0.14" />
-        </LinearLayout>
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/tvrTempsPreparation"
-        android:textSize="@dimen/tvrItems"
-        android:id="@+id/tvrTempsPreparation"
-        android:layout_gravity="center"
-        android:layout_marginLeft="@dimen/mrBordureH"
-        android:layout_marginRight="@dimen/mrBordureH"
-        android:layout_marginBottom="@dimen/mrBordureV"
-        android:layout_marginTop="@dimen/mrBordureV"
-        android:textColor="#000" />
 
-    <RelativeLayout
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_help"
+                android:id="@+id/ibrhelp"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/mrBordureH"
+                />
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/tvrTempsPreparation"
+            android:textSize="@dimen/tvrItems"
+            android:id="@+id/tvrTempsPreparation"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/mrBordureH"
+            android:layout_marginRight="@dimen/mrBordureH"
+            android:layout_marginBottom="@dimen/mrBordureV"
+            android:layout_marginTop="@dimen/mrBordureV"
+            android:textColor="#000" />
+
+        </LinearLayout>
+
+        <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/mrBordureH"
@@ -68,7 +87,7 @@
         android:layout_marginBottom="@dimen/mrBordureV"
         android:layout_marginTop="@dimen/mrBordureV">
 
-        <TextView
+            <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tvrMinutes"
@@ -105,7 +124,15 @@
         android:layout_marginBottom="@dimen/mrBordureV"
         android:layout_marginTop="@dimen/mrBordureV">
 
-        <TextView
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_report"
+                android:id="@+id/ivrtempo"
+                android:scaleType="fitCenter"
+                android:layout_marginRight="20dp" />
+
+            <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -153,7 +180,13 @@
         android:layout_marginBottom="@dimen/mrBordureV"
         android:layout_marginTop="@dimen/mrBordureV"
         >
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_son"
+            android:id="@+id/ivrson"
+            android:scaleType="fitCenter"
+            android:layout_marginRight="20dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -191,17 +224,35 @@
         android:layout_marginRight="@dimen/mrBordureH"
         android:background="#CECECE" />
 
-    <Switch
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/srTorche"
-        android:textSize="@dimen/tvrItems"
-        android:id="@+id/srTorche"
-        android:layout_marginLeft="@dimen/mrBordureH"
-        android:layout_marginRight="@dimen/mrBordureH"
-        android:layout_marginBottom="@dimen/mrBordureV"
-        android:layout_marginTop="@dimen/mrBordureV" />
-    <StackView
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/mrBordureH"
+            android:layout_marginTop="@dimen/mrBordureH"
+            android:layout_marginRight="@dimen/mrBordureV"
+            android:layout_marginBottom="@dimen/mrBordureV"
+            android:weightSum="1">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_torchnul"
+                android:id="@+id/ivrlamp"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_vertical" />
+            <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/srTorche"
+            android:textSize="@dimen/tvrItems"
+            android:id="@+id/srTorche"
+            android:layout_marginLeft="@dimen/mrBordureH"
+            android:layout_marginRight="@dimen/mrBordureH"
+            android:layout_marginBottom="@dimen/mrBordureV"
+            android:layout_marginTop="@dimen/mrBordureV" />
+        </LinearLayout>
+
+        <StackView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/stackView1"
@@ -214,18 +265,36 @@
         android:layout_marginRight="@dimen/mrBordureH"
         android:background="#CECECE" />
 
-    <Switch
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/srFondu"
-        android:textSize="@dimen/tvrItems"
-        android:id="@+id/srFondu"
-        android:layout_marginLeft="@dimen/mrBordureH"
-        android:layout_marginRight="@dimen/mrBordureH"
-        android:layout_marginBottom="@dimen/mrBordureV"
-        android:layout_marginTop="@dimen/mrBordureV"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/mrBordureH"
+            android:layout_marginTop="@dimen/mrBordureH"
+            android:layout_marginRight="@dimen/mrBordureV"
+            android:layout_marginBottom="@dimen/mrBordureV"
+            android:weightSum="1">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_fondu"
+                android:id="@+id/ivrfondu"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_vertical" />
+            <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/srFondu"
+            android:textSize="@dimen/tvrItems"
+            android:id="@+id/srFondu"
+            android:layout_marginLeft="@dimen/mrBordureH"
+            android:layout_marginRight="@dimen/mrBordureH"
+            android:layout_marginBottom="@dimen/mrBordureV"
+            android:layout_marginTop="@dimen/mrBordureV"/>
+        </LinearLayout>
 
-    <StackView
+
+        <StackView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/stackView"
@@ -237,17 +306,33 @@
         android:layout_marginLeft="@dimen/mrBordureH"
         android:layout_marginRight="@dimen/mrBordureH"
         android:background="#CECECE" />
-
-    <Switch
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/srVibreur"
-        android:textSize="@dimen/tvrItems"
-        android:id="@+id/srVibreur"
-        android:layout_marginLeft="@dimen/mrBordureH"
-        android:layout_marginRight="@dimen/mrBordureH"
-        android:layout_marginBottom="@dimen/mrBordureV"
-        android:layout_marginTop="@dimen/mrBordureV"/>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/mrBordureH"
+            android:layout_marginTop="@dimen/mrBordureH"
+            android:layout_marginRight="@dimen/mrBordureV"
+            android:layout_marginBottom="@dimen/mrBordureV"
+            android:weightSum="1">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_vibration"
+                android:id="@+id/ivrvibre"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_vertical" />
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/srVibreur"
+                android:textSize="@dimen/tvrItems"
+                android:id="@+id/srVibreur"
+                android:layout_marginLeft="@dimen/mrBordureH"
+                android:layout_marginRight="@dimen/mrBordureH"
+                android:layout_marginBottom="@dimen/mrBordureV"
+                android:layout_marginTop="@dimen/mrBordureV"/>
+        </LinearLayout>
 
 
         <Button

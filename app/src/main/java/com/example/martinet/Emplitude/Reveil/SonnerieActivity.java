@@ -68,7 +68,7 @@ public class SonnerieActivity extends Activity {
     public void arreterAlarm()
     {
         arreterAlarm.cancelAlarmEtSetReveil();
-        AlarmReceiver.ringtone.stop();
+        AlarmReceiver.mMediaPlayer.stop();
         if(AlarmReceiver.v.hasVibrator())
             {
                  AlarmReceiver.v.cancel();
