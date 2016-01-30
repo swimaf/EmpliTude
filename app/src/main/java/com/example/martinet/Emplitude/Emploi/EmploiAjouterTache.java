@@ -37,7 +37,6 @@ public class EmploiAjouterTache extends AppCompatActivity {
 
     private FloatingActionButton suivant;
     private EditText nom;
-    private TextView description;
     private Tache t;
     private int position;
     private Date date;
@@ -69,7 +68,6 @@ public class EmploiAjouterTache extends AppCompatActivity {
         this.setContentView(R.layout.emploi_ajouter_tache);
         suivant = (FloatingActionButton) findViewById(R.id.fab);
         nom = (EditText) findViewById(R.id.nom);
-        description = (TextView) findViewById(R.id.description);
         tdate = (TextView) findViewById(R.id.tdate);
         tdate.setText(h.format(date));
 

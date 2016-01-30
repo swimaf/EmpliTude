@@ -16,13 +16,16 @@ import com.example.martinet.Emplitude.Outil.Jour;
 import com.example.martinet.Emplitude.MainActivity;
 import com.example.martinet.Emplitude.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Vector;
 
 public class Adapter extends ArrayAdapter<String>{
 
     private final Activity context;
     private final Vector<Object> lesTaches;
+    private static SimpleDateFormat h = new SimpleDateFormat("EEEE dd MMMM", Locale.FRANCE);
 
     public Adapter(Activity context, Vector taches) {
         super(context, R.layout.todo_tache, taches);
@@ -45,9 +48,10 @@ public class Adapter extends ArrayAdapter<String>{
         try {
             t = (Tache) lesTaches.get(position);
             tache.setText(t.getNom());
-            matiere.setText("Matière : " + t.getMatiere());
-            Jour j = new Jour(t.getDate());
-            date.setText("Date : " + j.getJour());
+            matiere.setText(" "+t.getMatiere());
+            String d = h.format(t.getDate());
+            d = d.substring(0,1).toUpperCase() + d.substring(1);
+            date.setText(" "+d);
             if(jour.after(t.getDate())){
                 rowView.findViewById(R.id.tacheLayout).setBackgroundResource(R.color.tacheGris);
             }
@@ -67,7 +71,8 @@ public class Adapter extends ArrayAdapter<String>{
         supp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Todo t=(Todo)((MainActivity)context).getFragment();
+                final Todo t=(Todo)((MainActivity)context).getFragment();
+                Todo.activeTache = (Tache)Todo.mesTaches.get(position);
                 Todo.mesTaches.remove(position);
                 t.creationListeTaches();
                 Snackbar.make(context.findViewById(android.R.id.content), "Tâche supprimé avec succès", Snackbar.LENGTH_LONG)
@@ -75,6 +80,8 @@ public class Adapter extends ArrayAdapter<String>{
                             @Override
                             public void onClick(View view) {
                                 Snackbar snackbar1 = Snackbar.make(context.findViewById(android.R.id.content), "Tâche restauré", Snackbar.LENGTH_SHORT);
+                                Todo.mesTaches.add(Todo.activeTache);
+                                t.creationListeTaches();
                                 snackbar1.show();
                             }
                         }).show();
