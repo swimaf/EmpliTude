@@ -57,7 +57,7 @@ public class ADE_traitement {
         return res;
     }
 
-    //Récupération information de un cour
+    //Récupération information de un emploi_cour
     public static Cour getCour(String contenu) throws ParseException {
         String description, matiere = "", prof, resum, s, salle, resumer;
         Date d2, d;

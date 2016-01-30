@@ -25,7 +25,6 @@ public class ADE_information {
     private Vector<Object> allCours;
     private SimpleDateFormat dateFormat;
     private Context context;
-    private int compteur;
 
 
     public ADE_information(Date date, Context context){
@@ -58,7 +57,7 @@ public class ADE_information {
         return cours;
     }
 
-    //Récupération dernier cour
+    //Récupération dernier emploi_cour
     public Cour getNext(){
         Cour c;
         cours = new Vector<>();

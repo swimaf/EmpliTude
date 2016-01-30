@@ -36,6 +36,8 @@
         <item>19h00</item>
     </string-array>
 
+    <string name="emploiTache">Tâche</string>
+
 
     <!-- EXemple de name : tvrMinutes [-> tv = textView -> r = reveil -> Minute = ce qu'il fait]-->
     <!--TextView -->

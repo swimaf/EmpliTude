@@ -52,6 +52,11 @@
             android:label="Activite_Sonnerie"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name="com.example.martinet.Emplitude.Emploi.EmploiAjouterTache"
+            android:label=""
+            android:theme="@style/AppTheme">
+        </activity>
 
 
         <receiver android:name="com.example.martinet.Emplitude.Reveil.AlarmReceiver"/>

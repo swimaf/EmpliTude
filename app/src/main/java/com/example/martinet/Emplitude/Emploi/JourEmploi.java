@@ -141,7 +141,7 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
 
         Bundle objetbunble = new Bundle();
         Intent intent = new Intent(getContext(), Information.class);
-        objetbunble.putSerializable("cour", this.cours.get(l.indexOfChild(v)));
+        objetbunble.putSerializable("emploi_cour", this.cours.get(l.indexOfChild(v)));
         intent.putExtras(objetbunble);
         this.startActivity(intent);
         this.getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

@@ -14,11 +14,14 @@ import android.os.Bundle;
 import android.widget.RemoteViews;
 
 import com.example.martinet.Emplitude.Accueil;
+import com.example.martinet.Emplitude.Constants;
 import com.example.martinet.Emplitude.Emploi.ADE_information;
 import com.example.martinet.Emplitude.Emploi.Cour;
 import com.example.martinet.Emplitude.Emploi.Information;
 import com.example.martinet.Emplitude.Emploi.JourEmploi;
+import com.example.martinet.Emplitude.Outil.Fichier;
 import com.example.martinet.Emplitude.R;
+import com.example.martinet.Emplitude.Todo.Todo;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -38,6 +41,7 @@ public class Widget extends AppWidgetProvider {
         HashMap couleur = (HashMap) settings.getAll();
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
         Intent intent;
+        Todo.mesTaches = Fichier.readAll(Constants.tacheFile, context);
         try {
             ADE_information fichier = new ADE_information(context);
             this.cours = fichier.getNext();
@@ -57,7 +61,7 @@ public class Widget extends AppWidgetProvider {
 
             Bundle objetbunble = new Bundle();
             intent = new Intent(context, Information.class);
-            objetbunble.putSerializable("cour", this.cours);
+            objetbunble.putSerializable("emploi_cour", this.cours);
             intent.putExtras(objetbunble);
         }else{
             intent = new Intent(context, Accueil.class);

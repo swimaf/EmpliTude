@@ -4,6 +4,7 @@ package com.example.martinet.Emplitude.Todo;
  * Created by florian on 21/12/15.
  */
 import android.app.Activity;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,14 @@ public class Adapter extends ArrayAdapter<String>{
                 Todo t=(Todo)((MainActivity)context).getFragment();
                 Todo.mesTaches.remove(position);
                 t.creationListeTaches();
+                Snackbar.make(context.findViewById(android.R.id.content), "Tâche supprimé avec succès", Snackbar.LENGTH_LONG)
+                        .setAction("ANNULER", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Snackbar snackbar1 = Snackbar.make(context.findViewById(android.R.id.content), "Tâche restauré", Snackbar.LENGTH_SHORT);
+                                snackbar1.show();
+                            }
+                        }).show();
             }
         });
         return rowView;

@@ -63,7 +63,7 @@ public class ProgrammerAlarm {
         Date d = new Date();
         d=null;
         int i = 0;
-        while(d==null && i <= 100){ // Tant que la le premier cour de la journee n'existe pas, on va sur le jour suivant ATTENTION SI IL YA  PAS DE JOUR SUIVANT BOUCLE INFINI
+        while(d==null && i <= 100){ // Tant que la le premier emploi_cour de la journee n'existe pas, on va sur le jour suivant ATTENTION SI IL YA  PAS DE JOUR SUIVANT BOUCLE INFINI
         i++;
                 System.out.println("Je suis rentré dans la boucle null");
                 cour = adeInfo.getFirstBYDate(dSonner);
@@ -71,7 +71,7 @@ public class ProgrammerAlarm {
                 if(cour!=null) {
                     System.out.println("Je suis dans le if");
                     d = adeInfo.getFirstBYDate(dSonner).getDateD();
-                }// on recup l'heure du premier cour
+                }// on recup l'heure du premier emploi_cour
 
             dSonner.setTime(dSonner.getTime() + 86400000); // On passe a la journee d'apres
             jpasser = true;
@@ -82,13 +82,13 @@ public class ProgrammerAlarm {
         cal.add(Calendar.MINUTE, -tps);
 
         calActu.setTime(dactu);
-        if((cal.get(Calendar.HOUR_OF_DAY)<=calActu.get(Calendar.HOUR_OF_DAY))){// Si la premiere heure de cour de la journee est passer alors on programme le reveil sur la premiere heure du jour suivant
+        if((cal.get(Calendar.HOUR_OF_DAY)<=calActu.get(Calendar.HOUR_OF_DAY))){// Si la premiere heure de emploi_cour de la journee est passer alors on programme le reveil sur la premiere heure du jour suivant
             System.out.println("je suis passer dans le deuxieme if");
            // dSonner.setTime(dSonner.getTime() + 86400000);// On passe au jour d'apres
 
-                d = adeInfo.getFirstBYDate(dSonner).getDateD(); // on recup l'heure du cour
+                d = adeInfo.getFirstBYDate(dSonner).getDateD(); // on recup l'heure du emploi_cour
 
-            while(d==null){ // Tant que la le premier cour de la journee n'existe pas, on va sur le jour suivant ATTENTION SI IL YA  PAS DE JOUR SUIVANT BOUCLE INFINI
+            while(d==null){ // Tant que la le premier emploi_cour de la journee n'existe pas, on va sur le jour suivant ATTENTION SI IL YA  PAS DE JOUR SUIVANT BOUCLE INFINI
 
                 System.out.println("Je suis rentré dans la boucle null2");
                 cour = adeInfo.getFirstBYDate(dSonner);
@@ -96,7 +96,7 @@ public class ProgrammerAlarm {
                 if(cour!=null) {
                     System.out.println("Je suis dans le if2");
                     d = adeInfo.getFirstBYDate(dSonner).getDateD();
-                }// on recup l'heure du premier cour
+                }// on recup l'heure du premier emploi_cour
 
                 dSonner.setTime(dSonner.getTime() + 86400000); // On passe a la journee d'apres
             }
