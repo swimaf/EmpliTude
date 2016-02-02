@@ -70,6 +70,7 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
         mPager.getLayoutParams().height= Constants.getHeight(getContext());
         mPagerAdapter = new ScreenSlidePagerAdapter(activity.getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+        mPager.getLayoutParams().height = Constants.getHeight(getContext())+100;
         mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             public void onPageSelected(int page) {
                 Jour calendar = new Jour(new Date());

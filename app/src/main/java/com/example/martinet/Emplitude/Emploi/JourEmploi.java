@@ -58,7 +58,7 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
         this.vide = (RelativeLayout) view.findViewById(R.id.vide);
         this.editor = settings.edit();
         this.cours = null;
-        this.HEIGHT = Constants.getHeight(getContext());
+        this.HEIGHT = Constants.getHeight(getContext())+100;
 
         //Appel des methodes d'affichages des différentes parties
 
