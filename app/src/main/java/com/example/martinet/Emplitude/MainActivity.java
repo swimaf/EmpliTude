@@ -13,9 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.martinet.Emplitude.Emploi.Emploi;
 import com.example.martinet.Emplitude.Outil.Fichier;
+import com.example.martinet.Emplitude.Outil.Utilisateur;
 import com.example.martinet.Emplitude.Parametre.Parametre;
 import com.example.martinet.Emplitude.Propos.Propos;
 import com.example.martinet.Emplitude.Reveil.ReveilActivity;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -40,6 +44,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerLayout = navigationView.getHeaderView(0);
+        Utilisateur utilisateur = (Utilisateur) Fichier.lire(Constants.identifiantFile,getApplicationContext(), 0);
+        TextView type = (TextView) headerLayout.findViewById(R.id.type);
+        type.setText(utilisateur.toString());
+
 
         Todo.mesTaches = Fichier.readAll(Constants.tacheFile, getBaseContext());
 

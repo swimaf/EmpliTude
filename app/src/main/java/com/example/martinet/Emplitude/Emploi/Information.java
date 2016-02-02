@@ -106,8 +106,8 @@ public class Information extends AppCompatActivity {
                 view = inflater.inflate(R.layout.emploi_tache, null, true);
                 ((Button)(view.findViewById(R.id.tache))).setText(((Tache) matiere.get(i)).getNom());
                 ((Button)(view.findViewById(R.id.tache))).setTransformationMethod(null);
-                ((Button)(view.findViewById(R.id.tache))).getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.DARKEN);
-                ((Button)(view.findViewById(R.id.tache))).setOnClickListener(new View.OnClickListener() {
+                (view.findViewById(R.id.tache)).getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.DARKEN);
+                (view.findViewById(R.id.tache)).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         setResult(Activity.RESULT_OK);
@@ -146,7 +146,6 @@ public class Information extends AppCompatActivity {
         }catch(Exception e){
             Todo.mesTaches = Fichier.readAll(Constants.tacheFile, getBaseContext());
         }
-
 
         for(int i=0; i<Todo.mesTaches.size(); i++){
             t = ((Tache)Todo.mesTaches.get(i));

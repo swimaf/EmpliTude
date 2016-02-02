@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.example.martinet.Emplitude.Emploi.ADE_recuperation;
 import com.example.martinet.Emplitude.Emploi.ADE_retour;
+import com.example.martinet.Emplitude.Outil.Enseignant;
+import com.example.martinet.Emplitude.Outil.Etudiant;
 import com.example.martinet.Emplitude.Outil.External;
 import com.example.martinet.Emplitude.Outil.External_retour;
 import com.example.martinet.Emplitude.Outil.Fichier;
@@ -140,9 +142,9 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
             String departement =(String) spinner.getSelectedItem();
             String no_groupe =(String)spinner2.getSelectedItem();
             String numero =(String)groupe.get(departement).get(no_groupe);
-            e = new Utilisateur(numero, "Etudiant");
+            e = new Etudiant(numero, no_groupe);
         }else{
-            e = new Utilisateur(num_enseignant.getText().toString(),"Enseignant");
+            e = new Enseignant(num_enseignant.getText().toString());
         }
         Fichier.ecrire(Constants.identifiantFile,getBaseContext(), e);
         ADE_recuperation load = new ADE_recuperation(Accueil.this, getBaseContext());

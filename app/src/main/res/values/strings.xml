@@ -3,7 +3,8 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
+    <string name="Etudiant">Etudiant</string>
+    <string name="Enseignant">Enseignant</string>
     <string name="action_settings">Paramètres</string>
     <string name="groupe">null</string>
     <string name="nom_appli">Empli\'tude</string>
