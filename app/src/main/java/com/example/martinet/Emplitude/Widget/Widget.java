@@ -62,6 +62,7 @@ public class Widget extends AppWidgetProvider {
             Bundle objetbunble = new Bundle();
             intent = new Intent(context, Information.class);
             objetbunble.putSerializable("emploi_cour", this.cours);
+            objetbunble.putBoolean("FIRST", true);
             intent.putExtras(objetbunble);
         }else{
             intent = new Intent(context, Accueil.class);

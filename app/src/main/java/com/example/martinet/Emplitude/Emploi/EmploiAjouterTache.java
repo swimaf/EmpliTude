@@ -38,7 +38,6 @@ public class EmploiAjouterTache extends AppCompatActivity {
     private FloatingActionButton suivant;
     private EditText nom;
     private Tache t;
-    private int position;
     private Date date;
     private String matiere;
     private TextView tmatiere;
@@ -49,13 +48,9 @@ public class EmploiAjouterTache extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setElevation(0);
         try{
             t = (Tache) intent.getSerializableExtra("Tache");
-            position = (int) intent.getSerializableExtra("position");
-
         }catch (Exception e){
-            position = 0;
         }
 
         try{
@@ -81,9 +76,6 @@ public class EmploiAjouterTache extends AppCompatActivity {
                 if (nom.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Vous n'avez pas renseigné le champ !", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (t != null) {
-                        Todo.mesTaches.remove(position);
-                    }
                     Tache tache = new Tache(nom.getText().toString(), matiere, date);
                     Todo.mesTaches.add(tache);
                     setResult(Activity.RESULT_OK);

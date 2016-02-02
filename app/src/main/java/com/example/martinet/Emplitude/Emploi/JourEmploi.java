@@ -1,5 +1,6 @@
 package com.example.martinet.Emplitude.Emploi;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.example.martinet.Emplitude.Constants;
 import com.example.martinet.Emplitude.MainActivity;
 import com.example.martinet.Emplitude.R;
+import com.example.martinet.Emplitude.Todo.Todo;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -143,10 +145,17 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
         Intent intent = new Intent(getContext(), Information.class);
         objetbunble.putSerializable("emploi_cour", this.cours.get(l.indexOfChild(v)));
         intent.putExtras(objetbunble);
-        this.startActivity(intent);
+        this.startActivityForResult(intent, 0);
+
         this.getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(resultCode == Activity.RESULT_OK){
+            ((MainActivity)getActivity()).changeFragment(null, Todo.class);
+        }
+    }
 
 
     public void reloadJour(int number){

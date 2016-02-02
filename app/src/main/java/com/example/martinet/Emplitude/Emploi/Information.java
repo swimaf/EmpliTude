@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.martinet.Emplitude.Constants;
+import com.example.martinet.Emplitude.MainActivity;
 import com.example.martinet.Emplitude.Outil.Fichier;
 import com.example.martinet.Emplitude.Outil.Jour;
 import com.example.martinet.Emplitude.R;
@@ -37,17 +38,18 @@ public class Information extends AppCompatActivity {
 
     final static private SimpleDateFormat h = new SimpleDateFormat("HH:mm");
 
-    private ListView list;
     private Cour cours;
     private TextView aucune;
     private FloatingActionButton ajouter;
     private LinearLayout taches;
+    private Boolean first;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         this.setContentView(R.layout.emploi_cour);
         Intent intent = getIntent();
+        this.first = intent.getBooleanExtra("FIRST", false);
         this.cours = (Cour) intent.getSerializableExtra("emploi_cour");
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setTitle(cours.getResumer());
@@ -105,6 +107,13 @@ public class Information extends AppCompatActivity {
                 ((Button)(view.findViewById(R.id.tache))).setText(((Tache) matiere.get(i)).getNom());
                 ((Button)(view.findViewById(R.id.tache))).setTransformationMethod(null);
                 ((Button)(view.findViewById(R.id.tache))).getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.DARKEN);
+                ((Button)(view.findViewById(R.id.tache))).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setResult(Activity.RESULT_OK);
+                        finish();
+                    }
+                });
                 taches.addView(view);
             }
         }
@@ -114,8 +123,12 @@ public class Information extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.overridePendingTransition(android.R.anim.fade_out,android.R.anim.fade_in);
+                this.overridePendingTransition(android.R.anim.fade_out, android.R.anim.fade_in);
                 finish();
+                if(first){
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
                 return true;
         }
 
@@ -127,6 +140,14 @@ public class Information extends AppCompatActivity {
         Vector liste = new Vector();
         Jour jour = new Jour(date);
         Jour jourTache;
+
+        try{
+            int i = Todo.mesTaches.size();
+        }catch(Exception e){
+            Todo.mesTaches = Fichier.readAll(Constants.tacheFile, getBaseContext());
+        }
+
+
         for(int i=0; i<Todo.mesTaches.size(); i++){
             t = ((Tache)Todo.mesTaches.get(i));
             jourTache = new Jour(t.getDate());
