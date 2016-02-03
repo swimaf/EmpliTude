@@ -3,7 +3,7 @@
 
     <item
         android:bottom="44px"
-        android:left="110px"
+        android:left="50dp"
         android:right="-3px"
         android:top="-5dp">
         <shape android:shape="rectangle">
@@ -15,7 +15,7 @@
     </item>
     <item
         android:bottom="-5px"
-        android:left="110px"
+        android:left="50dp"
         android:right="-3dp"
         android:top="47px">
         <shape android:shape="rectangle">

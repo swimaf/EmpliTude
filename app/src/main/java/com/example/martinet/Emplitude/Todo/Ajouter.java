@@ -75,6 +75,10 @@ public class Ajouter extends AppCompatActivity {
             matiere.setSelection(listeCour.indexOf(t.getMatiere()));
         }
 
+        ArrayList listeCour = new ArrayList();
+        listeCour.add("Aucune");
+        ArrayAdapter departement = new ArrayAdapter<>(Ajouter.this, android.R.layout.simple_spinner_dropdown_item, listeCour);
+        matiere.setAdapter(departement);
 
         date.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
