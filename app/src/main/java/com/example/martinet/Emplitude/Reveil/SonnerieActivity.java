@@ -36,7 +36,6 @@ public class SonnerieActivity extends Activity {
     private ProgrammerAlarm programmerAlarm;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
-    public static final String MesPREFERENCES = "mesPreferences";
     public static SharedPreferences sharedpreferences;
 
     //---OnCreate----//
@@ -69,16 +68,15 @@ public class SonnerieActivity extends Activity {
     {
         arreterAlarm.cancelAlarmEtSetReveil();
         AlarmReceiver.mMediaPlayer.stop();
-        if(AlarmReceiver.v.hasVibrator())
-            {
-                 AlarmReceiver.v.cancel();
-            }
+        if(AlarmReceiver.v.hasVibrator()) {
+            AlarmReceiver.v.cancel();
+        }
     }
     //----------------------------------------------------------------
     //-------------Methode pour initialiser les variables-------------
     //----------------------------------------------------------------
     public void init(){
-        sharedpreferences = getSharedPreferences(MesPREFERENCES, Context.MODE_PRIVATE);
+        sharedpreferences = getSharedPreferences(ReveilActivity.MesPREFERENCES, Context.MODE_PRIVATE);
         brStop = (Button) findViewById(R.id.brStop);
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent myIntent = new Intent(SonnerieActivity.this, AlarmReceiver.class);
@@ -89,12 +87,9 @@ public class SonnerieActivity extends Activity {
         int tmp = sharedpreferences.getInt(ReveilActivity.keyMinTempo, 0);
         brTempo.setText("Temporiser " +tmp+ " min");
         tvrHeure = (TextView) findViewById(R.id.tvrHeure);
-        SimpleDateFormat heure = new SimpleDateFormat("HH");
-        SimpleDateFormat minute = new SimpleDateFormat("mm");
-            Calendar c = Calendar.getInstance();
-            String ha = heure.format(c.getTime());
-            String ma = minute.format(c.getTime());
-        tvrHeure.setText(""+ha+":"+ma);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        Calendar c = Calendar.getInstance();
+        tvrHeure.setText(simpleDateFormat.format(c.getTime()));
     }
     //----------------------------------------------------------------
     //-------------LISTENERS------------------------------------------

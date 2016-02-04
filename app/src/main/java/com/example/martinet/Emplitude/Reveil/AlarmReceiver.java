@@ -66,20 +66,19 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         audioManager.setStreamVolume(AudioManager.STREAM_ALARM, audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
         mMediaPlayer.start();
 
-
             //-----Faire jouer le vibreur-----//
-            v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
-            if (sharedpreferences.getBoolean(ReveilActivity.keyDSonner, true)) {
-                long[] pattern = {0, 2000, 1000};
-                v.vibrate(pattern, 0);
-            }
-            //------Lancer l'ouverture de la page sonnerie -----//
-            Intent intentone = new Intent(context.getApplicationContext(), SonnerieActivity.class);
-            intentone.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intentone);
-
+        if (sharedpreferences.getBoolean(ReveilActivity.keyDSonner, true)) {
+            long[] pattern = {0, 2000, 1000};
+            v.vibrate(pattern, 0);
         }
+            //------Lancer l'ouverture de la page sonnerie -----//
+        Intent intentone = new Intent(context.getApplicationContext(), SonnerieActivity.class);
+        intentone.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intentone);
 
     }
+
+}
 
