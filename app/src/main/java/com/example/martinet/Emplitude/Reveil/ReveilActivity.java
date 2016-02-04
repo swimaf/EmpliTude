@@ -4,7 +4,6 @@ package com.example.martinet.Emplitude.Reveil;
  * Created by Arnaud on 04/01/2016.
  */
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -27,7 +26,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
@@ -100,7 +98,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         super.onCreate(savedInstanceState);
         this.view = inflater.inflate(R.layout.reveil_activity, container, false);
 
-        //setContentView(R.layout.reveil_activity);
         mContext = container.getContext();
         // pour affecter this a la variable utilisé par la suite.
         initialiser();
