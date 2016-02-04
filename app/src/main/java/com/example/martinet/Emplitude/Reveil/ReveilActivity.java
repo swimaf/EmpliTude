@@ -54,6 +54,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     public static final String keyMinTempo = "keyMinTempo";
     public static int minRepetition = 0;
     public static SharedPreferences sharedpreferences;
+    private SharedPreferences.Editor editor;
     public static AlarmManager alarmManager;
     public static Button btnRepeter;
     public static Button btnTempo;
@@ -87,7 +88,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     private int tmpa;
     private ProgrammerAlarm proAlarm;
     private ImageButton help;
-
 
 
 
@@ -194,6 +194,8 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     private void initialiser() {
 
         sharedpreferences = getActivity().getSharedPreferences(MesPREFERENCES, Context.MODE_PRIVATE);
+        this.editor = sharedpreferences.edit();
+        myContext=getActivity();
 
         //TextViews
         textView1 = (TextView) view.findViewById(R.id.msg1);
@@ -227,7 +229,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         if(sharedpreferences.contains(keyMinTempo)) {
             btnTempo.setText(String.valueOf(sharedpreferences.getInt(keyMinTempo, 0)) + " min");
         }else{
-            SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putInt(keyMinTempo, getMinTempo());
             editor.commit();
         }
@@ -239,8 +240,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         tvrSon = (TextView) view.findViewById(R.id.tvrSon);
         tvrTempsPreparation = (TextView) view.findViewById(R.id.tvrTempsPreparation);
         tvrTempo = (TextView) view.findViewById(R.id.tvrTempo);
-
-       tmpa = sharedpreferences.getInt(keyNbRepetitionRestante, 0);
+        tmpa = sharedpreferences.getInt(keyNbRepetitionRestante, 0);
 
         proAlarm = new ProgrammerAlarm(getContext(),alarmManager,pendingIntent);
 
@@ -255,7 +255,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         if (sharedpreferences.getInt(keyNpDureePrepa,0)>-1) {
             npDureePrepa.setValue(sharedpreferences.getInt(keyNpDureePrepa, 0));
         } else{
-            SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putInt(keyNpDureePrepa,45);
             editor.commit();
         }
@@ -276,11 +275,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         }
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        myContext=(FragmentActivity) activity;
-        super.onAttach(activity);
-    }
 
 
     //----------------------------------------------------------------------------
@@ -298,22 +292,16 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
         if(picker==npDureePrepa){
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putInt(keyNpDureePrepa,newVal);
-            editor.commit();
+            editor.putInt(keyNpDureePrepa, newVal);
         }else if(picker==nprMinTempo){
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putInt(keyMinTempo,newVal);
-            editor.commit();
+            editor.putInt(keyMinTempo, newVal);
         }else if(picker==nprMinRepeter){
-            SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putInt(keyMinRepetition,newVal);
-            editor.commit();
         }else if(picker==nprFoisRepeter){
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putInt(keyNbRepetition,newVal);
-            editor.commit();
-    }
+            editor.putInt(keyNbRepetition, newVal);
+        }
+        editor.commit();
+
     }
 
 
@@ -359,8 +347,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                     proAlarm = new ProgrammerAlarm(getContext(),alarmManager,pendingIntent);
                     proAlarm.setAlarmAuto();
 
-
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putBoolean(keyDActivDesactiv, dActivDesaciv);
                     editor.commit();
                 } else {
@@ -386,7 +372,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                     tvrTempsPreparation.setTextColor(getResources().getColor(R.color.grisDesactiv));
                     tvrTempo.setTextColor(getResources().getColor(R.color.grisDesactiv));
                     cancelAlarm();
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putBoolean(keyDActivDesactiv, dActivDesaciv);
                     editor.commit();
 
@@ -400,17 +385,13 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                 if (isChecked) {//Si le switch est activé alors
                     Log.i("vibswitchon", "Vibreur actif");
                     dSonner = true;
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putBoolean(keyDSonner, dSonner);
-                    editor.commit();
                 } else {
                     Log.i("vibswitchoff", "Vibreur innactif");
                     dSonner = false;
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putBoolean(keyDSonner, dSonner);
-                    editor.commit();
-
                 }
+                editor.commit();
             }
         });
         switchFondu.setChecked(sharedpreferences.getBoolean(keyDFondu, false));
@@ -420,16 +401,13 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                 if (isChecked) {
                     Log.i("fonduswitchon", "Demarrage fondu actif");
                     dFondu = true;
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putBoolean(keyDFondu, dFondu);
-                    editor.commit();
                 } else {
                     Log.i("fonduswitchoff", "Demarrage fondu innactif");
                     dFondu = false;
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putBoolean(keyDFondu, dFondu);
-                    editor.commit();
                 }
+                editor.commit();
             }
         });
 
@@ -440,16 +418,13 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                 if (isChecked) {
                     Log.i("torchswitchon", "Lampe torche actif");
                     dTorche = true;
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putBoolean(keyDTorche, dTorche);
-                    editor.commit();
                 } else {
                     Log.i("torchswitchoff", "Lampe torche innactif");
                     dTorche = false;
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putBoolean(keyDTorche, dTorche);
-                    editor.commit();
                 }
+                editor.commit();
             }
         });
     }
@@ -608,7 +583,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         brValiderTempo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putInt(keyMinTempo, nprMinTempo.getValue());
                 editor.commit();
                 btnTempo.setText(String.valueOf(sharedpreferences.getInt(keyMinTempo, 0)) + " min");
@@ -652,7 +626,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
             @Override
             public void onClick(View v) {
 
-                SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putInt(keyNbRepetition, nprFoisRepeter.getValue());
                 editor.putInt(keyMinRepetition, nprMinRepeter.getValue());
                 editor.commit();
@@ -686,21 +659,4 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         return  5;
     }
 
-    //--------------------------------------------------------------------
-    //-------Methodes pour qui renvoie si les switch sont activé ou non---
-    //--------------------------------------------------------------------
-    public static boolean getDSonner() {
-        //return dSonner;//vibreur
-        return sharedpreferences.getBoolean(keyDSonner,true);
-    }
-
-    public static boolean getDFondu() {
-        //return dFondu;
-        return sharedpreferences.getBoolean(keyDFondu,true);
-    }
-
-    public static boolean getDTorche() {
-        return  sharedpreferences.getBoolean(keyDFondu,true);
-        //return dTorche;
-    }
 }

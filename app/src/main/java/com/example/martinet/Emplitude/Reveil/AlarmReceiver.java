@@ -9,6 +9,7 @@ Classe qui defini les action a faire au moment ou le reveil sonne
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.AudioTrack;
@@ -28,15 +29,19 @@ import java.io.IOException;
 public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     //------Variables------//
+    public static MediaPlayer mMediaPlayer;
     public static Ringtone ringtone;
     public static Vibrator v;
     private Thread thread;
-    public static MediaPlayer mMediaPlayer;
+
+    private SharedPreferences sharedpreferences;
 
     public void onReceive(Context context, Intent intent) {
 
         //-----Faire jouer le son-----//
         Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+
+        this.sharedpreferences = context.getSharedPreferences(ReveilActivity.MesPREFERENCES, Context.MODE_PRIVATE);
 
         /*
         ringtone.setAudioAttributes(AudioAttributes.USAGE_ALARM);
@@ -44,33 +49,28 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         ringtone = RingtoneManager.getRingtone(context, alert);
         ringtone.play();*/
 
-         mMediaPlayer = new MediaPlayer();
+        mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        int aug = 0;
-        System.out.println("valeur son" + aug);
+
        // audioManager.setStreamVolume(AudioManager.STREAM_ALARM, aug, 0);
 
 
-            try {
-                mMediaPlayer.setDataSource(context, alert);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                mMediaPlayer.prepare();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            mMediaPlayer.setDataSource(context, alert);
+            mMediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, audioManager.getStreamMaxVolume(audioManager.STREAM_ALARM), 0);
-            mMediaPlayer.start();
+        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
+        mMediaPlayer.start();
 
 
             //-----Faire jouer le vibreur-----//
             v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
-            if (ReveilActivity.getDSonner()) {
+            if (sharedpreferences.getBoolean(ReveilActivity.keyDSonner, true)) {
                 long[] pattern = {0, 2000, 1000};
                 v.vibrate(pattern, 0);
             }

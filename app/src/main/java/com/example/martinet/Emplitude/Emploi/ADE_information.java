@@ -42,11 +42,7 @@ public class ADE_information {
         dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/London"));
 
         allCours = Fichier.readAll(Constants.courFile, context);
-        if(allCours != null){
-            this.vide = false;
-        }else{
-            this.vide = true;
-        }
+        this.vide = allCours == null;
     }
     //Recupération des cours
     public Vector<Cour> getCours() {

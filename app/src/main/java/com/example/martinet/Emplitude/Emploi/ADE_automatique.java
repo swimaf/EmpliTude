@@ -42,7 +42,7 @@ public class ADE_automatique extends BroadcastReceiver implements ADE_retour{
             }else {
                 Intent i = new Intent(context,ADE_automatique.class);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, i, 0);
-                AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
             }
         }else{
@@ -92,7 +92,7 @@ public class ADE_automatique extends BroadcastReceiver implements ADE_retour{
             //long seconds = this.preference.getInt("rafraichissement", 7)*2;
             Intent i = new Intent(context,ADE_automatique.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, i, 0);
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (seconds * 1000), pendingIntent);
             this.editor.putLong("time", System.currentTimeMillis()+seconds*1000);
             this.editor.commit();
@@ -101,7 +101,7 @@ public class ADE_automatique extends BroadcastReceiver implements ADE_retour{
             long seconds = 30*60;
             Intent i = new Intent(context,ADE_automatique.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, i, 0);
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (seconds * 1000), pendingIntent);
         }
     }
