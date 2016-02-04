@@ -36,7 +36,7 @@ public class SonnerieActivity extends Activity {
     private ProgrammerAlarm programmerAlarm;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
-    public static SharedPreferences sharedpreferences;
+    public SharedPreferences sharedpreferences;
 
     //---OnCreate----//
     protected void onCreate(Bundle savedInstanceState) {
