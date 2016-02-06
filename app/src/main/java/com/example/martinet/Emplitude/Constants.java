@@ -10,6 +10,7 @@ public class Constants {
     final static public String store = System.getenv("EXTERNAL_STORAGE");
     final static public String courFile ="ADE.cours";
     final static public String identifiantFile = ".identifiant.txt";
+    final static public String PREFERENCE_SON = "PREFERENCE_SON";
 
     final static public int intervaleSonnerieRepeter = 1;
 

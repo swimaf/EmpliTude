@@ -45,7 +45,7 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
     final private static String PREFS_NAME = "Ade";
 
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
-    final private String SITE = "http://arnaud-regnier.ovh/recup.php";
+    final private String SITE = "http://climax.heb3.org/Emplitude/recup/";
 
     private Boolean is_etudiant = true;
     private RelativeLayout etudiant;

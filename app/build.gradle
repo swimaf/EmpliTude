@@ -25,5 +25,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.'
     compile 'com.android.support:design:23.1.1'
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
+    compile 'com.balysv:material-ripple:1.0.2'
     compile "com.github.danielnilsson9:color-picker-view:1.4.0@aar"
 }

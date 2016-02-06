@@ -30,8 +30,6 @@ public class ADE_automatique extends BroadcastReceiver implements ADE_retour{
 
     public void onReceive(Context context, Intent intent) {
         this.context = context;
-        //Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        //vibrator.vibrate(2000);
 
         this.preference = context.getSharedPreferences(PREFS_NAME, 0);
         this.editor = preference.edit();
