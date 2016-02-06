@@ -60,6 +60,10 @@
     <string name="brValid">OK</string>
     <string name="brAnnul">Annuler</string>
 
+    <!-- *************************************** SON *************************************************-->
+
+    <string name="active">Activé</string>
+    <string name="deactive">Désactivé</string>
 
     =======
     <string name="service_name">Je sais pas</string>

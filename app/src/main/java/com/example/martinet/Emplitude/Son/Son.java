@@ -1,6 +1,9 @@
 package com.example.martinet.Emplitude.Son;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Bundle;
@@ -12,13 +15,13 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
 import com.example.martinet.Emplitude.Constants;
+import com.example.martinet.Emplitude.Emploi.ADE_information;
+import com.example.martinet.Emplitude.Emploi.Cour;
 import com.example.martinet.Emplitude.R;
-import com.example.martinet.Emplitude.Reveil.ReveilActivity;
 
 
 /**
@@ -35,6 +38,11 @@ public class Son extends Fragment {
     private SharedPreferences.Editor editor;
     private FrameLayout color;
     private Vibrator vibrator;
+    private AudioManager amanager;
+    private int sonMaxSonnerie;
+    private int sonMaxMedia;
+    private int sonMaxNotification;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         this.getActivity().setTitle("Gestion des sons");
@@ -51,6 +59,11 @@ public class Son extends Fragment {
         this.sharedpreferences = getActivity().getSharedPreferences(Constants.PREFERENCE_SON, Context.MODE_PRIVATE);
         this.editor = sharedpreferences.edit();
         this.vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        this.amanager = (AudioManager)getContext().getSystemService(Context.AUDIO_SERVICE);
+
+        this.sonMaxSonnerie = this.amanager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+        this.sonMaxNotification = this.amanager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+        this.sonMaxMedia = this.amanager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
         this.initialisation();
         return view;
@@ -58,11 +71,15 @@ public class Son extends Fragment {
 
     public void toggleActivation(boolean activer){
         if(activer){
-            this.activer.setText("Activé");
+            this.activer.setText(R.string.active);
             this.color.setVisibility(View.GONE);
+            this.lancerReceiver();
+
         }else {
-            this.activer.setText("Désactivé");
+            this.activer.setText(R.string.deactive);
             this.color.setVisibility(View.VISIBLE);
+            this.annulerReceiver();
+
         }
         this.sonnerie.setEnabled(activer);
         this.media.setEnabled(activer);
@@ -82,6 +99,10 @@ public class Son extends Fragment {
         media.setProgress(sharedpreferences.getInt("media", 0));
         vibrer.setChecked(sharedpreferences.getBoolean("vibrer", true));
 
+        sonnerie.setMax(sonMaxSonnerie);
+        notification.setMax(sonMaxNotification);
+        media.setMax(sonMaxMedia);
+
         activer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 editor.putBoolean("activer", isChecked);
@@ -91,40 +112,72 @@ public class Son extends Fragment {
         sonnerie.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 editor.putInt("sonnerie", progress);
-                AudioManager amanager=(AudioManager)getContext().getSystemService(Context.AUDIO_SERVICE);
-                amanager.setStreamVolume(AudioManager.STREAM_RING, 0, AudioManager.FLAG_VIBRATE);
-                amanager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, 0, AudioManager.FLAG_VIBRATE);
             }
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
         notification.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 editor.putInt("notification", progress);
-                AudioManager amanager=(AudioManager)getContext().getSystemService(Context.AUDIO_SERVICE);
-                amanager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, AudioManager.FLAG_VIBRATE);
             }
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
         media.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 editor.putInt("media", progress);
-                AudioManager amanager=(AudioManager)getContext().getSystemService(Context.AUDIO_SERVICE);
-                amanager.setStreamVolume(AudioManager.STREAM_RING, 0, AudioManager.FLAG_VIBRATE);
-                amanager.setStreamVolume(AudioManager.STREAM_ALARM, 0, AudioManager.FLAG_VIBRATE);
             }
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
         vibrer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 editor.putBoolean("vibrer", isChecked);
-                if(isChecked){
+                if (isChecked) {
                     vibrator.vibrate(500);
                 }
             }
         });
+
+        if(!sharedpreferences.getBoolean("lancer", false)){
+            this.lancerReceiver();
+        }
+    }
+
+    public void lancerReceiver(){
+        ADE_information ade_information = new ADE_information(getContext());
+        Cour prochainCour = ade_information.getNext();
+        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getContext(), LancerSonReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, 0);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, prochainCour.getDateD().getTime() - 60, pendingIntent);
+
+        Intent intent2 = new Intent(getContext(), FermerSonReceiver.class);
+        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(getContext(), 1, intent2, 0);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, prochainCour.getDateF().getTime() - 60, pendingIntent2);
+    }
+
+    public void annulerReceiver(){
+        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getContext(), LancerSonReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, 0);
+        alarmManager.cancel(pendingIntent);
+
+        Intent intent2 = new Intent(getContext(), FermerSonReceiver.class);
+        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(getContext(), 1, intent2, 0);
+        alarmManager.cancel(pendingIntent2);
     }
 
     public void onStop(){

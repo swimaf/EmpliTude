@@ -10,7 +10,6 @@ import com.example.martinet.Emplitude.Constants;
 import com.example.martinet.Emplitude.Outil.Fichier;
 import com.example.martinet.Emplitude.Outil.Jour;
 
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -23,7 +22,6 @@ public class ADE_information {
     private Boolean vide;
     private Vector<Cour> cours;
     private Vector<Object> allCours;
-    private SimpleDateFormat dateFormat;
     private Context context;
 
 
@@ -38,9 +36,6 @@ public class ADE_information {
     }
 
     public void init(){
-        dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z'");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/London"));
-
         allCours = Fichier.readAll(Constants.courFile, context);
         this.vide = allCours == null;
     }

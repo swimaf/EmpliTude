@@ -64,11 +64,9 @@ public class Introduction extends Activity implements View.OnClickListener {
     public void rafraichirAuto(){
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         long time = this.preference.getLong("time", 0);
-        System.out.println(time - System.currentTimeMillis() );
         if(time - System.currentTimeMillis() < 0 ) {
             Jour jour = new Jour(new Date());
             jour.ajouterJour(7);
-            System.out.println("ssss");
             //long seconds = this.preference.getInt("rafraichissement", 7)*24*60*60;
             long seconds = this.preference.getInt("rafraichissement", 7)*50;
             this.editor.putLong("time", System.currentTimeMillis()+seconds*1000);
