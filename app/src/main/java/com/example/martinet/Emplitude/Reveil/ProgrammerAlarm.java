@@ -134,7 +134,7 @@ public class ProgrammerAlarm {
         int tempoM = cal.get(Calendar.MINUTE);
         int tempoJ = cal.get(Calendar.DAY_OF_MONTH);
         int tempoMo = cal.get(Calendar.MONTH);
-        String Mon = "";
+      /*  String Mon = "";
         switch (tempoMo){
             case 0 : Mon = "Janvier";
                 break;
@@ -191,7 +191,7 @@ public class ProgrammerAlarm {
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(10, mBuilder.build());
 
-
+  */
     }
 
 

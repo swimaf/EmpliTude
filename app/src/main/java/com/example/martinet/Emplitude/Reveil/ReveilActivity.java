@@ -4,13 +4,20 @@ package com.example.martinet.Emplitude.Reveil;
  * Created by Arnaud on 04/01/2016.
  */
 
+import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.hardware.Camera;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,10 +38,13 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.martinet.Emplitude.Constants;
 import com.example.martinet.Emplitude.R;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 
 public class ReveilActivity extends Fragment implements NumberPicker.OnValueChangeListener {
     //---------------------------------------------------------------
@@ -50,6 +60,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     public static final String keyNbRepetitionRestante = "keyNbRepetitionRestante";
     public static final String keyMinRepetition = "keyMinRepetition";
     public static final String keyMinTempo = "keyMinTempo";
+    public static final String keySonChoisis = "keySonChoisis";
     public static int minRepetition = 0;
     public static SharedPreferences sharedpreferences;
     private SharedPreferences.Editor editor;
@@ -81,11 +92,12 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     private NumberPicker nprFoisRepeter;
     private NumberPicker nprMinRepeter;
     private Button btn1;
-    private Button btnSon;
+    public static  Button btnSon;
     private View view;
     private int tmpa;
     private ProgrammerAlarm proAlarm;
     private ImageButton help;
+    private CameraManager cameraManager;
 
 
 
@@ -137,6 +149,10 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
             @Override
             public void onClick(View v) {
                 Log.i("btnSOn", "Appui bouton son");
+                Intent myIntent = new Intent(getActivity(), AudioPlayerDemoActivity.class);
+                startActivity(myIntent);
+
+
 
             }
         };
@@ -189,7 +205,9 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     //------------------Methode pour initialiser les variables-----------------------
 
     private void initialiser() {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//Choix en fonction de la version d'android
+        cameraManager = (CameraManager) mContext.getSystemService(mContext.CAMERA_SERVICE);
+        }
         sharedpreferences = getActivity().getSharedPreferences(MesPREFERENCES, Context.MODE_PRIVATE);
         this.editor = sharedpreferences.edit();
         myContext=getActivity();
@@ -237,9 +255,13 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         tvrSon = (TextView) view.findViewById(R.id.tvrSon);
         tvrTempsPreparation = (TextView) view.findViewById(R.id.tvrTempsPreparation);
         tvrTempo = (TextView) view.findViewById(R.id.tvrTempo);
+        tvrTempo = (TextView) view.findViewById(R.id.tvrTempo);
         tmpa = sharedpreferences.getInt(keyNbRepetitionRestante, 0);
 
         proAlarm = new ProgrammerAlarm(getContext(),alarmManager,pendingIntent);
+
+
+        btnSon.setText(sharedpreferences.getString(keySonChoisis,"Défaut"));
 
     }
 
@@ -416,6 +438,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                     Log.i("torchswitchon", "Lampe torche actif");
                     dTorche = true;
                     editor.putBoolean(keyDTorche, dTorche);
+
                 } else {
                     Log.i("torchswitchoff", "Lampe torche innactif");
                     dTorche = false;
@@ -655,5 +678,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     public static int getMinTempo() {
         return  5;
     }
+
 
 }
