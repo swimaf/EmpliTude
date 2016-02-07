@@ -117,9 +117,30 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         appelSwitch();
         initNPTempsPrepa();
         proAlarm.setAlarmAuto();
+        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {//Choix en fonction de la version d'android
+            switchFondu.setEnabled(false);
+            switchFondu.setFocusable(false);
+            switchTorche.setEnabled(false);
+            switchTorche.setFocusable(false);
+            switchActivDesactiv.setChecked(false);
+            switchActivDesactiv.setEnabled(false);
+            switchActivDesactiv.setFocusable(false);
 
+        }
+        btnSon.setTextColor(getResources().getColor(R.color.grisDesactiv));
+        tvrSon.setTextColor(getResources().getColor(R.color.grisDesactiv));
+        btnSon.setEnabled(false);
+        btnSon.setFocusable(false);
+        btn1.setVisibility(View.GONE);
+        textView1.setVisibility(View.GONE);
         return this.view;
+
+
+
+
     }
+
+
 
 
     //------------------Methode pour appeler les listeners------------------------
@@ -343,24 +364,39 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {//Si le switch est activé alors
                     Log.i("test", "Reveil actif");
+
+                    if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {//Choix en fonction de la version d'android
+                        switchFondu.setEnabled(false);
+                        switchFondu.setFocusable(false);
+                        switchTorche.setEnabled(false);
+                        switchTorche.setFocusable(false);
+                        btnSon.setTextColor(getResources().getColor(R.color.grisDesactiv));
+                        tvrSon.setTextColor(getResources().getColor(R.color.grisDesactiv));
+                        btnSon.setEnabled(false);
+                        btnSon.setFocusable(false);
+                    }
                     switchActivDesactiv.setText("Activé");
                     dActivDesaciv=true;
+                    if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {//Choix en fonction de la version d'android
                     switchFondu.setEnabled(true);
                     switchFondu.setFocusable(true);
                     switchTorche.setEnabled(true);
                     switchTorche.setFocusable(true);
+                        tvrSon.setTextColor(getResources().getColor(R.color.grisDesactiv));
+                        tvrSon.setTextColor(getResources().getColor(R.color.grisDesactiv));
+                        btnSon.setEnabled(false);
+                        btnSon.setFocusable(false);
+                    }
                     switchVibreur.setEnabled(true);
                     switchVibreur.setFocusable(true);
                     btnTempo.setEnabled(true);
                     btnTempo.setFocusable(true);
-                    btnSon.setEnabled(true);
-                    btnSon.setFocusable(true);
+
                     npDureePrepa.setEnabled(true);
                     npDureePrepa.setFocusable(true);
                     btnSon.setTextColor(getResources().getColor(R.color.black));
                     btnTempo.setTextColor(getResources().getColor(R.color.black));
                     tvrTempo.setTextColor(getResources().getColor(R.color.black));
-                    tvrSon.setTextColor(getResources().getColor(R.color.black));
                     tvrMinutes.setTextColor(getResources().getColor(R.color.black));
                     tvrTempsPreparation.setTextColor(getResources().getColor(R.color.black));
                     proAlarm = new ProgrammerAlarm(getContext(),alarmManager,pendingIntent);
@@ -386,7 +422,6 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                     npDureePrepa.setFocusable(false);
                     btnSon.setTextColor(getResources().getColor(R.color.grisDesactiv));
                     btnTempo.setTextColor(getResources().getColor(R.color.grisDesactiv));
-                    tvrSon.setTextColor(getResources().getColor(R.color.grisDesactiv));
                     tvrMinutes.setTextColor(getResources().getColor(R.color.grisDesactiv));
                     tvrTempsPreparation.setTextColor(getResources().getColor(R.color.grisDesactiv));
                     tvrTempo.setTextColor(getResources().getColor(R.color.grisDesactiv));

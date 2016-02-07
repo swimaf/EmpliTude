@@ -70,7 +70,7 @@ public class SonnerieActivity extends Activity {
         Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         try {
             String chemain = "/storage/sdcard0/BlackBerry/music/"+sharedpreferences.getString(ReveilActivity.keySonChoisis,"Défaut");
-            mMediaPlayer.setDataSource(chemain);
+            mMediaPlayer.setDataSource(this,alert);
             mMediaPlayer.prepare();
         } catch (IOException e) {
             e.printStackTrace();
