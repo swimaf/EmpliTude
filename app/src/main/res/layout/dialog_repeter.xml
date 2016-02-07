@@ -1,0 +1,74 @@
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:weightSum="1">
+        <NumberPicker
+            android:id="@+id/nprFoisRepeter"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="vertical" />
+        <TextView
+            android:id="@+id/tvrFoisRepeter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/tvrFois"
+            android:textSize="30sp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            />
+        <NumberPicker
+            android:id="@+id/nprMinRepeter"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="vertical" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/tvrMin"
+            android:textSize="30sp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <Button
+            android:id="@+id/brValiderRepeter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/brValid"
+            android:layout_marginRight="10dp"
+            />
+        <Button
+            android:id="@+id/brAnnulerRepeter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/brAnnul"
+            android:layout_marginLeft="10dp"
+
+            />
+
+
+    </LinearLayout>
+</LinearLayout>
+

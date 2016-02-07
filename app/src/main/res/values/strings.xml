@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">Empli\'tude</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="Etudiant">Etudiant</string>
+    <string name="Enseignant">Enseignant</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="groupe">null</string>
+    <string name="nom_appli">Empli\'tude</string>
+    <string name="description">Bienvenue sur la première application de gestion d\'emploi du temps de l\'IUT, cette application va vous permettre de gagner du temps et de ne plus rien oublier. Renseigner vite vos informations pour la tester !</string>
+    <string-array name="maj">
+        <item>Tous les jours</item>
+        <item>Tous les 3 jours</item>
+        <item>Toutes les semaines</item>
+        <item>Toutes deux semaines</item>
+    </string-array>
+    <string-array name="notif">
+        <item>1 jour avant</item>
+        <item>2 jours avant</item>
+        <item>1 heure avant</item>
+        <item>4 heures avant</item>
+    </string-array>
+
+    <string-array name="heures">
+        <item>08h00</item>
+        <item>09h00</item>
+        <item>10h00</item>
+        <item>11h00</item>
+        <item>12h00</item>
+        <item>13h00</item>
+        <item>14h00</item>
+        <item>15h00</item>
+        <item>16h00</item>
+        <item>17h00</item>
+        <item>18h00</item>
+        <item>19h00</item>
+    </string-array>
+
+    <string name="emploiTache">Tâche</string>
+
+
+    <!-- EXemple de name : tvrMinutes [-> tv = textView -> r = reveil -> Minute = ce qu'il fait]-->
+    <!--TextView -->
+    <string name="tvrMinutes">Minutes</string>
+    <string name="tvrTempsPreparation">Temps de préparation :</string>
+    <string name="tvrRepeter">Répéter</string>
+    <string name="tvrRepeterDroite">0 fois 5 min</string><!--C'est un bouton... -->
+    <string name="tvrTempo">Reporter</string>
+    <string name="tvrTempoDroite">5 min</string><!--C'est un bouton... -->
+    <string name="tvrSon">Son</string>
+    <string name="tvrSonDroite">Défaut</string><!--C'est un bouton... -->
+    <string name="tvrFois">fois</string>
+    <string name="tvrMin">min</string>
+    <!-- Switch -->
+    <string name="srTorche">Lampe torche</string>
+    <string name="srFondu">Démarrage fondu</string>
+    <string name="srVibreur">Vibreur</string>
+    <!--Bouton -->
+    <string name="brValid">OK</string>
+    <string name="brAnnul">Annuler</string>
+
+    <!-- *************************************** SON *************************************************-->
+
+    <string name="active">Activé</string>
+    <string name="deactive">Désactivé</string>
+
+    =======
+    <string name="service_name">Je sais pas</string>
+
+</resources>

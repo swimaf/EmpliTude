@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_row="12"
+android:layout_column="11"
+android:rowCount="12"
+android:columnCount="34"
+android:orientation="vertical"
+android:id="@+id/reloader" >
+
+<GridLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_row="0"
+    android:layout_column="3"
+    android:rowCount="12"
+    android:columnCount="1"
+    android:orientation="vertical"
+    android:id="@+id/heures"
+    android:paddingLeft="10dp"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true" >
+
+</GridLayout>
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_row="0"
+    android:layout_column="33"
+    android:id="@+id/frame"
+    android:textAlignment="center"
+    android:layout_alignParentLeft="true"
+    android:layout_marginLeft="60dp"
+    android:layout_alignParentTop="true" />
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="60dp"
+    android:background="@drawable/hachure_background"
+    android:visibility="gone"
+    android:id="@+id/vide"></RelativeLayout>
+
+</RelativeLayout>
