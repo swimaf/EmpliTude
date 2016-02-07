@@ -96,7 +96,6 @@
                 android:layout_height="50dp"
                 android:id="@+id/modifier"
                 android:src="@drawable/ic_edit"
-                android:background="@drawable/ripple"
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/supprimer"
                 android:layout_toStartOf="@+id/supprimer" />
@@ -106,7 +105,6 @@
                 android:layout_height="50dp"
                 android:id="@+id/supprimer"
                 android:src="@drawable/ic_delete"
-                android:background="@drawable/ripple"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
