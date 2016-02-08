@@ -116,7 +116,7 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
             public void onClick(View v) {
                 int i = mPager.getCurrentItem() + 1;
                 if (i > 14) {
-                    setToast("Vous ne pouvez pas aller plus loin que 15 jour !");
+                    setToast("Vous ne pouvez pas aller plus loin que 15 jours !");
                 } else {
                     mPager.setCurrentItem(i, true);
                 }
