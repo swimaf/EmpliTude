@@ -194,7 +194,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
                 AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
                 dialog.setTitle("Aide");
                 TextView editText = new TextView(mContext);
-                editText.setText("Selectionner la durée dont vous avez besoin entre votre réveil et votre arrivé en emploi_cour.\n Le temps de préparation sélectionner determinera l'heure de  sonnerie reveil");
+                editText.setText("Sélectionner la durée dont vous avez besoin entre votre réveil et votre arrivé en cour.\n Le temps de préparation sélectionné déterminera l'heure de sonnerie du réveil\n");
                 LinearLayout linearLayout= new LinearLayout(mContext);
                 linearLayout.setPadding(20, 10, 20, 10);
                 linearLayout.setOrientation(LinearLayout.VERTICAL);
