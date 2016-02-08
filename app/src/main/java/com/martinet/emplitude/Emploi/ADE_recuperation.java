@@ -103,7 +103,7 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
-        INFO = "Mise à jour effectué";
+        INFO = "Mise à jour effectuée";
         o.retour(retour);
     }
 
