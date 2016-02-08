@@ -102,7 +102,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.view = inflater.inflate(R.layout.reveil_activity, container, false);
-
+        this.getActivity().setTitle("Réveil");
         mContext = container.getContext();
         // pour affecter this a la variable utilisé par la suite.
         initialiser();
