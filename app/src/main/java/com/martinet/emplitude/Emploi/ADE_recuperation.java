@@ -43,7 +43,6 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
         String first = j.getUrl();
         j.ajouterJour(14);
         String last =j.getUrl();
-        j.ajouterJour(-5);
         this.o = o;
         this.context =c;
         this.utilisateur = (Utilisateur) Fichier.lire(Constants.identifiantFile,context, 0);
@@ -87,7 +86,7 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
             }
 
             textResult = sb.toString();
-            Vector<Object> cours = ADE_traitement.get(textResult);
+            Vector cours = ADE_traitement.get(textResult);
             Fichier.ecrireVector(Constants.courFile, context, cours);
 
 

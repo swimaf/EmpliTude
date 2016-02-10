@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:contextClickable="true"
     android:clickable="true">
 
     <RelativeLayout android:orientation="vertical"
@@ -13,8 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="false"
-        android:clickable="true"
-        android:contextClickable="true">
+        android:clickable="true">
 
         <android.support.v4.widget.SwipeRefreshLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -37,8 +35,7 @@
                         xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/pager"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:nestedScrollingEnabled="false" />
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
             </ScrollView>
         </android.support.v4.widget.SwipeRefreshLayout>
@@ -71,8 +68,6 @@
                 android:id="@+id/color_1"
                 android:backgroundTint="#f44336"
                 android:background="@drawable/corner"
-                android:layout_x="151dp"
-                android:layout_y="12dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp" />
@@ -83,8 +78,6 @@
                 android:id="@+id/color_2"
                 android:backgroundTint="#2196f3"
                 android:background="@drawable/corner"
-                android:layout_x="151dp"
-                android:layout_y="12dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp" />
@@ -95,8 +88,6 @@
                 android:id="@+id/color_3"
                 android:backgroundTint="#8bc34a"
                 android:background="@drawable/corner"
-                android:layout_x="151dp"
-                android:layout_y="12dp"
                 android:layout_gravity="right|center_vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp" />

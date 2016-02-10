@@ -23,7 +23,8 @@
             android:layout_toLeftOf="@+id/jour"
             android:layout_toStartOf="@+id/jour"
             android:scaleType="fitCenter"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:onClick="precedent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,6 +54,7 @@
             android:layout_toEndOf="@+id/jour"
             android:outlineProvider="background"
             android:scaleType="fitCenter"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:onClick="suivant" />
     </RelativeLayout>
 </LinearLayout>

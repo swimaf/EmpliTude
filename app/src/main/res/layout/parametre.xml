@@ -61,14 +61,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Supprimer profil"
-                    android:id="@+id/supprimer" />
+                    android:id="@+id/supprimer"
+                    android:onClick="supprimerProfil" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Supprimer les couleurs des cours"
                     android:id="@+id/couleur"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    android:onClick="supprimerCouleur" />
 
             </LinearLayout>
 

@@ -28,7 +28,6 @@ public class ColorPicker extends DialogFragment {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 ((Emploi)((MainActivity)getActivity()).getFragment()).getFragment().setColorButton(mColorPickerView.getColor());
                 dismiss();
             }
