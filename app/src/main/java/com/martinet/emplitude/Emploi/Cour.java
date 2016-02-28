@@ -3,7 +3,9 @@ package com.martinet.emplitude.Emploi;
 import java.io.Serializable;
 import java.util.Date;
 
-
+/**
+ * Classe d'information d'un cour implementant serializable pour la sauvegarde des données
+ */
 public class Cour implements Serializable{
 
     private String matiere;
@@ -20,10 +22,6 @@ public class Cour implements Serializable{
         this.dateF = dateF;
         this.prof = prof;
         this.salle = salle;
-    }
-
-    public Cour() {
-
     }
 
     public String getMatiere() {

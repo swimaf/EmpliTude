@@ -22,6 +22,10 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+
+/**
+ * Classe asynchrone permettant la récupération sur ADE du fichier iCal
+ */
 public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
 
     public final static int NO_ERREUR = 0;
@@ -45,7 +49,7 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
         String last =j.getUrl();
         this.o = o;
         this.context =c;
-        this.utilisateur = (Utilisateur) Fichier.lire(Constants.identifiantFile,context, 0);
+        this.utilisateur = (Utilisateur) Fichier.lire(Constants.identifiantFile,context, 0); //Recupération du n° de l'utilisation
         this.source = "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources="+utilisateur.getIdentifiant()+"&projectId=1&calType=ical&firstDate="+first+"&lastDate="+last;
     }
 
@@ -53,6 +57,8 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
         URL textUrl;
         retour = ERROR;
         INFO = "La mise à jour a échouer.";
+
+        // TrustManager est utilisé pour le HTTPS
         TrustManager[] trustAllCerts = new TrustManager[]{
                 new X509TrustManager() {
                     public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -73,13 +79,14 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 
             textUrl = new URL(source);
-            URLConnection connection = textUrl.openConnection();
+            URLConnection connection = textUrl.openConnection(); //Récuperation
             InputStream is = connection.getInputStream();
             retour = ERROR_SSL;
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             StringBuilder sb = new StringBuilder();
 
+            //Lecture ligne par ligne
             String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line+"\n");
@@ -87,6 +94,8 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
 
             textResult = sb.toString();
             Vector cours = ADE_traitement.get(textResult);
+
+            //Sauvegarde de tous les cours dans un fichier
             Fichier.ecrireVector(Constants.courFile, context, cours);
 
 
@@ -103,7 +112,7 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
         INFO = "Mise à jour effectuée";
-        o.retour(retour);
+        o.retour(retour); //Retour vers la classe appelante
     }
 
 }

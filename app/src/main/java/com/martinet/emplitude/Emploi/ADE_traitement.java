@@ -11,6 +11,9 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Classe permettant le traitement du fichier iCal
+ */
 
 public class ADE_traitement {
 
@@ -33,7 +36,7 @@ public class ADE_traitement {
         return cours;
     }
 
-
+    //Récupere les informations d'un element
     public static String element(String chaine, String pattern, String split){
         String res= "";
         Pattern p = Pattern.compile(pattern);
@@ -45,6 +48,7 @@ public class ADE_traitement {
         return res;
     }
 
+    //Récupere les informations d'un element multiple ligne
     public static String elementMulti(String chaine, String pattern, String split){
         String res= "";
         Pattern p = Pattern.compile(pattern, Pattern.DOTALL);
@@ -56,16 +60,16 @@ public class ADE_traitement {
         return res;
     }
 
-    //Récupération information de un emploi_cour
     public static Cour getCour(String contenu) throws ParseException {
         String description, matiere = "", prof, resum, s, salle, resumer;
         Date d2, d;
-        resum = element(contenu, "SUMMARY:(.)+", "SUMMARY:");
+        resum = element(contenu, "SUMMARY:(.)+", "SUMMARY:"); //Récupère le sommaire du cours
         resumer = resum;
-        salle = element(contenu, "LOCATION:(.)+", "LOCATION:");
+        salle = element(contenu, "LOCATION:(.)+", "LOCATION:"); //Récupère la salle du cours
 
-        description = elementMulti(contenu, "DESCRIPTION:(.)+UID", "DESCRIPTION:");
+        description = elementMulti(contenu, "DESCRIPTION:(.)+UID", "DESCRIPTION:"); //Récupère la description du cours
 
+        //Nettoyage du champs description
         String[] h2 = description.split("\n");
         description="";
         for(String sss:h2){
@@ -76,18 +80,21 @@ public class ADE_traitement {
         description = description.split("\\\\n[(][Exporté]")[0];
         String[] v = description.split("\\\\n");
 
+        //Pattern de recherche de l'enseignant
         Pattern p = Pattern.compile("[A-Z]{3,}");
         Matcher m;
 
         Boolean fini = false;
         int k = v.length-2;
-        prof =v[k+1];
+        prof =v[k+1]; //Récupère le premier prof
         while(k>1 && !fini){
             m=p.matcher(v[k]);
             if(m.find()) {
+                //Si il y a plusieurs prof pour le cours
                 prof +=", "+v[k];
             }else{
                 fini = true;
+                //Pattern de récuperation de la matière
                 p = Pattern.compile("[A-Z]{1}");
                 m=p.matcher(v[k]);
                 if(m.find()) {
@@ -98,9 +105,9 @@ public class ADE_traitement {
             }
             k--;
         }
-        s = element(contenu, "DTSTART:(.)+", "DTSTART:");
-        d = dateFormat.parse(s);
-        s = element(contenu, "DTEND:(.)+", "DTEND:");
+        s = element(contenu, "DTSTART:(.)+", "DTSTART:"); //Récuperation de la date du début du cours
+        d = dateFormat.parse(s);                          //Formatage de la date
+        s = element(contenu, "DTEND:(.)+", "DTEND:");     //Récuperation de la date de fin du cours
         d2 = dateFormat.parse(s);
 
         return new Cour(resumer, matiere, d, d2, prof, salle);

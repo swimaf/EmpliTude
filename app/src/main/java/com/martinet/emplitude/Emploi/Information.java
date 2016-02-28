@@ -31,7 +31,9 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Vector;
 
-
+/**
+ * Classe permettant l'affichage complet du jour ainsi que sa liste de tâche associée
+ */
 public class Information extends AppCompatActivity {
 
     final static private SimpleDateFormat h = new SimpleDateFormat("HH:mm");

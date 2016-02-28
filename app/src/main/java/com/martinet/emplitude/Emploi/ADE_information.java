@@ -15,6 +15,10 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Vector;
 
+
+/**
+ * Classe permettant de récupérer les différentes informations du fichier iCal
+ */
 public class ADE_information {
 
     private Date date;
@@ -38,6 +42,7 @@ public class ADE_information {
         allCours = Fichier.readAll(Constants.courFile, context);
         this.vide = allCours == null;
     }
+
     //Recupération des cours
     public Vector<Cour> getCours() {
         this.get();
@@ -68,7 +73,7 @@ public class ADE_information {
         return this.cours.get(0);
     }
 
-    //Récupération tous les cours par date
+    //Récupération de tous les cours par date après la date du jour
     public void get(){
         this.cours = new Vector<>();
         Cour c;
@@ -83,6 +88,7 @@ public class ADE_information {
         }
     }
 
+    //Récupération du premier cour d'une journée
     public Cour getFirstBYDate(Date date) {
         this.date = date;
         this.get();

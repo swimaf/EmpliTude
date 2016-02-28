@@ -55,7 +55,7 @@ public class FermerSonReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent2 = PendingIntent.getBroadcast(context, 1, intent2, 0);
         alarmManager.set(AlarmManager.RTC_WAKEUP, prochainCour.getDateF().getTime() - 60, pendingIntent2);
 
-        /*
+
         SimpleDateFormat h = new SimpleDateFormat("dd HH:mm", Locale.FRENCH);
         //TEST
         NotificationCompat.Builder mBuilder =
@@ -75,7 +75,7 @@ public class FermerSonReceiver extends BroadcastReceiver {
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(10, mBuilder.build());
 
-        receiver(PackageManager.COMPONENT_ENABLED_STATE_DISABLED);*/
+        receiver(PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
 
     }
     public void receiver(int i){

@@ -8,6 +8,9 @@ import android.content.Intent;
 
 import com.martinet.emplitude.Emploi.ADE_automatique;
 
+/**
+ * Receiver qui se déclanche lorsque l'utilisateur active internet
+ */
 
 public class EvenementInternet extends BroadcastReceiver{
 

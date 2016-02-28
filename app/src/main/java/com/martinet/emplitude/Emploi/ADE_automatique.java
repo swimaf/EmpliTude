@@ -17,9 +17,14 @@ import com.martinet.emplitude.Constants;
 import com.martinet.emplitude.Outil.EvenementInternet;
 import com.martinet.emplitude.R;
 
+/**
+ * CLASSZ QUI CE LANCE AUTOMATIQUEMENT SUIVANT LE NOMBRE DE JOUR DE RAFFRAICHISSEMENT DE L'UTLISATEUR
+ */
+
 
 public class ADE_automatique extends BroadcastReceiver implements ADE_retour{
 
+    //Nom du fichier sharedPreference
     final private static String PREFS_NAME = "Ade";
 
     private Context context;
@@ -31,25 +36,33 @@ public class ADE_automatique extends BroadcastReceiver implements ADE_retour{
 
         this.preference = context.getSharedPreferences(PREFS_NAME, 0);
         this.editor = preference.edit();
+
+        //Si le smartphone démarre l'application lance une requete pour savoir quand mettre à jour l'emploi du temps
         if("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())){
-            long time = this.preference.getLong("time", 0);
-            if(time - System.currentTimeMillis() < 0 ) {
-                suivant();
-            }else {
-                Intent i = new Intent(context,ADE_automatique.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, i, 0);
-                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
-            }
+           this.relancementAutomatique();
         }else{
             this.suivant();
         }
     }
 
+    public void relancementAutomatique(){
+        long time = this.preference.getLong("time", 0);
+        if(time - System.currentTimeMillis() < 0 ) {
+            suivant();
+        }else {
+            Intent i = new Intent(context,ADE_automatique.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, i, 0);
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+        }
+    }
+
     public void suivant(){
         if (!Constants.CONNECTED(context)) {
+            //Si l'utilisateur n'est pas connecté à internet : lancement d'un receiver qui va ce déclancer lorsque l'utilisateur obtient internet
             receiver(PackageManager.COMPONENT_ENABLED_STATE_ENABLED);
         } else {
+            //Sinon on lance la récupération de l'emploi du temps (voir la méthode retour() pour la suite)
             ADE_recuperation load = new ADE_recuperation(this, context);
             load.execute();
         }
@@ -60,9 +73,12 @@ public class ADE_automatique extends BroadcastReceiver implements ADE_retour{
         PackageManager pm = context.getPackageManager();
         pm.setComponentEnabledSetting(receiver, i, PackageManager.DONT_KILL_APP);
     }
-    @Override
+
+
+    //Methode qui est exécutée lorsque ADE_recuperation est fini
     public void retour(int value) {
         if(value != ADE_recuperation.ERROR_ADE){
+            //Si il y a pas d'erreur on affiche une notification
 
             NotificationCompat.Builder mBuilder =
                     (NotificationCompat.Builder) new NotificationCompat.Builder(context)
@@ -85,7 +101,6 @@ public class ADE_automatique extends BroadcastReceiver implements ADE_retour{
 
 
             long seconds = this.preference.getInt("rafraichissement", 7)*24*60*60;
-            //long seconds = this.preference.getInt("rafraichissement", 7)*2;
             Intent i = new Intent(context,ADE_automatique.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, i, 0);
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -94,6 +109,7 @@ public class ADE_automatique extends BroadcastReceiver implements ADE_retour{
             this.editor.commit();
 
         }else{
+            //Sinon on relance cette Classe dans 30 min
             long seconds = 30*60;
             Intent i = new Intent(context,ADE_automatique.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, i, 0);

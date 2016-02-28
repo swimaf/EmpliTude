@@ -24,7 +24,9 @@ import java.util.Locale;
  * Created by martinet on 30/01/16.
  */
 
-
+/**
+ * Classe permettant d'ajouter une tâche depuis l'emploi du temps
+ */
 
 public class EmploiAjouterTache extends AppCompatActivity {
 
@@ -44,12 +46,9 @@ public class EmploiAjouterTache extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        try{
-            t = (Tache) intent.getSerializableExtra("Tache");
-        }catch (Exception e){
-        }
 
         try{
+            t = (Tache) intent.getSerializableExtra("Tache"); //Récuparation de la tache passée en parametre
             Bundle bundle =  intent.getExtras();
             date = new Date(bundle.getLong("date"));
             matiere = bundle.getString("matiere");
@@ -70,8 +69,10 @@ public class EmploiAjouterTache extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (nom.getText().toString().equals("")) {
+                    //Affichage d'une erreur si le nom de la tâche n'a pas été renseigné
                     Toast.makeText(getApplicationContext(), "Vous n'avez pas renseigné le champ !", Toast.LENGTH_SHORT).show();
                 } else {
+                    //Ajout de la tâche à la liste de de tâche
                     Tache tache = new Tache(nom.getText().toString(), matiere, date);
                     Todo.mesTaches.add(tache);
                     setResult(Activity.RESULT_OK);

@@ -15,6 +15,10 @@ import java.util.Vector;
  * Created by martinet on 17/11/15.
  */
 
+/**
+ * Classe permettant la sauvargarde ou la récuperation de données
+ */
+
 public class Fichier {
 
     public static void ecrire(String file, Context c, Object... objects){

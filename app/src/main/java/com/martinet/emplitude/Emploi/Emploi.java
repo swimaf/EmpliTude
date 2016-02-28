@@ -28,10 +28,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Vector;
 
+/**
+ * Classe permettant de gérer l'affichage de l'emploi du temps
+ */
 
 public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshListener, ADE_retour {
 
-    private static final int NUM_PAGES = 15;
+    private static final int NUM_PAGES = 15; //Nombre de jour visible
 
     private View viewAction;
     private FragmentActivity activity;
@@ -43,7 +46,6 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
     public HashMap<Integer, Fragment> fragmentReference;
 
     private PagerAdapter mPagerAdapter;
-
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -130,18 +132,22 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
         mPager.setCurrentItem(index);
     }
 
+    //Lorsque l'utilisateur change de page on supprime la toolbar personnalisé
     public void onDestroyView(){
         super.onDestroyView();
         ViewGroup tool = (ViewGroup) getActivity().findViewById(R.id.tool);
         tool.removeView(viewAction);
     }
 
+    //Lorsque l'utilisateur glisse son doigt vers le vas
     public void onRefresh() {
         if (Constants.CONNECTED(getContext())) {
+            //Si connecté à internet : mise à jour de l'emploi du temps
             ADE_recuperation load = new ADE_recuperation(this, getContext());
             load.execute();
             this.refresh();
         } else {
+            //Sinon affichage d'un message d'erreur
             ADE_recuperation.INFO = "Vous n'êtes pas connecté à internet !";
             this.retour(ADE_recuperation.ERROR_INTERNET);
         }
@@ -157,10 +163,12 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
         toast.show();
     }
 
+    //Retourne le jour courant
     public JourEmploi getFragment(){
         return ((JourEmploi)fragmentReference.get(mPager.getCurrentItem()));
     }
 
+    //Chargement de la barre des couleurs
     public void loadCouleurs() {
 
         final int[] colorBar = getResources().getIntArray(R.array.colorBar);
@@ -181,6 +189,8 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
                 }
             });
         }
+
+        //Lorque l'utilisateur selectionne le bouton personnalisé : ouverture du color picker
         button_picker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,20 +202,22 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
         });
     }
 
-
+    //Change la visibilité de la barre des couleurs
     public void colorBarVisibility(int mode){
         color.setVisibility(mode);
     }
 
 
+    //Change la toolbar avec le nom du jour
     public void setDateTitle(String date){
         TextView jour = (TextView) viewAction.findViewById(R.id.jour);
         jour.setText(date);
     }
 
-
+    /**
+     * Classe interne pour la gestion de tout les jours avec le slider
+     */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-
 
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
@@ -218,7 +230,7 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
             calendar.ajouterJour(position);
             JourEmploi j = new JourEmploi();
             j.setJour(calendar.getDate());
-            fragmentReference.put(position, j);
+            fragmentReference.put(position, j); //Sauvegarde des jours
             return j;
         }
 
