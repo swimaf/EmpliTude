@@ -22,8 +22,10 @@ import android.widget.Toast;
 import com.martinet.emplitude.Constants;
 import com.martinet.emplitude.MainActivity;
 import com.martinet.emplitude.R;
+import com.martinet.emplitude.Repas.RepasJour;
 import com.martinet.emplitude.Todo.Todo;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Vector;
@@ -63,8 +65,46 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
 
         this.loadHeures();      //Chargement de la bar des heures
         this.loadCours();       //Chargement des différents boutons et de leur informations
+        this.loadRepas();       //Chargement des repas
 
         return view;
+    }
+
+    private void loadRepas() {
+        Button repas = null;
+        FrameLayout.LayoutParams layoutButton;
+        Calendar calendar =Calendar.getInstance();
+        calendar.setTime(dateJour);
+        calendar.set(Calendar.HOUR_OF_DAY, 12 );
+        calendar.set(Calendar.MINUTE, 15 );
+        final Date dateD = calendar.getTime();
+        calendar.set(Calendar.HOUR_OF_DAY, 13 );
+        calendar.set(Calendar.MINUTE, 0 );
+        Date dateF = calendar.getTime();
+        int ECART = (int) (HEIGHT / (60.0));
+
+        if (cours.size() != 0) {
+            long diff = dateF.getTime() - dateD.getTime();
+            int height_button = (int) ((this.HEIGHT / 12) * (diff / (1000.0 * 60 * 60)) + ECART);
+            repas = new Button(getContext());
+            repas.setText("REPAS");
+            repas.setTextColor(Color.WHITE);
+            layoutButton = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, height_button);
+            double minute = (dateD.getMinutes()) / 60.0;
+            int top = (int) (((dateD.getHours() + minute) - 8) * this.HEIGHT / 12 + (ECART * 2));
+            repas.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), RepasJour.class);
+                    intent.putExtra("date", dateJour.getTime());
+                    startActivity(intent);
+                }
+            });
+            layoutButton.setMargins(10, top, 10, 10);
+            repas.setLayoutParams(layoutButton);
+            repas.getBackground().setColorFilter(Color.BLACK, PorterDuff.Mode.DARKEN);
+            this.l.addView(repas);
+        }
     }
 
     public void loadHeures() {

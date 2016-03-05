@@ -10,6 +10,8 @@
             android:title="TodoList" />
         <item android:id="@+id/son" android:icon="@drawable/ic_son"
             android:title="Gestion des sons" />
+        <item android:id="@+id/repas" android:icon="@drawable/ic_repas"
+            android:title="Repas" />
     </group>
 
     <item android:title="Autres">

@@ -64,6 +64,12 @@
             android:theme="@style/AppTheme">
         </activity>
 
+        <activity
+            android:name="com.martinet.emplitude.Repas.RepasJour"
+            android:label="Repas du jour"
+            android:theme="@style/AppTheme">
+        </activity>
+
 
         <receiver android:name="com.martinet.emplitude.Reveil.AlarmReceiver"/>
         <receiver

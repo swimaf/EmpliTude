@@ -21,6 +21,7 @@ import com.martinet.emplitude.Outil.Fichier;
 import com.martinet.emplitude.Outil.Utilisateur;
 import com.martinet.emplitude.Parametre.Parametre;
 import com.martinet.emplitude.Propos.Propos;
+import com.martinet.emplitude.Repas.Repas;
 import com.martinet.emplitude.Reveil.ReveilActivity;
 import com.martinet.emplitude.Son.Son;
 import com.martinet.emplitude.Todo.Todo;
@@ -135,6 +136,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.parametre) {
             this.changeActivity(Parametre.class);
             return false;
+        }else if (id == R.id.repas) {
+            fragmentClass = Repas.class;
         }
         this.changeFragment(args, fragmentClass);
         return true;
