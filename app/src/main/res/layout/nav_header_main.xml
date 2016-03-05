@@ -14,13 +14,14 @@
         android:src="@drawable/logo2" android:id="@+id/imageView"
         android:cropToPadding="false"
         android:adjustViewBounds="false"
-        android:scaleType="fitStart" />
+        android:scaleType="fitStart"
+        android:contentDescription="@string/logo" />
 
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing" android:text="@string/app_name"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="Etudiant" android:id="@+id/type" />
+        android:text="@string/etudiant" android:id="@+id/type" />
 
 </LinearLayout>

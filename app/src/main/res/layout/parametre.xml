@@ -11,7 +11,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#e8e8e8">
 
             <LinearLayout
@@ -25,7 +25,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:text="Emploi du temps"
+                    android:text="@string/emploi_du_temps"
                     android:id="@+id/emploi"
                     android:layout_weight="0.04"
                     android:textStyle="bold"
@@ -41,11 +41,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Fréquence de mise à jour :"
+                        android:text="@string/frequence"
                         android:id="@+id/textView4"
-                        android:layout_below="@+id/emploi"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
                         android:gravity="center_vertical"
                         android:layout_gravity="center_vertical" />
 
@@ -60,14 +57,14 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Supprimer profil"
+                    android:text="@string/supprimer_profil"
                     android:id="@+id/supprimer"
                     android:onClick="supprimerProfil" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Supprimer les couleurs des cours"
+                    android:text="@string/couleur"
                     android:id="@+id/couleur"
                     android:layout_gravity="center_horizontal"
                     android:onClick="supprimerCouleur" />
@@ -86,7 +83,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:text="Notification de tâche"
+                    android:text="@string/notification_tache"
                     android:id="@+id/textView7"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
@@ -99,13 +96,10 @@
                     android:layout_gravity="center_horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Délai de notification de tâche :"
+                        android:text="@string/delai_notification"
                         android:id="@+id/textView12"
-                        android:layout_below="@+id/emploi"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
                         android:gravity="center_vertical"
                         android:layout_weight="0.04"
                         android:layout_gravity="center_vertical" />

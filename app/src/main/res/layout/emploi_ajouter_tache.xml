@@ -22,18 +22,16 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Description de la tâche"
+                android:text="@string/description_tache"
                 android:id="@+id/description"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/colorAccent"
-                android:textSize="25dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
+                android:textSize="25sp"
                 android:textStyle="bold|italic"
                 android:paddingLeft="30dp"
                 android:paddingTop="20dp"
@@ -59,12 +57,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:id="@+id/nom"
-                    android:layout_below="@+id/description"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:hint="Nom"
+                    android:hint="@string/nom"
                     android:ems="2"
                     android:textColorHint="#9b9b9b" />
 
@@ -87,9 +80,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Date"
+                    android:text="@string/date_tache"
                     android:id="@+id/tdate"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:layout_gravity="center_vertical" />
 
             </LinearLayout>
@@ -112,9 +105,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Matiere"
+                    android:text="@string/matiere_tache"
                     android:id="@+id/tmatiere"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
 

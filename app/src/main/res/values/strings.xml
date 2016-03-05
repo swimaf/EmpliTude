@@ -67,5 +67,44 @@
 
     =======
     <string name="service_name">Je sais pas</string>
+    <string name="tache">Tâche</string>
+    <string name="matiere">Matière :</string>
+    <string name="date">Date :</string>
+    <string name="description_tache">Description de la tâche</string>
+    <string name="aucune_tache">Aucune tâche.</string>
+    <string name="sonnerie">Sonnerie :</string>
+    <string name="media">Média :</string>
+    <string name="notification">Notification :</string>
+    <string name="vibreur">Vibreur</string>
+    <string name="logo">logo</string>
+    <string name="etudiant">Etudiant</string>
+    <string name="enseignant">Enseignant</string>
+    <string name="departement">DEPARTEMENT :</string>
+    <string name="groupe_choix">GROUPE :</string>
+    <string name="num_ensignant">N° D\'ENSEIGNANT</string>
+    <string name="exp_num_groupe">Numéro</string>
+    <string name="suivant">Suivant</string>
+    <string name="annuler">Annuler</string>
+    <string name="precedent">precedent</string>
+    <string name="aucune_date">Aucune date</string>
+    <string name="suivant_image">suivant</string>
+    <string name="nom">Nom</string>
+    <string name="date_tache">Date</string>
+    <string name="matiere_tache">Matiere</string>
+    <string name="information">Informations :</string>
+    <string name="rien">Rien</string>
+    <string name="heure_debut">Heure début :</string>
+    <string name="taches">Tâches :</string>
+    <string name="enseignant_emploi">Enseignant :</string>
+    <string name="salle">Salle :</string>
+    <string name="heure_fin">Heure fin :</string>
+    <string name="bienvenue">Bienvenue sur Empli\'tude</string>
+    <string name="emploi_du_temps">Emploi du temps</string>
+    <string name="frequence">Fréquence de mise à jour :</string>
+    <string name="supprimer_profil">Supprimer profil</string>
+    <string name="couleur">Supprimer les couleurs des cours</string>
+    <string name="notification_tache">Notification de tâche</string>
+    <string name="delai_notification">Délai de notification de tâche :</string>
+    <string name="description_appli">Application développée dans le cadre du projet de deuxieme année de DUT informatique, par des étudiants en informatique.</string>
 
 </resources>

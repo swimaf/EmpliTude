@@ -33,7 +33,8 @@
                 android:layout_marginLeft="0dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/logo" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -56,7 +57,7 @@
                     android:id="@+id/textView11"
                     android:layout_gravity="center_horizontal"
                     android:textColor="#ffffff"
-                    android:textSize="40dp"
+                    android:textSize="40sp"
                     android:fontFamily="sans-serif-thin" />
 
                 <RadioGroup
@@ -69,7 +70,7 @@
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Etudiant"
+                        android:text="@string/etudiant"
                         android:id="@+id/radioButton"
                         android:layout_gravity="left|center_vertical"
                         android:checked="true"
@@ -79,7 +80,7 @@
                     <RadioButton
                         android:layout_width="90dp"
                         android:layout_height="match_parent"
-                        android:text="Enseignant"
+                        android:text="@string/enseignant"
                         android:id="@+id/radioButton2"
                         android:checked="false"
                         android:nestedScrollingEnabled="true"
@@ -98,10 +99,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="DEPARTEMENT :"
+                        android:text="@string/departement"
                         android:id="@+id/textView8"
                         android:gravity="center_vertical"
-                        android:layout_weight="1.48"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
                         android:textColor="#ffffff" />
@@ -122,7 +122,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="GROUPE :"
+                        android:text="@string/groupe_choix"
                         android:id="@+id/textView9"
                         android:layout_below="@+id/spinner"
                         android:layout_alignParentLeft="true"
@@ -153,7 +153,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="N° D&apos;ENSEIGNANT"
+                        android:text="@string/num_ensignant"
                         android:id="@+id/textView10"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
@@ -166,7 +166,7 @@
                         android:inputType="number"
                         android:ems="10"
                         android:id="@+id/numero"
-                        android:text="Numéro"
+                        android:text="@string/exp_num_groupe"
                         android:layout_below="@+id/textView10"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
@@ -189,7 +189,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Suivant"
+            android:text="@string/suivant"
             android:id="@+id/button"
             android:background="?attr/selectableItemBackground"
             android:layout_gravity="right|center_vertical"

@@ -12,8 +12,6 @@ android:id="@+id/reloader" >
 <GridLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_row="0"
-    android:layout_column="3"
     android:rowCount="12"
     android:columnCount="1"
     android:orientation="vertical"
@@ -27,8 +25,6 @@ android:id="@+id/reloader" >
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_row="0"
-    android:layout_column="33"
     android:id="@+id/frame"
     android:textAlignment="center"
     android:layout_alignParentLeft="true"

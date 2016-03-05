@@ -20,8 +20,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Description de la tâche"
-                android:id="@+id/textView"
+                android:text="@string/description_tache"
+                android:id="@+id/tvDescription"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/colorAccent"
                 android:textSize="25dp"

@@ -6,8 +6,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_row="0"
-        android:layout_column="11"
         android:background="@color/colorPrimary">
 
         <ImageButton
@@ -24,13 +22,14 @@
             android:layout_toStartOf="@+id/jour"
             android:scaleType="fitCenter"
             android:padding="5dp"
-            android:onClick="precedent" />
+            android:onClick="precedent"
+            android:contentDescription="@string/precedent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Aucune date"
+            android:text="@string/aucune_date"
             android:id="@+id/jour"
             android:textColor="#ffffff"
             android:textAlignment="center"
@@ -38,7 +37,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -55,6 +54,7 @@
             android:outlineProvider="background"
             android:scaleType="fitCenter"
             android:padding="5dp"
-            android:onClick="suivant" />
+            android:onClick="suivant"
+            android:contentDescription="@string/suivant_image" />
     </RelativeLayout>
 </LinearLayout>

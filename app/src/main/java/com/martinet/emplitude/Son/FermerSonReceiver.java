@@ -62,7 +62,7 @@ public class FermerSonReceiver extends BroadcastReceiver {
                 (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_son)
                         .setContentTitle("Empli'tude")
-                        .setContentText("Mode cours activé \n"+h.format(prochainCour.getDateD()));
+                        .setContentText("Mode cours déactivé");
         Intent resultIntent = new Intent(context, Accueil.class);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);

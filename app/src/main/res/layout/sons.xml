@@ -72,18 +72,14 @@
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:text="Sonnerie :"
-                            android:id="@+id/textView16"
-                            android:layout_row="0"
-                            android:layout_column="0"
+                            android:text="@string/sonnerie"
+                            android:id="@+id/tvSonnerie"
                             android:gravity="center_vertical" />
 
                         <SeekBar
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/sonnerie"
-                            android:layout_row="0"
-                            android:layout_column="1"
                             android:indeterminate="false"
                             android:progress="0"
                             android:layout_gravity="center_vertical" />
@@ -97,18 +93,14 @@
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:text="Média :"
+                            android:text="@string/media"
                             android:id="@+id/textView21"
-                            android:layout_row="1"
-                            android:layout_column="0"
                             android:gravity="center_vertical" />
 
                         <SeekBar
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/media"
-                            android:layout_row="1"
-                            android:layout_column="1"
                             android:indeterminate="false"
                             android:progress="0"
                             android:layout_gravity="center_vertical" />
@@ -122,10 +114,8 @@
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:text="Notification :"
+                            android:text="@string/notification"
                             android:id="@+id/textView19"
-                            android:layout_row="2"
-                            android:layout_column="0"
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical" />
 
@@ -133,7 +123,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/notification"
-                            android:layout_column="1"
                             android:indeterminate="false"
                             android:progress="0"
                             android:layout_gravity="center" />
@@ -143,7 +132,7 @@
                 <CheckBox
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="Vibreur"
+                    android:text="@string/vibreur"
                     android:id="@+id/vibreur"
                     android:checked="false" />
 

@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Annuler"
+            android:text="@string/annuler"
             android:background="?attr/selectableItemBackground"
             android:elevation="0dp" />
 

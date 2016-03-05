@@ -19,7 +19,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -32,13 +32,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Informations :"
+                    android:text="@string/information"
                     android:id="@+id/textView27"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.04"
                     android:gravity="fill_vertical"
-                    android:textSize="15dp"
-                    android:paddingBottom="10px"
+                    android:textSize="15sp"
+                    android:paddingBottom="10dp"
                     android:autoText="false"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold" />
@@ -51,20 +51,16 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="40dp"
-                        android:text="Matière :"
+                        android:text="@string/matiere"
                         android:id="@+id/textView17"
                         android:gravity="center_vertical"
-                        android:layout_row="1"
-                        android:layout_column="0"
                         android:textStyle="bold|italic" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Rien"
+                        android:text="@string/rien"
                         android:id="@+id/infoCour"
-                        android:layout_row="1"
-                        android:layout_column="2"
                         android:maxLines="2"
                         android:gravity="center_vertical" />
                 </LinearLayout>
@@ -77,20 +73,16 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="40dp"
-                        android:text="Heure début :"
+                        android:text="@string/heure_debut"
                         android:gravity="center_vertical"
                         android:id="@+id/textView18"
-                        android:layout_row="2"
-                        android:layout_column="0"
                         android:textStyle="bold|italic" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Rien"
+                        android:text="@string/rien"
                         android:id="@+id/infoHeureD"
-                        android:layout_row="2"
-                        android:layout_column="2"
                         android:gravity="center_vertical" />
                 </LinearLayout>
 
@@ -102,20 +94,16 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="40dp"
-                        android:text="Heure fin :"
+                        android:text="@string/heure_fin"
                         android:gravity="center_vertical"
                         android:id="@+id/textView20"
-                        android:layout_row="3"
-                        android:layout_column="0"
                         android:textStyle="bold|italic" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Rien"
+                        android:text="@string/rien"
                         android:id="@+id/infoHeureF"
-                        android:layout_row="3"
-                        android:layout_column="2"
                         android:gravity="center_vertical" />
                 </LinearLayout>
 
@@ -127,20 +115,16 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="40dp"
-                        android:text="Salle :"
+                        android:text="@string/salle"
                         android:id="@+id/textView22"
                         android:gravity="center_vertical"
-                        android:layout_row="4"
-                        android:layout_column="0"
                         android:textStyle="bold|italic" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Rien"
+                        android:text="@string/rien"
                         android:id="@+id/infoSalle"
-                        android:layout_row="4"
-                        android:layout_column="2"
                         android:gravity="center_vertical" />
                 </LinearLayout>
 
@@ -152,33 +136,29 @@
                     <TextView
                         android:layout_width="100dp"
                         android:layout_height="40dp"
-                        android:text="Enseignant :"
+                        android:text="@string/enseignant_emploi"
                         android:id="@+id/textView24"
-                        android:layout_row="5"
-                        android:layout_column="0"
                         android:gravity="center_vertical"
                         android:textStyle="bold|italic" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Rien"
+                        android:text="@string/rien"
                         android:id="@+id/infoEnsei"
-                        android:layout_row="5"
-                        android:layout_column="2"
                         android:gravity="center_vertical" />
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tâches :"
+                    android:text="@string/taches"
                     android:id="@+id/textView2"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.04"
                     android:gravity="fill_vertical"
-                    android:textSize="15dp"
-                    android:paddingBottom="10px"
+                    android:textSize="15sp"
+                    android:paddingBottom="10dp"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
                     android:layout_marginTop="15dp" />
@@ -188,7 +168,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:text="Aucune tâche."
+                android:text="@string/aucune_tache"
                 android:id="@+id/aucune"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="0.0"

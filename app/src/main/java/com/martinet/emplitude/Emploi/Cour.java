@@ -23,7 +23,9 @@ public class Cour implements Serializable{
         this.prof = prof;
         this.salle = salle;
     }
+    public Cour(){
 
+    }
     public String getMatiere() {
         return matiere;
     }
