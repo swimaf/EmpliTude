@@ -13,6 +13,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -46,6 +47,7 @@ public class SonnerieActivity extends Activity {
     public SharedPreferences sharedpreferences;
     private AudioManager audioManager;
     private MediaPlayer mMediaPlayer;
+    private FlashArt flashArt;
 
     private int i = 1;
 
@@ -78,16 +80,19 @@ public class SonnerieActivity extends Activity {
         mMediaPlayer.setLooping(true);
         mMediaPlayer.start();
         audioManager.setStreamVolume(AudioManager.STREAM_ALARM, i, 0);
-        /*
-        for(i = 1;i<audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);i++) {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+
+        if (sharedpreferences.getBoolean(ReveilActivity.keyDFondu, true)) {
+            for (i = 1; i < audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM); i++) {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("je suis dans le run" + i);
+                audioManager.setStreamVolume(AudioManager.STREAM_ALARM, i, 0);
             }
-            System.out.println("je suis dans le run"+i);
-            audioManager.setStreamVolume(AudioManager.STREAM_ALARM, i, 0);
-        }*/
+        }
+        /*
         if (sharedpreferences.getBoolean(ReveilActivity.keyDFondu, true)) {
 
             int tps = (audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)) * 1000;
@@ -109,7 +114,7 @@ public class SonnerieActivity extends Activity {
                 }
                 actu.setTime(tempo.getTime());
             }
-        }
+        }*/
         mMediaPlayer.start();
 
     }
@@ -132,7 +137,9 @@ public class SonnerieActivity extends Activity {
             AlarmReceiver.v.cancel();
         }
         if (sharedpreferences.getBoolean(ReveilActivity.keyDTorche, true)) {
-            AlarmReceiver.turnOffFlash();
+            if (Build.VERSION.SDK_INT >= 21) {
+                flashArt.turnOffFlash(getBaseContext());
+            }
         }
     }
     //----------------------------------------------------------------

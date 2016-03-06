@@ -6,13 +6,9 @@ package com.martinet.emplitude.Reveil;
 Classe qui defini les action a faire au moment ou le reveil sonne
  */
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CameraManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
@@ -21,19 +17,18 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Vibrator;
 import android.support.v4.content.WakefulBroadcastReceiver;
-import android.util.Log;
 
 
 public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     //------Variables------//
-    public static CameraManager cameraManager;
     public static MediaPlayer mMediaPlayer;
     public static Ringtone ringtone;
     public static AudioManager audioManager;
     public static Vibrator v;
     public static int i =0;
     private Thread thread;
+    private FlashArt flashArt;
 
 
     private SharedPreferences sharedpreferences;
@@ -41,7 +36,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         //-----Faire jouer le son-----//
-        cameraManager = (CameraManager) context.getSystemService(context.CAMERA_SERVICE);
+
 
         Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
@@ -70,12 +65,15 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
             //-----Faire jouer le vibreur-----//
         v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
+        System.out.println(sharedpreferences.getBoolean(ReveilActivity.keyDSonner, true));
         if (sharedpreferences.getBoolean(ReveilActivity.keyDSonner, true)) {
             long[] pattern = {0, 2000, 1000};
             v.vibrate(pattern, 0);
         }
         if (sharedpreferences.getBoolean(ReveilActivity.keyDTorche, true)) {
-            turnOnFlash();
+            if (Build.VERSION.SDK_INT >= 21) {
+                flashArt.turnOnFlash(context);
+            }
         }
 //        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, 1, 0);
     //    mMediaPlayer.start();
@@ -92,40 +90,8 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
       //  mMediaPlayer.start();
       //audioManager.setStreamVolume(AudioManager.STREAM_ALARM, audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
     }
-    @TargetApi(Build.VERSION_CODES.M)
-    private void turnOnFlash() {
-
-        try {
-            for (String id : cameraManager.getCameraIdList()) {
-
-                // Turn on the flash if camera has one
-                if (cameraManager.getCameraCharacteristics(id)
-                        .get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
-                    cameraManager.setTorchMode(id, true);
-                }
-            }
-        } catch (CameraAccessException e) {
-            Log.e("test", "Failed to interact with camera.", e);
-
-        }
-    }
-    @TargetApi(Build.VERSION_CODES.M)
-    public static void turnOffFlash() {
-
-        try {
-            for (String id : cameraManager.getCameraIdList()) {
-
-                // Turn on the flash if camera has one
-                if (cameraManager.getCameraCharacteristics(id)
-                        .get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
-                    cameraManager.setTorchMode(id, false);
-                }
-            }
-        } catch (CameraAccessException e) {
-            Log.e("test", "Failed to interact with camera.", e);
-
-        }
-    }
-
 }
+
+
+
 

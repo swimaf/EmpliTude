@@ -110,6 +110,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         appelSwitch();
         initNPTempsPrepa();
         proAlarm.setAlarmAuto();
+        /*
         if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {//Choix en fonction de la version d'android
             switchFondu.setEnabled(false);
             switchFondu.setFocusable(false);
@@ -125,7 +126,7 @@ public class ReveilActivity extends Fragment implements NumberPicker.OnValueChan
         btnSon.setEnabled(false);
         btnSon.setFocusable(false);
         btn1.setVisibility(View.GONE);
-        textView1.setVisibility(View.GONE);
+        textView1.setVisibility(View.GONE);*/
         return this.view;
 
 
