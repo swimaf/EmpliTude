@@ -12,6 +12,8 @@
             android:title="Gestion des sons" />
         <item android:id="@+id/repas" android:icon="@drawable/ic_repas"
             android:title="Repas" />
+        <item android:id="@+id/bus" android:icon="@drawable/ic_bus"
+            android:title="Bus" />
     </group>
 
     <item android:title="Autres">

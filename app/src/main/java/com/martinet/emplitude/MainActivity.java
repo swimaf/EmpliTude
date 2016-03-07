@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.martinet.emplitude.Bus.Bus;
 import com.martinet.emplitude.Emploi.Emploi;
 import com.martinet.emplitude.Outil.Fichier;
 import com.martinet.emplitude.Outil.Utilisateur;
@@ -138,6 +139,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return false;
         }else if (id == R.id.repas) {
             fragmentClass = Repas.class;
+        }else if (id == R.id.bus) {
+            fragmentClass = Bus.class;
         }
         this.changeFragment(args, fragmentClass);
         return true;

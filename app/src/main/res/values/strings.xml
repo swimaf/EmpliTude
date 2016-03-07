@@ -37,6 +37,22 @@
         <item>19h00</item>
     </string-array>
 
+
+    <string-array name="arret">
+        <item>Aéroport</item>
+        <item>IUT</item>
+        <item>Leclerc</item>
+        <item>Géant</item>
+        <item>Rond-point d\'Armor</item>
+        <item>St-Yves</item>
+        <item>Louardoul</item>
+        <item>Ste-Anne Médiathèque</item>
+        <item>Keranroux</item>
+        <item>Alcatel</item>
+        <item>Espace De Broglie</item>
+        <item>Pen Ar Ru</item>
+    </string-array>
+
     <string name="emploiTache">Tâche</string>
 
 
@@ -109,5 +125,7 @@
     <string name="entree">Entrées</string>
     <string name="dessert">Desserts</string>
     <string name="plats">Plats</string>
+    <string name="ligneA">Ligne A</string>
+    <string name="ligneC">Ligne C</string>
 
 </resources>
