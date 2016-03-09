@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Classe d'information d'un cour implementant serializable pour la sauvegarde des données
  */
-public class Cour implements Serializable{
+public class Cours implements Serializable{
 
     private String matiere;
     private Date dateD;
@@ -15,7 +15,7 @@ public class Cour implements Serializable{
     private String salle;
     private String resumer;
 
-    public Cour(String resumer, String matiere, Date dateD, Date dateF, String prof, String salle){
+    public Cours(String resumer, String matiere, Date dateD, Date dateF, String prof, String salle){
         this.matiere = matiere;
         this.resumer = resumer;
         this.dateD = dateD;
@@ -23,7 +23,7 @@ public class Cour implements Serializable{
         this.prof = prof;
         this.salle = salle;
     }
-    public Cour(){
+    public Cours(){
 
     }
     public String getMatiere() {
