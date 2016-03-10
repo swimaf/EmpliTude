@@ -20,7 +20,7 @@ import android.widget.Switch;
 
 import com.martinet.emplitude.Constants;
 import com.martinet.emplitude.Emploi.ADE_information;
-import com.martinet.emplitude.Emploi.Cour;
+import com.martinet.emplitude.Emploi.Cours;
 import com.martinet.emplitude.R;
 
 
@@ -158,15 +158,15 @@ public class Son extends Fragment {
 
     public void lancerReceiver(){
         ADE_information ade_information = new ADE_information(getContext());
-        Cour prochainCour = ade_information.getNext();
+        Cours prochainCours = ade_information.getNext();
         AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getContext(), LancerSonReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, 0);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, prochainCour.getDateD().getTime() - 60, pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, prochainCours.getDateD().getTime() - 60, pendingIntent);
 
         Intent intent2 = new Intent(getContext(), FermerSonReceiver.class);
         PendingIntent pendingIntent2 = PendingIntent.getBroadcast(getContext(), 1, intent2, 0);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, prochainCour.getDateF().getTime() - 60, pendingIntent2);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, prochainCours.getDateF().getTime() - 60, pendingIntent2);
     }
 
     public void annulerReceiver(){

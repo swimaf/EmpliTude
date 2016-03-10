@@ -9,7 +9,7 @@ import android.util.Log;
 
 
 import com.martinet.emplitude.Emploi.ADE_information;
-import com.martinet.emplitude.Emploi.Cour;
+import com.martinet.emplitude.Emploi.Cours;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -23,7 +23,7 @@ public class ProgrammerAlarm {
     private ADE_information adeInfo;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
-    private Cour cour;
+    private Cours cours;
     private Context context;
     public static final String MesPREFERENCES = "mesPreferences";
     public static SharedPreferences sharedpreferences;
@@ -33,7 +33,7 @@ public class ProgrammerAlarm {
         alarmManager = a;
         pendingIntent = p;
         context = c;
-        cour = new Cour();
+        cours = new Cours();
         sharedpreferences = c.getSharedPreferences(MesPREFERENCES, Context.MODE_PRIVATE);
 
     }
@@ -59,9 +59,9 @@ public class ProgrammerAlarm {
         while(d==null && i <= 100){ // Tant que la le premier emploi_cour de la journee n'existe pas, on va sur le jour suivant ATTENTION SI IL YA  PAS DE JOUR SUIVANT BOUCLE INFINI
         i++;
                 System.out.println("Je suis rentré dans la boucle null");
-                cour = adeInfo.getFirstBYDate(dSonner);
-                System.out.println(cour);
-                if(cour!=null) {
+                cours = adeInfo.getFirstBYDate(dSonner);
+                System.out.println(cours);
+                if(cours !=null) {
                     System.out.println("Je suis dans le if");
                     d = adeInfo.getFirstBYDate(dSonner).getDateD();
                 }// on recup l'heure du premier emploi_cour
@@ -84,9 +84,9 @@ public class ProgrammerAlarm {
             while(d==null){ // Tant que la le premier emploi_cour de la journee n'existe pas, on va sur le jour suivant ATTENTION SI IL YA  PAS DE JOUR SUIVANT BOUCLE INFINI
 
                 System.out.println("Je suis rentré dans la boucle null2");
-                cour = adeInfo.getFirstBYDate(dSonner);
-                System.out.println(cour);
-                if(cour!=null) {
+                cours = adeInfo.getFirstBYDate(dSonner);
+                System.out.println(cours);
+                if(cours !=null) {
                     System.out.println("Je suis dans le if2");
                     d = adeInfo.getFirstBYDate(dSonner).getDateD();
                 }// on recup l'heure du premier emploi_cour

@@ -15,21 +15,18 @@ import android.widget.RemoteViews;
 
 
 import com.martinet.emplitude.Accueil;
-import com.martinet.emplitude.Constants;
 import com.martinet.emplitude.Emploi.ADE_information;
-import com.martinet.emplitude.Emploi.Cour;
+import com.martinet.emplitude.Emploi.Cours;
 import com.martinet.emplitude.Emploi.Information;
 import com.martinet.emplitude.Emploi.JourEmploi;
-import com.martinet.emplitude.Outil.Fichier;
 import com.martinet.emplitude.R;
-import com.martinet.emplitude.Todo.Todo;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 public class Widget extends AppWidgetProvider {
 
-    private Cour cours;
+    private Cours cours;
     private static SimpleDateFormat h = new SimpleDateFormat("HH:mm");
     private static final String PREFS_NAME = "Couleur";
     public static int i =0;
@@ -42,7 +39,6 @@ public class Widget extends AppWidgetProvider {
         HashMap couleur = (HashMap) settings.getAll();
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
         Intent intent;
-        Todo.mesTaches = Fichier.readAll(Constants.tacheFile, context);
         try {
             ADE_information fichier = new ADE_information(context);
             this.cours = fichier.getNext();

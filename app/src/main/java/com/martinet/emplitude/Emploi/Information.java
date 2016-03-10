@@ -19,11 +19,11 @@ import android.widget.TextView;
 
 import com.martinet.emplitude.Constants;
 import com.martinet.emplitude.MainActivity;
+import com.martinet.emplitude.MyApplication;
 import com.martinet.emplitude.Outil.Fichier;
 import com.martinet.emplitude.Outil.Jour;
 import com.martinet.emplitude.R;
 import com.martinet.emplitude.Todo.Tache;
-import com.martinet.emplitude.Todo.Todo;
 
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -38,11 +38,12 @@ public class Information extends AppCompatActivity {
 
     final static private SimpleDateFormat h = new SimpleDateFormat("HH:mm");
 
-    private Cour cours;
+    private Cours cours;
     private TextView aucune;
     private FloatingActionButton ajouter;
     private LinearLayout taches;
     private Boolean first;
+    private MyApplication application;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,10 +51,11 @@ public class Information extends AppCompatActivity {
         this.setContentView(R.layout.emploi_cour);
         Intent intent = getIntent();
         this.first = intent.getBooleanExtra("FIRST", false);
-        this.cours = (Cour) intent.getSerializableExtra("emploi_cour");
+        this.cours = (Cours) intent.getSerializableExtra("emploi_cour");
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setTitle(cours.getResumer());
         final TextView cour = (TextView) findViewById(R.id.infoCour);
+        this.application = (MyApplication) getApplicationContext();
         TextView ensei = (TextView) findViewById(R.id.infoEnsei);
         TextView salle = (TextView) findViewById(R.id.infoSalle);
         TextView heureD = (TextView) findViewById(R.id.infoHeureD);
@@ -67,8 +69,8 @@ public class Information extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), EmploiAjouterTache.class);
                 Bundle bundle = new Bundle();
-                bundle.putLong("date",cours.getDateD().getTime());
-                bundle.putString("matiere",cours.getMatiere());
+                bundle.putLong("date", cours.getDateD().getTime());
+                bundle.putSerializable("matiere",cours);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1);
                 overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
@@ -141,16 +143,10 @@ public class Information extends AppCompatActivity {
         Jour jour = new Jour(date);
         Jour jourTache;
 
-        try{
-            int i = Todo.mesTaches.size();
-        }catch(Exception e){
-            Todo.mesTaches = Fichier.readAll(Constants.tacheFile, getBaseContext());
-        }
-
-        for(int i = 0; i< Todo.mesTaches.size(); i++){
-            t = ((Tache)Todo.mesTaches.get(i));
+        for(int i = 0; i< application.mesTaches.size(); i++){
+            t = ((Tache)application.mesTaches.get(i));
             jourTache = new Jour(t.getDate());
-            if(t.getMatiere().equals(matiere) && jourTache.getJour().equals(jour.getJour())){
+            if(t.getCours().getMatiere().equals(matiere) && jourTache.getJour().equals(jour.getJour())){
                 liste.add(t);
             }
         }
@@ -165,7 +161,7 @@ public class Information extends AppCompatActivity {
     }
 
     public void onStop(){
-        Fichier.ecrireVector(Constants.tacheFile, getApplicationContext(), Todo.mesTaches);
+        Fichier.ecrireVector(Constants.tacheFile, getApplicationContext(), application.mesTaches);
         super.onStop();
     }
 

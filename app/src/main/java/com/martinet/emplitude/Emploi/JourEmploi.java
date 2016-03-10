@@ -34,7 +34,7 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
 
     private int HEIGHT;
     private Date dateJour;
-    private Vector<Cour> cours;
+    private Vector<Cours> cours;
     private Button activeButton;
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;

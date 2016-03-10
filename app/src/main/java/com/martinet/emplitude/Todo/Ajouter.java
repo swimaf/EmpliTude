@@ -17,7 +17,8 @@ import android.widget.Toast;
 
 
 import com.martinet.emplitude.Emploi.ADE_information;
-import com.martinet.emplitude.Emploi.Cour;
+import com.martinet.emplitude.Emploi.Cours;
+import com.martinet.emplitude.MyApplication;
 import com.martinet.emplitude.R;
 
 import java.text.SimpleDateFormat;
@@ -41,6 +42,7 @@ public class Ajouter extends AppCompatActivity {
     private Tache t;
     private int position;
     private Date datePicker;
+    private Vector<Cours> cours;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,21 +67,25 @@ public class Ajouter extends AppCompatActivity {
             date.setText(simpleDateFormat.format(t.getDate()));
             datePicker = t.getDate();
             ADE_information ade = new ADE_information(t.getDate(), getApplicationContext());
-            Vector<Cour> v = ade.getCours();
+            cours = ade.getCours();
+
             ArrayList listeCour = new ArrayList();
             listeCour.add("Aucune");
-            for (int i = 0; i < v.size(); i++) {
-                listeCour.add(v.get(i).getMatiere());
+            for (int i = 0; i < cours.size(); i++) {
+                listeCour.add(cours.get(i).getMatiere());
             }
             ArrayAdapter departement = new ArrayAdapter<>(Ajouter.this, android.R.layout.simple_spinner_dropdown_item, listeCour);
             matiere.setAdapter(departement);
-            matiere.setSelection(listeCour.indexOf(t.getMatiere()));
+            matiere.setSelection(listeCour.indexOf(t.getCours()));
+        }else{
+            ArrayList listeCour = new ArrayList();
+            listeCour.add("Aucune");
+            ArrayAdapter departement = new ArrayAdapter<>(Ajouter.this, android.R.layout.simple_spinner_dropdown_item, listeCour);
+            matiere.setAdapter(departement);
         }
 
-        ArrayList listeCour = new ArrayList();
-        listeCour.add("Aucune");
-        ArrayAdapter departement = new ArrayAdapter<>(Ajouter.this, android.R.layout.simple_spinner_dropdown_item, listeCour);
-        matiere.setAdapter(departement);
+
+
 
         date.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -88,11 +94,11 @@ public class Ajouter extends AppCompatActivity {
                         datePicker = new Date(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
                         date.setText(simpleDateFormat.format(datePicker));
                         ADE_information ade = new ADE_information(datePicker, getApplicationContext());
-                        Vector<Cour> v = ade.getCours();
+                        cours = ade.getCours();
                         ArrayList listeCour = new ArrayList();
                         listeCour.add("Aucune");
-                        for (int i = 0; i < v.size(); i++) {
-                            listeCour.add(v.get(i).getMatiere());
+                        for (int i = 0; i < cours.size(); i++) {
+                            listeCour.add(cours.get(i).getMatiere());
                         }
                         ArrayAdapter departement = new ArrayAdapter<>(Ajouter.this, android.R.layout.simple_spinner_dropdown_item, listeCour);
                         matiere.setAdapter(departement);
@@ -113,10 +119,15 @@ public class Ajouter extends AppCompatActivity {
                 }else{
                     if (t != null){
                         System.out.println(position);
-                        Todo.mesTaches.remove(position);
+                        ((MyApplication)getApplicationContext()).mesTaches.remove(position);
                     }
-                    Tache tache = new Tache(nom.getText().toString(), matiere.getSelectedItem().toString(), datePicker);
-                    Todo.mesTaches.add(tache);
+                    Tache tache;
+                    try{
+                        tache = new Tache(nom.getText().toString(), cours.get(matiere.getSelectedItemPosition()-1), datePicker);
+                    }catch (Exception e){
+                        tache = new Tache(nom.getText().toString(), null, datePicker);
+                    }
+                    ((MyApplication)getApplicationContext()).mesTaches.add(tache);
                     setResult(Activity.RESULT_OK);
                     finish();
                 }

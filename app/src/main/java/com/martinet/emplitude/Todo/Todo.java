@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.martinet.emplitude.Constants;
+import com.martinet.emplitude.MyApplication;
 import com.martinet.emplitude.Outil.Fichier;
 import com.martinet.emplitude.Outil.SwipeDismissListViewTouchListener;
 import com.martinet.emplitude.R;
@@ -27,13 +28,12 @@ import java.util.Vector;
  */
 public class Todo extends Fragment{
 
-    public static Vector<Object> mesTaches;
     public static Tache activeTache;
     private ListView list;
     private FloatingActionButton action;
     private TextView aucune;
     private View view;
-
+    private MyApplication monApplication;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         this.getActivity().setTitle("TodoList");
@@ -42,7 +42,7 @@ public class Todo extends Fragment{
         this.list = (ListView) view.findViewById(R.id.taches);
         this.action = (FloatingActionButton) view.findViewById(R.id.fab);
         this.aucune = (TextView) view.findViewById(R.id.aucune);
-
+        this.monApplication = (MyApplication) (getActivity().getApplicationContext());
         this.creationListeTaches();
 
         action.setOnClickListener(new View.OnClickListener() {
@@ -61,20 +61,13 @@ public class Todo extends Fragment{
     }
 
     public void creationListeTaches (){
-        if (mesTaches.size() == 0){
+        if (monApplication.mesTaches.size() == 0){
             aucune.setVisibility(View.VISIBLE);
             list.setVisibility(View.GONE);
         }else {
-            Collections.sort(mesTaches, new Comparator<Object>() {
-                public int compare(Object m1, Object m2) {
-                    Date d = ((Tache) m1).getDate();
-                    Date d2 = ((Tache) m2).getDate();
-                    return d.compareTo(d2);
-                }
-            });
+            monApplication.trierTache();
 
-
-            final Adapter adapter = new Adapter(getActivity(), mesTaches);
+            final Adapter adapter = new Adapter(getActivity(), monApplication.mesTaches);
 
 
             aucune.setVisibility(View.GONE);
@@ -90,15 +83,15 @@ public class Todo extends Fragment{
                                 }
 
                                 public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-                                    Todo.activeTache = (Tache)Todo.mesTaches.get(reverseSortedPositions[0]);
-                                    Todo.mesTaches.remove(reverseSortedPositions[0]);
+                                    Todo.activeTache = (Tache)monApplication.mesTaches.get(reverseSortedPositions[0]);
+                                    monApplication.mesTaches.remove(reverseSortedPositions[0]);
                                     creationListeTaches();
                                     Snackbar.make(getActivity().findViewById(android.R.id.content), "Tâche supprimé avec succès", Snackbar.LENGTH_LONG)
                                             .setAction("ANNULER", new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
                                                     Snackbar snackbar1 = Snackbar.make(getActivity().findViewById(android.R.id.content), "Tâche restauré", Snackbar.LENGTH_SHORT);
-                                                    Todo.mesTaches.add(Todo.activeTache);
+                                                    monApplication.mesTaches.add(Todo.activeTache);
                                                     creationListeTaches();
                                                     snackbar1.show();
                                                 }
@@ -118,11 +111,6 @@ public class Todo extends Fragment{
         if(resultCode == Activity.RESULT_OK){
             this.creationListeTaches();
         }
-    }
-
-    public void onStop(){
-        Fichier.ecrireVector(Constants.tacheFile, getContext(),Todo.mesTaches);
-        super.onStop();
     }
 
     public void modifierTache(int position, Tache tache){

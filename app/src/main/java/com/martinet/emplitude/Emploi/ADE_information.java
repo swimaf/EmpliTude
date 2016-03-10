@@ -23,7 +23,7 @@ public class ADE_information {
 
     private Date date;
     private Boolean vide;
-    private Vector<Cour> cours;
+    private Vector<Cours> cours;
     private Vector<Object> allCours;
     private Context context;
 
@@ -44,7 +44,7 @@ public class ADE_information {
     }
 
     //Recupération des cours
-    public Vector<Cour> getCours() {
+    public Vector<Cours> getCours() {
         this.get();
         if(this.vide){
             return null;
@@ -53,20 +53,20 @@ public class ADE_information {
     }
 
     //Récupération dernier emploi_cour
-    public Cour getNext(){
-        Cour c;
+    public Cours getNext(){
+        Cours c;
         cours = new Vector<>();
         Date d = new Date();
         for(int i =0; i<allCours.size(); i++){
-            c = (Cour)allCours.get(i);
+            c = (Cours)allCours.get(i);
             if(d.before(c.getDateD())) {
                 this.cours.add(c);
             }
         }
         Collections.sort(this.cours, new Comparator<Object>() {
             public int compare(Object m1, Object m2) {
-                Date d = (((Cour) m1).getDateD());
-                Date d2 = ((Cour) m2).getDateD();
+                Date d = (((Cours) m1).getDateD());
+                Date d2 = ((Cours) m2).getDateD();
                 return d.compareTo(d2);
             }
         });
@@ -76,11 +76,11 @@ public class ADE_information {
     //Récupération de tous les cours par date après la date du jour
     public void get(){
         this.cours = new Vector<>();
-        Cour c;
+        Cours c;
         Jour j = new Jour(this.date);
         Jour j2;
         for(int i =0; i<allCours.size(); i++){
-            c = (Cour)allCours.get(i);
+            c = (Cours)allCours.get(i);
             j2 = new Jour(c.getDateD());
             if(j.getDateJour().equals(j2.getDateJour())) {
                 this.cours.add(c);
@@ -89,15 +89,15 @@ public class ADE_information {
     }
 
     //Récupération du premier cour d'une journée
-    public Cour getFirstBYDate(Date date) {
+    public Cours getFirstBYDate(Date date) {
         this.date = date;
         this.get();
 
         Collections.sort(this.cours, new Comparator<Object>() {
 
             public int compare(Object m1, Object m2) {
-                Date d = (((Cour) m1).getDateD());
-                Date d2 = ((Cour) m2).getDateD();
+                Date d = (((Cours) m1).getDateD());
+                Date d2 = ((Cours) m2).getDateD();
                 return d.compareTo(d2);
 
             }

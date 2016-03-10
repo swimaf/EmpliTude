@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.martinet.emplitude.MyApplication;
 import com.martinet.emplitude.R;
 import com.martinet.emplitude.Todo.Tache;
 import com.martinet.emplitude.Todo.Todo;
@@ -37,7 +38,7 @@ public class EmploiAjouterTache extends AppCompatActivity {
     private EditText nom;
     private Tache t;
     private Date date;
-    private String matiere;
+    private Cours matiere;
     private TextView tmatiere;
     private TextView tdate;
 
@@ -51,8 +52,11 @@ public class EmploiAjouterTache extends AppCompatActivity {
             t = (Tache) intent.getSerializableExtra("Tache"); //Récuparation de la tache passée en parametre
             Bundle bundle =  intent.getExtras();
             date = new Date(bundle.getLong("date"));
-            matiere = bundle.getString("matiere");
-        }catch (Exception ignored){}
+            matiere = (Cours)bundle.getSerializable("matiere");
+        }catch (Exception ignored){
+
+
+        }
 
 
         this.setContentView(R.layout.emploi_ajouter_tache);
@@ -62,7 +66,7 @@ public class EmploiAjouterTache extends AppCompatActivity {
         tdate.setText(h.format(date));
 
         tmatiere = (TextView) findViewById(R.id.tmatiere);
-        tmatiere.setText(matiere);
+        tmatiere.setText(matiere.getMatiere());
 
 
         suivant.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +78,7 @@ public class EmploiAjouterTache extends AppCompatActivity {
                 } else {
                     //Ajout de la tâche à la liste de de tâche
                     Tache tache = new Tache(nom.getText().toString(), matiere, date);
-                    Todo.mesTaches.add(tache);
+                    ((MyApplication)getApplicationContext()).mesTaches.add(tache);
                     setResult(Activity.RESULT_OK);
                     finish();
                 }

@@ -26,7 +26,7 @@ public class ADE_traitement {
         dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/London"));
         String[] parts = contenu.split(Pattern.quote("BEGIN:VEVENT"));
         String s;
-        Vector<Cour> cours = new Vector<>();
+        Vector<Cours> cours = new Vector<>();
         for(int i=0; i<parts.length; i++){
             s = element(parts[i], "DTSTART:(.)+", "DTSTART:");
             if(s != "") {
@@ -60,7 +60,7 @@ public class ADE_traitement {
         return res;
     }
 
-    public static Cour getCour(String contenu) throws ParseException {
+    public static Cours getCour(String contenu) throws ParseException {
         String description, matiere = "", prof, resum, s, salle, resumer;
         Date d2, d;
         resum = element(contenu, "SUMMARY:(.)+", "SUMMARY:"); //Récupère le sommaire du cours
@@ -110,7 +110,7 @@ public class ADE_traitement {
         s = element(contenu, "DTEND:(.)+", "DTEND:");     //Récuperation de la date de fin du cours
         d2 = dateFormat.parse(s);
 
-        return new Cour(resumer, matiere, d, d2, prof, salle);
+        return new Cours(resumer, matiere, d, d2, prof, salle);
 
     }
 }

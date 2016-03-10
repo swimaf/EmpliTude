@@ -50,9 +50,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView type = (TextView) headerLayout.findViewById(R.id.type);
         type.setText(utilisateur.toString());
 
-
-        Todo.mesTaches = Fichier.readAll(Constants.tacheFile, getBaseContext());
-
     }
 
 
@@ -138,6 +135,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         this.changeFragment(args, fragmentClass);
         return true;
+    }
+
+    public void onStop(){
+        Fichier.ecrireVector(Constants.tacheFile, getBaseContext(), ((MyApplication) getApplicationContext()).mesTaches);
+        super.onStop();
     }
 
 

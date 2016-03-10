@@ -16,10 +16,10 @@
         <item>Toutes deux semaines</item>
     </string-array>
     <string-array name="notif">
-        <item>1 jour avant</item>
-        <item>2 jours avant</item>
         <item>1 heure avant</item>
         <item>4 heures avant</item>
+        <item>1 jour avant</item>
+        <item>2 jours avant</item>
     </string-array>
 
     <string-array name="heures">
@@ -106,5 +106,6 @@
     <string name="notification_tache">Notification de tâche</string>
     <string name="delai_notification">Délai de notification de tâche :</string>
     <string name="description_appli">Application développée dans le cadre du projet de deuxieme année de DUT informatique, par des étudiants en informatique.</string>
+    <string name="aucun_cours">Aucun cours</string>
 
 </resources>

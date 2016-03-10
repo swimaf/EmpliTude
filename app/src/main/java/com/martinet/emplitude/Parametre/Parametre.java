@@ -25,6 +25,7 @@ public class Parametre extends AppCompatActivity implements View.OnClickListener
     private SharedPreferences settingPreference;
     private SharedPreferences.Editor settingPreferenceEdit;
     private int rafraichissement;
+    private int delaiNotif;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

@@ -21,7 +21,7 @@ import android.support.v7.app.NotificationCompat;
 import com.martinet.emplitude.Accueil;
 import com.martinet.emplitude.Constants;
 import com.martinet.emplitude.Emploi.ADE_information;
-import com.martinet.emplitude.Emploi.Cour;
+import com.martinet.emplitude.Emploi.Cours;
 import com.martinet.emplitude.Outil.EvenementInternet;
 import com.martinet.emplitude.R;
 
@@ -45,15 +45,15 @@ public class FermerSonReceiver extends BroadcastReceiver {
         amanager.setStreamVolume(AudioManager.STREAM_MUSIC, preference.getInt("musicOld", 0), AudioManager.ADJUST_LOWER);
 
         ADE_information ade_information =  new ADE_information(context);
-        Cour prochainCour = ade_information.getNext();
+        Cours prochainCours = ade_information.getNext();
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent1 = new Intent(context, LancerSonReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 1, intent1, 0);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, prochainCour.getDateD().getTime() - 60, pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, prochainCours.getDateD().getTime() - 60, pendingIntent);
 
         Intent intent2 = new Intent(context, FermerSonReceiver.class);
         PendingIntent pendingIntent2 = PendingIntent.getBroadcast(context, 1, intent2, 0);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, prochainCour.getDateF().getTime() - 60, pendingIntent2);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, prochainCours.getDateF().getTime() - 60, pendingIntent2);
 
 
         SimpleDateFormat h = new SimpleDateFormat("dd HH:mm", Locale.FRENCH);

@@ -1,5 +1,7 @@
 package com.martinet.emplitude.Todo;
 
+import com.martinet.emplitude.Emploi.Cours;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,13 +12,14 @@ public class Tache implements Serializable{
 
     private static int SERIAL = 0;
     private int id;
-    private String nom, matiere;
+    private String nom;
+    private Cours cours;
     private Date date;
 
-    public Tache (String nom, String matiere, Date date){
+    public Tache (String nom, Cours cours, Date date){
         this.nom = nom;
         this.date = date;
-        this.matiere = matiere;
+        this.cours = cours;
         this.id = SERIAL;
         SERIAL++;
     }
@@ -29,10 +32,10 @@ public class Tache implements Serializable{
         this.nom = nom;
     }
 
-    public String getMatiere() { return matiere; }
+    public Cours getCours() { return cours; }
 
-    public void setMatiere(String matiere) {
-        this.matiere = matiere;
+    public void setCours(Cours cours) {
+        this.cours = cours;
     }
 
     public Date getDate() { return date; }
