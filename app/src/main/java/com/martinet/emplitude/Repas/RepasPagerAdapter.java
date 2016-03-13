@@ -3,8 +3,7 @@ package com.martinet.emplitude.Repas;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-
+import android.support.v4.app.FragmentStatePagerAdapter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,7 +13,7 @@ import java.util.Locale;
  * Created by martinet on 05/03/16.
  */
 
-public class RepasPagerAdapter extends FragmentPagerAdapter {
+public class RepasPagerAdapter extends FragmentStatePagerAdapter {
     final int PAGE_COUNT = 5;
     private String joursSemaines[];
     private Context context;

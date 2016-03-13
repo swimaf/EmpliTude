@@ -18,15 +18,17 @@ import com.martinet.emplitude.R;
 public class Repas extends Fragment {
 
     private View toolbar;
-
+    private View view;
+    private RepasPagerAdapter repas;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         this.getActivity().setTitle("Repas");
 
-        View view = inflater.inflate(R.layout.repas, container, false);
+        this.view = inflater.inflate(R.layout.repas, container, false);
 
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        viewPager.setAdapter(new RepasPagerAdapter(getActivity().getSupportFragmentManager(),
-                getActivity()));
+        this.repas = new RepasPagerAdapter(getActivity().getSupportFragmentManager(),
+                getActivity());
+        viewPager.setAdapter(repas);
 
         ViewGroup tool = (ViewGroup) getActivity().findViewById(R.id.tool);
         LayoutInflater vi = LayoutInflater.from(getContext());

@@ -147,7 +147,7 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
             load.execute();
             this.refresh();
         } else {
-            //Sinon affichage d'un message d'erreur
+            //Sinon affichage d'undn message d'erreur
             ADE_recuperation.INFO = "Vous n'êtes pas connecté à internet !";
             this.retour(ADE_recuperation.ERROR_INTERNET);
         }
