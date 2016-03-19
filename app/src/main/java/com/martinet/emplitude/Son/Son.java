@@ -180,6 +180,7 @@ public class Son extends Fragment {
         alarmManager.cancel(pendingIntent2);
     }
 
+    /*Lorsque l'on ferme le fragment on enregistre tout les parametres saisie*/
     public void onStop(){
         editor.commit();
         super.onStop();

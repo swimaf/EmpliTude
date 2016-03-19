@@ -120,11 +120,7 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
         suivant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*if (Build.VERSION.SDK_INT >= 23) {
-                    permission();*/
-                /*} else {*/
                 next();
-                /*}*/
             }
         });
     }
@@ -149,21 +145,6 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
         Fichier.ecrire(Constants.identifiantFile,getBaseContext(), e);
         ADE_recuperation load = new ADE_recuperation(Accueil.this, getBaseContext());
         load.execute();
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    public void permission() {
-        int hasWriteContactsPermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    REQUEST_CODE_ASK_PERMISSIONS);
-        }else{
-            if(appel){
-                this.main();
-            }else{
-                this.next();
-            }
-        }
     }
 
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {

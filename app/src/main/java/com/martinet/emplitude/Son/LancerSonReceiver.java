@@ -30,10 +30,8 @@ public class LancerSonReceiver extends BroadcastReceiver {
 
     private SharedPreferences preference;
     private SharedPreferences.Editor editor;
-    private Context context;
 
     public void onReceive(Context context, Intent intent) {
-        this.context = context;
         this.preference = context.getSharedPreferences(Constants.PREFERENCE_SON, 0);
         this.editor = preference.edit();
 
@@ -41,39 +39,23 @@ public class LancerSonReceiver extends BroadcastReceiver {
         editor.putInt("notificationOld", amanager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
         editor.putInt("sonnerieOld", amanager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
         editor.putInt("musicOld", amanager.getStreamVolume(AudioManager.STREAM_MUSIC));
+        editor.putInt("vibratorOld", amanager.getRingerMode());
         editor.commit();
-        amanager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, preference.getInt("notification", 0), AudioManager.ADJUST_LOWER);
-        amanager.setStreamVolume(AudioManager.STREAM_ALARM, preference.getInt("sonnerie", 0), AudioManager.ADJUST_LOWER);
-        amanager.setStreamVolume(AudioManager.STREAM_MUSIC, preference.getInt("music", 0), AudioManager.ADJUST_LOWER);
+
+        amanager.adjustStreamVolume(AudioManager.STREAM_ALARM, preference.getInt("sonnerie", 0), AudioManager.ADJUST_LOWER);
+        amanager.adjustStreamVolume(AudioManager.STREAM_ALARM, preference.getInt("notification", 0), AudioManager.ADJUST_LOWER);
+        amanager.adjustStreamVolume(AudioManager.STREAM_ALARM, preference.getInt("music", 0), AudioManager.ADJUST_LOWER);
+        if(preference.getBoolean("vibrator", true)){
+            amanager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+        }else{
+            amanager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+        }
 
 
-        SimpleDateFormat h = new SimpleDateFormat("dd HH:mm", Locale.FRENCH);
-        //TEST
-        NotificationCompat.Builder mBuilder =
-                (NotificationCompat.Builder) new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_son)
-                        .setContentTitle("Empli'tude")
-                        .setContentText("Mode cours activé");
-        Intent resultIntent = new Intent(context, Accueil.class);
 
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(Accueil.class);
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(10, mBuilder.build());
-
-        receiver(PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
 
     }
-    public void receiver(int i){
-        ComponentName receiver = new ComponentName(context, EvenementInternet.class);
-        PackageManager pm = context.getPackageManager();
-        pm.setComponentEnabledSetting(receiver, i, PackageManager.DONT_KILL_APP);
-    }
+
 
 }
 

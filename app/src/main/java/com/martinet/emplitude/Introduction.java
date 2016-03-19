@@ -23,8 +23,6 @@ import java.util.Date;
  */
 public class Introduction extends Activity implements View.OnClickListener {
 
-    final private static String PREFS_NAME = "Ade";
-
     private Button suivant;
     private SharedPreferences preference;
     private SharedPreferences.Editor editor;
@@ -32,7 +30,7 @@ public class Introduction extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.preference = getSharedPreferences(PREFS_NAME, 0);
+        this.preference = getSharedPreferences(Constants.PREFERENCE_ADE, 0);
         this.editor = preference.edit();
 
         if(Fichier.existe(Constants.identifiantFile, getBaseContext())){

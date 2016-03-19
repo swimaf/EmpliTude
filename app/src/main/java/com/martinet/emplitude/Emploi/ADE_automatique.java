@@ -25,8 +25,6 @@ import com.martinet.emplitude.R;
 public class ADE_automatique extends BroadcastReceiver implements ADE_retour{
 
     //Nom du fichier sharedPreference
-    final private static String PREFS_NAME = "Ade";
-
     private Context context;
     private SharedPreferences preference;
     private SharedPreferences.Editor editor;
@@ -34,7 +32,7 @@ public class ADE_automatique extends BroadcastReceiver implements ADE_retour{
     public void onReceive(Context context, Intent intent) {
         this.context = context;
 
-        this.preference = context.getSharedPreferences(PREFS_NAME, 0);
+        this.preference = context.getSharedPreferences(Constants.PREFERENCE_ADE, 0);
         this.editor = preference.edit();
 
         //Si le smartphone démarre l'application lance une requete pour savoir quand mettre à jour l'emploi du temps

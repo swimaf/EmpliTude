@@ -96,14 +96,15 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.martinet.emplitude.Todo.GenerationTaches"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
         <receiver android:name="com.martinet.emplitude.Son.LancerSonReceiver"
             android:enabled="true">
+        </receiver>
+        <receiver
+            android:name="com.martinet.emplitude.Todo.GenerationTaches"
+            android:label="@string/app_name">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget" />
         </receiver>
     </application>
 

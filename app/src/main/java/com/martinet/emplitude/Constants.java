@@ -1,6 +1,7 @@
 package com.martinet.emplitude;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
@@ -11,6 +12,7 @@ public class Constants {
     final static public String courFile ="ADE.cours";
     final static public String identifiantFile = ".identifiant.txt";
     final static public String PREFERENCE_SON = "PREFERENCE_SON";
+    final static public String PREFERENCE_ADE = "Ade";
 
     final static public int intervaleSonnerieRepeter = 1;
 
@@ -33,5 +35,19 @@ public class Constants {
             height = height - 150;
         }
         return height;
+    }
+
+    public static int getBrightness(int color) {
+        return (int) Math.sqrt(Color.red(color) * Color.red(color) * .241 +
+                Color.green(color) * Color.green(color) * .691 +
+                Color.blue(color) * Color.blue(color) * .068);
+    }
+
+    public static int getColorWB(int color) {
+        if (getBrightness(color) < 130) {
+            return Color.WHITE;
+        } else {
+            return Color.BLACK;
+        }
     }
 }

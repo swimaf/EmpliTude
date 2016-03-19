@@ -32,17 +32,18 @@ import java.util.Locale;
 public class FermerSonReceiver extends BroadcastReceiver {
 
     private SharedPreferences preference;
-    private Context context;
     public void onReceive(Context context, Intent intent) {
-        this.context = context;
+
 
         this.preference = context.getSharedPreferences(Constants.PREFERENCE_SON, 0);
 
         AudioManager amanager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
-        amanager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, preference.getInt("notificationOld", 0), AudioManager.ADJUST_LOWER);
-        amanager.setStreamVolume(AudioManager.STREAM_ALARM, preference.getInt("sonnerieOld", 0), AudioManager.ADJUST_LOWER);
-        amanager.setStreamVolume(AudioManager.STREAM_MUSIC, preference.getInt("musicOld", 0), AudioManager.ADJUST_LOWER);
+        amanager.adjustStreamVolume(AudioManager.STREAM_ALARM, preference.getInt("sonnerieOld", 0), AudioManager.ADJUST_LOWER);
+        amanager.adjustStreamVolume(AudioManager.STREAM_ALARM, preference.getInt("notificationOld", 0), AudioManager.ADJUST_LOWER);
+        amanager.adjustStreamVolume(AudioManager.STREAM_ALARM, preference.getInt("musicOld", 0), AudioManager.ADJUST_LOWER);
+
+        amanager.setRingerMode(preference.getInt("vibratorOld", 0));
 
         ADE_information ade_information =  new ADE_information(context);
         Cours prochainCours = ade_information.getNext();
@@ -56,32 +57,7 @@ public class FermerSonReceiver extends BroadcastReceiver {
         alarmManager.set(AlarmManager.RTC_WAKEUP, prochainCours.getDateF().getTime() - 60, pendingIntent2);
 
 
-        SimpleDateFormat h = new SimpleDateFormat("dd HH:mm", Locale.FRENCH);
-        //TEST
-        NotificationCompat.Builder mBuilder =
-                (NotificationCompat.Builder) new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_son)
-                        .setContentTitle("Empli'tude")
-                        .setContentText("Mode cours déactivé");
-        Intent resultIntent = new Intent(context, Accueil.class);
 
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(Accueil.class);
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(10, mBuilder.build());
-
-        receiver(PackageManager.COMPONENT_ENABLED_STATE_DISABLED);
-
-    }
-    public void receiver(int i){
-        ComponentName receiver = new ComponentName(context, EvenementInternet.class);
-        PackageManager pm = context.getPackageManager();
-        pm.setComponentEnabledSetting(receiver, i, PackageManager.DONT_KILL_APP);
     }
 }
 

@@ -33,7 +33,6 @@ public class EmploiAjouterTache extends AppCompatActivity {
 
     private static SimpleDateFormat h = new SimpleDateFormat("dd MMMM yyyy", Locale.FRANCE);
 
-
     private FloatingActionButton suivant;
     private EditText nom;
     private Tache t;

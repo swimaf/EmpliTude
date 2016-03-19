@@ -114,7 +114,7 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
                 if (c != null) {
                     color = (int) c;
                     bouton.getBackground().setColorFilter(Integer.parseInt(c.toString()), PorterDuff.Mode.DARKEN);
-                    bouton.setTextColor(getColorWB(color));
+                    bouton.setTextColor(Constants.getColorWB(color));
                 } else {
                     bouton.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.DARKEN);
                 }
@@ -134,7 +134,7 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
         String matiere = cours.get(l.indexOfChild(activeButton)).getMatiere();
         editor.putInt(matiere, color);
         editor.commit();
-        reloadJour(0);
+        reloadJour();
     }
 
 
@@ -157,7 +157,7 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
     }
 
 
-    public void reloadJour(int number){
+    public void reloadJour(){
         Emploi e = (Emploi) ((MainActivity) getActivity()).getFragment();
         e.refresh();
     }
@@ -170,18 +170,6 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
         return true;
     }
 
-    public static int getBrightness(int color) {
-        return (int) Math.sqrt(Color.red(color) * Color.red(color) * .241 +
-                Color.green(color) * Color.green(color) * .691 +
-                Color.blue(color) * Color.blue(color) * .068);
-    }
 
-    public static int getColorWB(int color) {
-        if (getBrightness(color) < 130) {
-            return Color.WHITE;
-        } else {
-            return Color.BLACK;
-        }
-    }
 
 }

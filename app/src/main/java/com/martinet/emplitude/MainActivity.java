@@ -26,8 +26,14 @@ import com.martinet.emplitude.Son.Son;
 import com.martinet.emplitude.Todo.Todo;
 
 
+/**
+ * Class principal gère les sous pages grace à la methode onNavigationItemSelected()
+ */
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Fragment fragment;
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    /*Lorsque que l'activité se ferme on enregistre toutes les tâches dans un fichier*/
     public void onStop(){
         Fichier.ecrireVector(Constants.tacheFile, getBaseContext(), ((MyApplication) getApplicationContext()).mesTaches);
         super.onStop();
