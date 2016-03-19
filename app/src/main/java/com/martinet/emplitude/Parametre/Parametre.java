@@ -20,19 +20,16 @@ import com.martinet.emplitude.R;
 
 public class Parametre extends AppCompatActivity implements View.OnClickListener {
 
-    final private static String PREFS_NAME = "Ade";
-
     private SharedPreferences settingPreference;
     private SharedPreferences.Editor settingPreferenceEdit;
     private int rafraichissement;
-    private int delaiNotif;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
         this.setContentView(R.layout.parametre);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        this.settingPreference = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        this.settingPreference = getSharedPreferences(Constants.PREFERENCE_ADE, MODE_PRIVATE);
         this.settingPreferenceEdit = settingPreference.edit();
 
         Spinner maj = (Spinner) findViewById(R.id.maj);

@@ -105,7 +105,7 @@
     <string name="couleur">Supprimer les couleurs des cours</string>
     <string name="notification_tache">Notification de tâche</string>
     <string name="delai_notification">Délai de notification de tâche :</string>
-    <string name="description_appli">Application développée dans le cadre du projet de deuxieme année de DUT informatique, par des étudiants en informatique.</string>
+    <string name="description_appli">Application développée dans le cadre du projet de deuxieme année de DUT informatique.</string>
     <string name="aucun_cours">Aucun cours</string>
 
 </resources>

@@ -13,6 +13,8 @@ public class Constants {
     final static public String identifiantFile = ".identifiant.txt";
     final static public String PREFERENCE_SON = "PREFERENCE_SON";
     final static public String PREFERENCE_ADE = "Ade";
+    final static public String PREFERENCE_COULEUR = "Couleur";
+
 
     final static public int intervaleSonnerieRepeter = 1;
 

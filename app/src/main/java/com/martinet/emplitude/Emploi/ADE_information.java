@@ -70,7 +70,11 @@ public class ADE_information {
                 return d.compareTo(d2);
             }
         });
-        return this.cours.get(0);
+        try {
+            return this.cours.get(0);
+        }catch (Exception e){
+            return null;
+        }
     }
 
     //Récupération de tous les cours par date après la date du jour

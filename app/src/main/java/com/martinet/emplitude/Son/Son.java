@@ -156,17 +156,19 @@ public class Son extends Fragment {
         }
     }
 
-    public void lancerReceiver(){
+    public void lancerReceiver() {
         ADE_information ade_information = new ADE_information(getContext());
         Cours prochainCours = ade_information.getNext();
-        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getContext(), LancerSonReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, 0);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, prochainCours.getDateD().getTime() - 60, pendingIntent);
+        if (prochainCours != null) {
+            AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+            Intent intent = new Intent(getContext(), LancerSonReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, 0);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, prochainCours.getDateD().getTime() - 60, pendingIntent);
 
-        Intent intent2 = new Intent(getContext(), FermerSonReceiver.class);
-        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(getContext(), 1, intent2, 0);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, prochainCours.getDateF().getTime() - 60, pendingIntent2);
+            Intent intent2 = new Intent(getContext(), FermerSonReceiver.class);
+            PendingIntent pendingIntent2 = PendingIntent.getBroadcast(getContext(), 1, intent2, 0);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, prochainCours.getDateF().getTime() - 60, pendingIntent2);
+        }
     }
 
     public void annulerReceiver(){

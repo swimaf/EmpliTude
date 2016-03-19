@@ -15,6 +15,7 @@ import android.widget.RemoteViews;
 
 
 import com.martinet.emplitude.Accueil;
+import com.martinet.emplitude.Constants;
 import com.martinet.emplitude.Emploi.ADE_information;
 import com.martinet.emplitude.Emploi.Cours;
 import com.martinet.emplitude.Emploi.Information;
@@ -28,14 +29,12 @@ public class Widget extends AppWidgetProvider {
 
     private Cours cours;
     private static SimpleDateFormat h = new SimpleDateFormat("HH:mm");
-    private static final String PREFS_NAME = "Couleur";
-    public static int i =0;
     private SharedPreferences settings;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
-        this.settings       = context.getSharedPreferences(PREFS_NAME,0);
+        this.settings       = context.getSharedPreferences(Constants.PREFERENCE_COULEUR,0);
         HashMap couleur = (HashMap) settings.getAll();
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
         Intent intent;
@@ -53,7 +52,7 @@ public class Widget extends AppWidgetProvider {
             views.setTextViewText(R.id.cours, contenu);
             if (c != null) {
                 views.setInt(R.id.cours, "setBackgroundColor", Integer.parseInt(c.toString()));
-                views.setInt(R.id.cours, "setTextColor", JourEmploi.getColorWB(Integer.parseInt(c.toString())));
+                views.setInt(R.id.cours, "setTextColor", Constants.getColorWB(Integer.parseInt(c.toString())));
             }
 
             Bundle objetbunble = new Bundle();
