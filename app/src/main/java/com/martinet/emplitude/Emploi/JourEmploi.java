@@ -31,7 +31,6 @@ import java.util.Vector;
 
 
 public class JourEmploi extends Fragment implements View.OnClickListener, View.OnLongClickListener {
-    private static final String PREFS_NAME = "Couleur";
 
     private int HEIGHT;
     private Date dateJour;
@@ -52,7 +51,7 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
         //Initialisation des variables
 
         View view = inflater.inflate(R.layout.emploi_du_jour, container, false);
-        this.settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
+        this.settings = getActivity().getSharedPreferences(Constants.PREFERENCE_COULEUR, 0);
         this.liste_cours = (FrameLayout) view.findViewById(R.id.frame);
         this.grille = (GridLayout) view.findViewById(R.id.heures);
         this.vide = (RelativeLayout) view.findViewById(R.id.vide);
