@@ -2,6 +2,9 @@ package com.martinet.emplitude.Outil;
 
 import java.io.Serializable;
 
+/**
+ * Classe métier décrivant un utilisateur
+ */
 
 public class Utilisateur implements Serializable{
     private String identifiant;

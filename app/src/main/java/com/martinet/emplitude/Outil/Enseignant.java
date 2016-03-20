@@ -1,7 +1,7 @@
 package com.martinet.emplitude.Outil;
 
 /**
- * Created by martinet on 02/02/16.
+ * Classe héritant de utilisateur
  */
 public class Enseignant extends Utilisateur {
     public Enseignant(String identifiant) {

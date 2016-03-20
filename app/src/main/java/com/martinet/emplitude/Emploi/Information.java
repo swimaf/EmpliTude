@@ -32,7 +32,7 @@ import java.util.Date;
 import java.util.Vector;
 
 /**
- * Classe permettant l'affichage complet du jour ainsi que sa liste de tâche associée
+ * Classe permettant l'affichage complet du cours ainsi que sa liste de tâche associée
  */
 public class Information extends AppCompatActivity {
 
@@ -86,6 +86,7 @@ public class Information extends AppCompatActivity {
     }
 
 
+    /* Création de la liste de tâche associé*/
     public void creationListeTaches (){
         Vector matiere =this.getTache(cours.getMatiere(), cours.getDateD());
         taches.removeAllViews();
@@ -121,7 +122,7 @@ public class Information extends AppCompatActivity {
         }
     }
 
-
+    /*Si fermeture de l'activity*/
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -160,8 +161,9 @@ public class Information extends AppCompatActivity {
         }
     }
 
+    /*Si fermeture de l'activity on enregistre la liste des tâches*/
     public void onStop(){
-        Fichier.ecrireVector(Constants.tacheFile, getApplicationContext(), application.mesTaches);
+        Fichier.ecrireVector(Constants.TACHE_FILE, getApplicationContext(), application.mesTaches);
         super.onStop();
     }
 

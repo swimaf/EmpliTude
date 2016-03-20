@@ -12,10 +12,6 @@ import java.io.FileOutputStream;
 import java.util.Vector;
 
 /**
- * Created by martinet on 17/11/15.
- */
-
-/**
  * Classe permettant la sauvargarde ou la récuperation de données
  */
 
@@ -86,7 +82,7 @@ public class Fichier {
                 while(true) {
                     objects.add(ois.readObject());
                 }
-            }catch(EOFException e){
+            }catch(Exception e){
             }
 
             ois.close();

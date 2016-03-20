@@ -83,7 +83,7 @@ public class Parametre extends AppCompatActivity implements View.OnClickListener
 
     public void supprimerProfil(View v) {
         if(Constants.CONNECTED(getApplicationContext())) {
-            Fichier.delete(Constants.identifiantFile, getBaseContext());
+            Fichier.delete(Constants.IDENTIFIANT_FILE, getBaseContext());
             Intent intent = new Intent(Parametre.this, Accueil.class);
             startActivity(intent);
             finish();

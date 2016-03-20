@@ -86,6 +86,7 @@ public class EmploiAjouterTache extends AppCompatActivity {
 
     }
 
+    /* Si clic sur le bouton retour : fermeture de l'activity*/
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:

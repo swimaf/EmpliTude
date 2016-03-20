@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         View headerLayout = navigationView.getHeaderView(0);
-        Utilisateur utilisateur = (Utilisateur) Fichier.lire(Constants.identifiantFile,getApplicationContext(), 0);
+        Utilisateur utilisateur = (Utilisateur) Fichier.lire(Constants.IDENTIFIANT_FILE,getApplicationContext(), 0);
         TextView type = (TextView) headerLayout.findViewById(R.id.type);
         type.setText(utilisateur.toString());
 
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /*Lorsque que l'activité se ferme on enregistre toutes les tâches dans un fichier*/
     public void onStop(){
-        Fichier.ecrireVector(Constants.tacheFile, getBaseContext(), ((MyApplication) getApplicationContext()).mesTaches);
+        Fichier.ecrireVector(Constants.TACHE_FILE, getBaseContext(), ((MyApplication) getApplicationContext()).mesTaches);
         super.onStop();
     }
 

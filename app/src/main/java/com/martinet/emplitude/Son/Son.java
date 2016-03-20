@@ -25,7 +25,7 @@ import com.martinet.emplitude.R;
 
 
 /**
- * Created by martinet on 13/11/15.
+ * Classe visuelle permettant de choisir le volume et d’activer le vibreur
  */
 public class Son extends Fragment {
 
@@ -87,6 +87,7 @@ public class Son extends Fragment {
         this.vibrer.setEnabled(activer);
     }
 
+    /*Initialisation de toute les variables*/
     public void initialisation(){
 
         if(!sharedpreferences.getBoolean("activer", true)){
@@ -156,6 +157,7 @@ public class Son extends Fragment {
         }
     }
 
+    /*Programmer prochain recepteur du prochain cours*/
     public void lancerReceiver() {
         ADE_information ade_information = new ADE_information(getContext());
         Cours prochainCours = ade_information.getNext();
@@ -171,6 +173,7 @@ public class Son extends Fragment {
         }
     }
 
+    /*Annuler recepteur du prochain cours*/
     public void annulerReceiver(){
         AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getContext(), LancerSonReceiver.class);

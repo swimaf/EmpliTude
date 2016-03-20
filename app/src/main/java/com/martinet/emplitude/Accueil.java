@@ -1,11 +1,7 @@
 package com.martinet.emplitude;
 
-import android.Manifest;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -38,14 +34,9 @@ import java.util.TreeMap;
 
 
 /**
- * Created by martinet on 16/11/15.
+ * Classe permettant de choisir son groupe ou de renseigner son n° d'enseignant
  */
 public class Accueil extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, ADE_retour, External_retour {
-
-    final private static String PREFS_NAME = "Ade";
-
-    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
-    final private String SITE = "http://climax.heb3.org/Emplitude/recup/";
 
     private Boolean is_etudiant = true;
     private RelativeLayout etudiant;
@@ -56,7 +47,6 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
     private RadioButton button1;
     private RadioButton button2;
     private EditText num_enseignant;
-    private Boolean appel;
     private TreeMap<String, TreeMap> groupe;
     private SharedPreferences preference;
     private SharedPreferences.Editor editor;
@@ -64,19 +54,13 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.preference = getSharedPreferences(PREFS_NAME, 0);
+        this.preference = getSharedPreferences(Constants.PREFERENCE_ADE, 0);
         this.editor = preference.edit();
 
-        if(Fichier.existe(Constants.identifiantFile, getBaseContext())){
-            /*if (Build.VERSION.SDK_INT >= 23) {
-                appel = true;
-                permission();
-            } else {*/
-                main();
-            //}
+        if(Fichier.existe(Constants.IDENTIFIANT_FILE, getBaseContext())){
+            main();
         }else {
             setContentView(R.layout.choix);
-            appel = false;
             etudiant = (RelativeLayout) findViewById(R.id.etudiant);
             enseignant = (RelativeLayout) findViewById(R.id.enseignant);
             spinner = (Spinner) findViewById(R.id.spinner);
@@ -89,7 +73,7 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
             editor.commit();
             if(Constants.CONNECTED(getBaseContext())){
                 try {
-                    new External(this, new URL(SITE)).execute();
+                    new External(this, new URL(Constants.SITE)).execute();
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
@@ -99,6 +83,7 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
         }
     }
 
+    /*Redirection vers la classe d'principal*/
     private void main(){
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
@@ -106,6 +91,7 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
         this.finish();
     }
 
+    /*Si la requete de récuperation de groupe à fonctionné on charge les liste déroulante*/
     private void connect(){
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
@@ -129,6 +115,7 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
         Toast.makeText(getApplicationContext(), "Vous devez être connecté à internet !", Toast.LENGTH_SHORT).show();
     }
 
+    /*Affiche une barre de chargement avant la requete asynchrone qui va aller chercher l'emploi du temps*/
     private void next(){
         Utilisateur e;
         ProgressBar progress = (ProgressBar) findViewById(R.id.progressBar);
@@ -142,31 +129,12 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
         }else{
             e = new Enseignant(num_enseignant.getText().toString());
         }
-        Fichier.ecrire(Constants.identifiantFile,getBaseContext(), e);
+        Fichier.ecrire(Constants.IDENTIFIANT_FILE,getBaseContext(), e);
         ADE_recuperation load = new ADE_recuperation(Accueil.this, getBaseContext());
         load.execute();
     }
 
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_CODE_ASK_PERMISSIONS:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(appel){
-                        this.main();
-                    }else{
-                        this.next();
-                    }
-                } else {
-                    Toast.makeText(this, "NON N'ACCEPTE", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        }
-    }
-
-    @Override
+    /*Lors du clic sur un bouton : choix entre étudiant et enseignant*/
     public void onClick(View v) {
         RadioButton b = (RadioButton)v;
         switch (b.getId()) {
@@ -184,17 +152,17 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
         }
     }
 
-    @Override
+    /*Lorsque l'utilisateur clic sur un département*/
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        List list = new ArrayList<>(groupe.get(parent.getItemAtPosition(position)).keySet());
+        ArrayList<String> list = new ArrayList<>(groupe.get(parent.getItemAtPosition(position)).keySet());
         ArrayAdapter<String> info = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, list);
         spinner2.setAdapter(info);
     }
 
-
-    @Override
     public void onNothingSelected(AdapterView<?> parent) {}
 
+
+    /*Lorsque la requete asynchrone est fini on change de fenetre */
     public void retour(int value){
         if(value == ADE_recuperation.NO_ERREUR) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -205,10 +173,10 @@ public class Accueil extends AppCompatActivity implements View.OnClickListener, 
         }
     }
 
-    @Override
+    /*Lorsque la requete asynchrone est finis on charge les listes déroulante */
     public void affichage(String value) {
-        groupe = new TreeMap<String, TreeMap>();
-        String d ="";
+        groupe = new TreeMap<>();
+        String d;
         try {
             JSONArray json = new JSONArray(value);
             for(int i=0; i<json.length(); i++) {

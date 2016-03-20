@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Classe d'information d'un cour implementant serializable pour la sauvegarde des données
+ * Classe d'information d'un cours implementant serializable pour la sauvegarde des données
  */
 public class Cours implements Serializable{
 

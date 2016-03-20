@@ -3,7 +3,6 @@ package com.martinet.emplitude.Emploi;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
@@ -37,7 +36,6 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
     private static final int NUM_PAGES = 15; //Nombre de jour visible
 
     private View viewAction;
-    private FragmentActivity activity;
     private SwipeRefreshLayout swipe;
     private Toast toast;
     private RelativeLayout color;
@@ -51,7 +49,6 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         this.getActivity().setTitle("Emploi du temps");
-        this.activity = getActivity();
         View view = inflater.inflate(R.layout.emploi_du_temps, container, false);
 
         this.color = (RelativeLayout) view.findViewById(R.id.color);
@@ -71,7 +68,7 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
         //Ajout du listener lors slider vers la droite ou la gauche
         mPager = (ViewPager) view.findViewById(R.id.pager);
         mPager.getLayoutParams().height= Constants.getHeight(getContext());
-        mPagerAdapter = new ScreenSlidePagerAdapter(activity.getSupportFragmentManager());
+        mPagerAdapter = new ScreenSlidePagerAdapter(getActivity().getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         mPager.getLayoutParams().height = Constants.getHeight(getContext())+100;
         mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -221,7 +218,7 @@ public class Emploi extends Fragment implements SwipeRefreshLayout.OnRefreshList
 
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
-            fragmentReference = new HashMap<Integer, Fragment>();
+            fragmentReference = new HashMap<>();
         }
 
         @Override

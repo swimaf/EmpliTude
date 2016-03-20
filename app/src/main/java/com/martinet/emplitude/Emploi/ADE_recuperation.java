@@ -49,7 +49,7 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
         String last =j.getUrl();
         this.o = o;
         this.context =c;
-        this.utilisateur = (Utilisateur) Fichier.lire(Constants.identifiantFile,context, 0); //Recupération du n° de l'utilisation
+        this.utilisateur = (Utilisateur) Fichier.lire(Constants.IDENTIFIANT_FILE,context, 0); //Recupération du n° de l'utilisation
         this.source = "https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources="+utilisateur.getIdentifiant()+"&projectId=1&calType=ical&firstDate="+first+"&lastDate="+last;
     }
 
@@ -96,7 +96,7 @@ public class ADE_recuperation extends AsyncTask<Void, Void, Void> {
             Vector cours = ADE_traitement.get(textResult);
 
             //Sauvegarde de tous les cours dans un fichier
-            Fichier.ecrireVector(Constants.courFile, context, cours);
+            Fichier.ecrireVector(Constants.COURS_FILE, context, cours);
 
 
         } catch(Exception e) {

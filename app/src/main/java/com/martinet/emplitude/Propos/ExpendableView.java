@@ -10,22 +10,21 @@ public class ExpendableView {
         HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
 
         List<String> etienne = new ArrayList<String>();
-        etienne.add("Je sais pas encore");
+        etienne.add("Développeur de la partie 'Emploi du temps', 'Gestion des sons', 'Base de l'application', ");
 
         List<String> florian = new ArrayList<String>();
-        florian.add("Je sais pas encore");
+        florian.add("Développeur de la partie 'TodoList'");
 
         List<String> eric = new ArrayList<String>();
-        eric.add("Je sais pas encore");
 
         List<String> kevin = new ArrayList<String>();
-        kevin.add("Je sais pas encore");
+        kevin.add("Aller le voir si vous avez des problèmes, il est première année");
 
         List<String> anthony = new ArrayList<String>();
-        anthony.add("Je sais pas encore");
+        anthony.add("Développeur du site internet de liste des groupes");
 
         List<String> arnaud = new ArrayList<String>();
-        arnaud.add("Je sais pas encore");
+        arnaud.add("Développeur du réveil");
 
         expandableListDetail.put("Kévin PERROT (Ne fais plus partie du groupe)", kevin);
         expandableListDetail.put("Anthony PIAUD", anthony);

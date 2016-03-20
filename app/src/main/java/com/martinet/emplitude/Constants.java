@@ -6,19 +6,23 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
 
+/**
+ * Classe utilisé dans plusieurs autre classe
+ */
 
 public class Constants {
     final static public String store = System.getenv("EXTERNAL_STORAGE");
-    final static public String courFile ="ADE.cours";
-    final static public String identifiantFile = ".identifiant.txt";
+    final static public String COURS_FILE ="ADE.cours";
+    final static public String IDENTIFIANT_FILE = ".identifiant.txt";
     final static public String PREFERENCE_SON = "PREFERENCE_SON";
     final static public String PREFERENCE_ADE = "Ade";
     final static public String PREFERENCE_COULEUR = "Couleur";
+    final static public String TACHE_FILE = "tache.txt";
+    final static public String SITE = "http://climax.heb3.org/Emplitude/recup/";
 
 
     final static public int intervaleSonnerieRepeter = 1;
 
-    final static public String tacheFile = "tache.txt";
 
 
     public static Boolean CONNECTED(Context context) {

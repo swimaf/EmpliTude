@@ -2,10 +2,6 @@ package com.martinet.emplitude.Widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetProvider;
-
-/**
- * Created by martinet on 06/12/15.
- */
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
@@ -19,22 +15,24 @@ import com.martinet.emplitude.Constants;
 import com.martinet.emplitude.Emploi.ADE_information;
 import com.martinet.emplitude.Emploi.Cours;
 import com.martinet.emplitude.Emploi.Information;
-import com.martinet.emplitude.Emploi.JourEmploi;
 import com.martinet.emplitude.R;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
+/**
+ * Génère le widget qui affiche le prochain cours
+ */
+
 public class Widget extends AppWidgetProvider {
 
-    private Cours cours;
     private static SimpleDateFormat h = new SimpleDateFormat("HH:mm");
-    private SharedPreferences settings;
 
-    @Override
+    private Cours cours;
+
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
-        this.settings       = context.getSharedPreferences(Constants.PREFERENCE_COULEUR,0);
+        SharedPreferences settings = context.getSharedPreferences(Constants.PREFERENCE_COULEUR, Context.MODE_PRIVATE);
         HashMap couleur = (HashMap) settings.getAll();
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
         Intent intent;

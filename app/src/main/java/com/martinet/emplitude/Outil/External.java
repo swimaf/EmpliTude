@@ -11,6 +11,9 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+/**
+ * Classe asynchrone permettant de récupérer la liste des départements et des groupes
+ */
 
 public class External extends AsyncTask<Void, Void, Void>{
 

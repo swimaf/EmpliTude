@@ -19,8 +19,9 @@ import java.util.Date;
 
 
 /**
- * Created by martinet on 16/11/15.
+ * Classe qui est ouverte la première elle permet de savoir si c'est la première connexion de l'utilisation
  */
+
 public class Introduction extends Activity implements View.OnClickListener {
 
     private Button suivant;
@@ -33,7 +34,8 @@ public class Introduction extends Activity implements View.OnClickListener {
         this.preference = getSharedPreferences(Constants.PREFERENCE_ADE, 0);
         this.editor = preference.edit();
 
-        if(Fichier.existe(Constants.identifiantFile, getBaseContext())){
+        //Verifie si le fichier d'identification de l'utilisateur existe
+        if(Fichier.existe(Constants.IDENTIFIANT_FILE, getBaseContext())){
             rafraichirAuto();
             Intent intent = new Intent(this,MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
@@ -48,6 +50,7 @@ public class Introduction extends Activity implements View.OnClickListener {
 
     }
 
+    /* Lors du clic sur le bouton "suivant"*/
     public void onClick(View v) {
         if(Constants.CONNECTED(getBaseContext())) {
             Intent intent = new Intent(this, Accueil.class);
@@ -59,13 +62,13 @@ public class Introduction extends Activity implements View.OnClickListener {
         }
     }
 
+    /*Permet d'initialiser la prochaine mise à jour auto de l'emploi du temps en fonction du délai choisie dans les parametres*/
     public void rafraichirAuto(){
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         long time = this.preference.getLong("time", 0);
         if(time - System.currentTimeMillis() < 0 ) {
             Jour jour = new Jour(new Date());
             jour.ajouterJour(7);
-            //long seconds = this.preference.getInt("rafraichissement", 7)*24*60*60;
             long seconds = this.preference.getInt("rafraichissement", 7)*50;
             this.editor.putLong("time", System.currentTimeMillis()+seconds*1000);
             this.editor.commit();

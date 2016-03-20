@@ -1,7 +1,7 @@
 package com.martinet.emplitude.Outil;
 
 /**
- * Created by martinet on 02/02/16.
+ * Classe héritant de utilisateur avec un numéro de groupe en plus
  */
 public class Etudiant extends Utilisateur {
 

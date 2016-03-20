@@ -24,6 +24,7 @@ import com.martinet.emplitude.MainActivity;
 import com.martinet.emplitude.R;
 import com.martinet.emplitude.Todo.Todo;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Vector;
@@ -39,7 +40,7 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
     private GridLayout grille;
-    private FrameLayout l;
+    private FrameLayout liste_cours;
     private RelativeLayout vide;
 
     public void setJour(Date date){
@@ -52,7 +53,7 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
 
         View view = inflater.inflate(R.layout.emploi_du_jour, container, false);
         this.settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
-        this.l = (FrameLayout) view.findViewById(R.id.frame);
+        this.liste_cours = (FrameLayout) view.findViewById(R.id.frame);
         this.grille = (GridLayout) view.findViewById(R.id.heures);
         this.vide = (RelativeLayout) view.findViewById(R.id.vide);
         this.editor = settings.edit();
@@ -67,6 +68,7 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
         return view;
     }
 
+    /*Génération de la liste des heures*/
     public void loadHeures() {
         int hauteur= HEIGHT/12;
         TextView heureJournee;
@@ -95,17 +97,19 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
         FrameLayout.LayoutParams layoutButton;
         int height_button, top, color;
         double minute;
+        Calendar calendar = Calendar.getInstance();
         if (cours != null) {
             for (int i = 0; i < cours.size(); i++) {
                 dateD = cours.get(i).getDateD();
                 dateF = cours.get(i).getDateF();
+                calendar.setTime(dateD);
                 diff = dateF.getTime() - dateD.getTime();
                 height_button = (int) ((this.HEIGHT / 12) * (diff / (1000.0 * 60 * 60)) + ECART);
                 bouton = new Button(getContext());
                 bouton.setText(cours.get(i).getResumer());
                 layoutButton = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, height_button);
-                minute = (dateD.getMinutes()) / 60.0;
-                top = (int) (((dateD.getHours() + minute) - 8) * this.HEIGHT / 12 + (ECART * 2));
+                minute = (calendar.get(Calendar.MINUTE)) / 60.0;
+                top = (int) (((calendar.get(Calendar.HOUR) + minute) - 8) * this.HEIGHT / 12 + (ECART * 2));
                 bouton.setOnClickListener(this);
                 bouton.setOnLongClickListener(this);
                 layoutButton.setMargins(10, top, 10, 10);
@@ -118,7 +122,7 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
                 } else {
                     bouton.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.DARKEN);
                 }
-                this.l.addView(bouton);
+                this.liste_cours.addView(bouton);
             }
         }
         if (cours == null) {
@@ -129,20 +133,21 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
         }
     }
 
-
+    /*Mise à jour de la couleur d'une matière*/
     public void setColorButton(int color){
-        String matiere = cours.get(l.indexOfChild(activeButton)).getMatiere();
+        String matiere = cours.get(liste_cours.indexOfChild(activeButton)).getMatiere();
         editor.putInt(matiere, color);
         editor.commit();
         reloadJour();
     }
 
 
+    /*Clic sur un cours*/
     public void onClick(View v) {
 
         Bundle objetbunble = new Bundle();
         Intent intent = new Intent(getContext(), Information.class);
-        objetbunble.putSerializable("emploi_cour", this.cours.get(l.indexOfChild(v)));
+        objetbunble.putSerializable("emploi_cour", this.cours.get(liste_cours.indexOfChild(v)));
         intent.putExtras(objetbunble);
         this.startActivityForResult(intent, 0);
 
@@ -157,13 +162,13 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
     }
 
 
+    /*Rechargement du jour*/
     public void reloadJour(){
         Emploi e = (Emploi) ((MainActivity) getActivity()).getFragment();
         e.refresh();
     }
 
-
-    @Override
+    /*Pression longue sur un cours*/
     public boolean onLongClick(View v) {
         ((Emploi)((MainActivity) getActivity()).getFragment()).colorBarVisibility(View.VISIBLE);
         this.activeButton = (Button) v;

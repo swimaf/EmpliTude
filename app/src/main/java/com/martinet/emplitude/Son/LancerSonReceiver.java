@@ -1,30 +1,15 @@
 package com.martinet.emplitude.Son;
-/**
- * Created by martinet on 04/02/16.
- */
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.media.AudioManager;
-
 import android.content.BroadcastReceiver;
-
 import android.content.SharedPreferences;
-import android.support.v4.app.TaskStackBuilder;
-import android.support.v7.app.NotificationCompat;
-
-import com.martinet.emplitude.Accueil;
 import com.martinet.emplitude.Constants;
-import com.martinet.emplitude.Outil.EvenementInternet;
-import com.martinet.emplitude.R;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
+/**
+ * Récepteur qui se déclenche au début d’un cours
+ */
 
 public class LancerSonReceiver extends BroadcastReceiver {
 
@@ -50,9 +35,6 @@ public class LancerSonReceiver extends BroadcastReceiver {
         }else{
             amanager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
         }
-
-
-
 
     }
 

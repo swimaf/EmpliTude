@@ -1,7 +1,4 @@
 package com.martinet.emplitude.Emploi;
-/**
- * Created by martinet on 11/11/15.
- */
 
 import android.content.Context;
 
@@ -39,7 +36,7 @@ public class ADE_information {
     }
 
     public void init(){
-        allCours = Fichier.readAll(Constants.courFile, context);
+        allCours = Fichier.readAll(Constants.COURS_FILE, context);
         this.vide = allCours == null;
     }
 
@@ -92,7 +89,7 @@ public class ADE_information {
         }
     }
 
-    //Récupération du premier cour d'une journée
+    //Récupération du premier cours d'une journée
     public Cours getFirstBYDate(Date date) {
         this.date = date;
         this.get();

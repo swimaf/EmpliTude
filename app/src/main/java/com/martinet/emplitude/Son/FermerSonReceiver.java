@@ -1,34 +1,20 @@
 package com.martinet.emplitude.Son;
-/**
- * Created by martinet on 04/02/16.
- */
 
 import android.app.AlarmManager;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.media.AudioManager;
-
 import android.content.BroadcastReceiver;
-
 import android.content.SharedPreferences;
-import android.support.v4.app.TaskStackBuilder;
-import android.support.v7.app.NotificationCompat;
-
-import com.martinet.emplitude.Accueil;
 import com.martinet.emplitude.Constants;
 import com.martinet.emplitude.Emploi.ADE_information;
 import com.martinet.emplitude.Emploi.Cours;
-import com.martinet.emplitude.Outil.EvenementInternet;
-import com.martinet.emplitude.R;
-
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 
+/**
+ * Récepteur qui se déclenche a la fin d’un cours
+ */
 public class FermerSonReceiver extends BroadcastReceiver {
 
     private SharedPreferences preference;
