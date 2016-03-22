@@ -24,7 +24,11 @@ import java.util.Date;
 import java.util.Vector;
 
 /**
- * Created by florian on 13/11/15.
+ * Created by Flo on 13/11/15.
+ */
+ 
+ /**
+ * Classe principale qui gère la liste de tâches et l'affiche
  */
 public class Todo extends Fragment{
 
