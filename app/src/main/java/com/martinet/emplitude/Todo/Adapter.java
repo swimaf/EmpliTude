@@ -1,6 +1,6 @@
 package com.martinet.emplitude.Todo;
 /**
- * Created by florian on 21/12/15.
+ * Created by Flo on 21/12/15.
  */
 import android.app.Activity;
 import android.support.design.widget.Snackbar;
@@ -20,6 +20,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Vector;
 
+/**
+ * Classe permettant de gérer l'affichage de la liste de tâches
+ */
 public class Adapter extends ArrayAdapter<String>{
 
     private final Activity context;
