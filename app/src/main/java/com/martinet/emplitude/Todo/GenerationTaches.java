@@ -17,6 +17,10 @@ import java.util.Date;
 /**
  * Created by Flo on 09/03/2016.
  */
+ 
+ /**
+ * Classe qui devrait permettre l'affichage d'un notification ^^'
+ */
 public class GenerationTaches extends BroadcastReceiver {
 
     //Nom du fichier sharedPreference

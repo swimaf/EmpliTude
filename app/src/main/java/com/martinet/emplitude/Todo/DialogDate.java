@@ -12,6 +12,11 @@ import java.util.Locale;
 /**
  * Created by Flo on 18/01/2016.
  */
+ 
+ /**
+ * Classe qui permet d'afficher le calendrier pour sélectionner une date dans l'ajout d'une tâche
+ */
+
 public class DialogDate extends DialogFragment{
 
     private static final String MOVE_IN_DATE_KEY = "monPicker";

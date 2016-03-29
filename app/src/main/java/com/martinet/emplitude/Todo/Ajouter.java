@@ -29,7 +29,11 @@ import java.util.Vector;
 
 
 /**
- * Created by piaud on 04/11/15.
+ * Created by Flo on 04/11/15.
+ */
+ 
+ /**
+ * Classe permettant d'ajouter une tâche
  */
 public class Ajouter extends AppCompatActivity {
 

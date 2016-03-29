@@ -8,6 +8,10 @@ import java.util.Date;
 /**
  * Created by Flo on 04/01/2016.
  */
+ 
+ /**
+ * Classe qui permet de créer une tâche
+ */
 public class Tache implements Serializable{
 
     private static int SERIAL = 0;

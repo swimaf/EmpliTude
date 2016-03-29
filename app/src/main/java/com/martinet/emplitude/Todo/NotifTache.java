@@ -12,6 +12,10 @@ import com.martinet.emplitude.R;
 /**
  * Created by Flo on 09/03/2016.
  */
+ 
+ /**
+ * Classe qui devrait afficher une notification
+ */
 public class NotifTache extends BroadcastReceiver {
 
     private MyApplication monApplication;
