@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Vector;
 
 /**
@@ -36,7 +37,7 @@ import java.util.Vector;
  */
 public class Information extends AppCompatActivity {
 
-    final static private SimpleDateFormat h = new SimpleDateFormat("HH:mm");
+    final static private SimpleDateFormat h = new SimpleDateFormat("HH:mm", Locale.FRANCE);
 
     private Cours cours;
     private TextView aucune;

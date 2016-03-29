@@ -27,6 +27,7 @@ import com.martinet.emplitude.Todo.Todo;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Vector;
 
 
@@ -96,19 +97,21 @@ public class JourEmploi extends Fragment implements View.OnClickListener, View.O
         FrameLayout.LayoutParams layoutButton;
         int height_button, top, color;
         double minute;
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(Locale.FRANCE);
+
         if (cours != null) {
             for (int i = 0; i < cours.size(); i++) {
                 dateD = cours.get(i).getDateD();
                 dateF = cours.get(i).getDateF();
                 calendar.setTime(dateD);
+
                 diff = dateF.getTime() - dateD.getTime();
                 height_button = (int) ((this.HEIGHT / 12) * (diff / (1000.0 * 60 * 60)) + ECART);
                 bouton = new Button(getContext());
                 bouton.setText(cours.get(i).getResumer());
                 layoutButton = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, height_button);
                 minute = (calendar.get(Calendar.MINUTE)) / 60.0;
-                top = (int) (((calendar.get(Calendar.HOUR) + minute) - 8) * this.HEIGHT / 12 + (ECART * 2));
+                top = (int) (((calendar.get(Calendar.HOUR_OF_DAY) + minute) - 8) * this.HEIGHT / 12 + (ECART * 2));
                 bouton.setOnClickListener(this);
                 bouton.setOnLongClickListener(this);
                 layoutButton.setMargins(10, top, 10, 10);

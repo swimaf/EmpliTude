@@ -23,7 +23,7 @@ public class ADE_traitement {
 
     //Récupération toutes les cours par date
     public static Vector get(String contenu) throws ParseException{
-        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/London"));
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         String[] parts = contenu.split(Pattern.quote("BEGIN:VEVENT"));
         String s;
         Vector<Cours> cours = new Vector<>();

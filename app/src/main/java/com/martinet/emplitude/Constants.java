@@ -11,7 +11,6 @@ import android.util.DisplayMetrics;
  */
 
 public class Constants {
-    final static public String store = System.getenv("EXTERNAL_STORAGE");
     final static public String COURS_FILE ="ADE.cours";
     final static public String IDENTIFIANT_FILE = ".identifiant.txt";
     final static public String PREFERENCE_SON = "PREFERENCE_SON";

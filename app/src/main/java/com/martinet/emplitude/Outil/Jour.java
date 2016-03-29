@@ -2,13 +2,16 @@ package com.martinet.emplitude.Outil;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class Jour {
     private Calendar calendar;
     final private String[] semaine ={"DIM.", "LUN.", "MAR.", "MER.", "JEU.", "VEN.", "SAM."};
     final private String[] mois ={"JANVIER.", "FEVRIER.", "MARS", "AVRIL", "MAI", "JUIN", "JUILLET", "AOUT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DECEMBRE"};
     public Jour(Date d){
-        this.calendar = Calendar.getInstance();
+        this.calendar = Calendar.getInstance(Locale.FRANCE);
+        this.calendar.setTimeZone(TimeZone.getTimeZone("Europe/Paris"));
         this.calendar.setTime(d);
     }
     public Boolean est_inferieur(){
