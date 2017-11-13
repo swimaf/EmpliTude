@@ -1,0 +1,38 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Emploi du temps">
+        <Preference android:title="Réinitialiser l'application"
+            android:key="settings_reset"
+            android:summary="Toutes les données seront supprimées."/>
+        <Preference android:title="Réinitialiser les couleurs des cours"
+            android:key="settings_colors"
+            android:summary="Toutes les couleurs associées aux cours seront supprimées."/>
+        <SwitchPreference
+            android:defaultValue="false"
+            android:title="Masquer les jours sans cours"
+            android:key="settings_hide_empty"
+            android:summary="Fonction non fonctionnelle à ce jour."/>
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="preference_wifi"
+            android:title="Utiliser seulement la wifi"
+            android:summary="Toutes connexion extérieur devront s'effectuer avec la wifi" />
+        <ListPreference
+            android:defaultValue="15"
+            android:entries="@array/maj"
+            android:entryValues="@array/maj_value"
+            android:key="day_between_refresh"
+            android:summary="Interval de temps entre les mises à jour des cours"
+            android:title="Interval de mise à jour" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Tâches">
+        <ListPreference
+            android:defaultValue="1"
+            android:title="Délai de notification des tâches"
+            android:entries="@array/notif"
+            android:entryValues="@array/notif"
+            android:key="list_preference_1" />
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

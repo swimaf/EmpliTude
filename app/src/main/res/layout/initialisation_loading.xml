@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/onLoading">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/loading"
+            android:layout_gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="50dp" />
+
+        <TextView
+            android:text="Chargement de votre\n emploi du temps."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView3"
+            android:textStyle="normal|italic"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/cardview_light_background"
+            android:textAlignment="center"
+            android:fontFamily="sans-serif-thin" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:baselineAligned="false">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/ic_error_outline"
+            android:id="@+id/imageView9"
+            android:padding="20dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:text="@string/erreur"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/error"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textStyle="normal|italic"
+            android:textAlignment="center"
+            android:textColor="#77000000" />
+    </LinearLayout>
+
+</LinearLayout>

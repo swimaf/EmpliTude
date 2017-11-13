@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/action_emploi">
     <RelativeLayout
@@ -12,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/precedent"
-            android:src="@drawable/ic_previous"
+            app:srcCompat="@drawable/ic_previous"
             android:background="#00ffffff"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -43,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/suivant"
-            android:src="@drawable/ic_next"
+            app:srcCompat="@drawable/ic_next"
             android:background="#00ffffff"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"

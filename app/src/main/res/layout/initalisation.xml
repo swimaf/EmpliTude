@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimary">
+
+    <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/scrollView2"
+    android:background="@color/colorPrimary"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:layout_above="@+id/frameLayout">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:id="@+id/fragment"
+            android:layout_height="wrap_content">
+
+        </FrameLayout>
+
+
+    </ScrollView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#ffffff"
+        android:id="@+id/frameLayout"
+        android:elevation="0dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/suivant"
+            android:id="@+id/next"
+            android:background="?attr/selectableItemBackground"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/colorPrimary" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/progressBar"
+            android:layout_gravity="left|center_vertical"
+            android:visibility="gone"
+            android:padding="5dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/previous"
+            android:id="@+id/previous"
+            android:background="?attr/selectableItemBackground"
+            android:layout_gravity="left|center_vertical"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginLeft="20dp" />
+    </FrameLayout>
+
+</RelativeLayout>

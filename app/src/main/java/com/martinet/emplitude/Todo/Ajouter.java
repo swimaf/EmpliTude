@@ -16,24 +16,22 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 
-import com.martinet.emplitude.Emploi.ADE_information;
-import com.martinet.emplitude.Emploi.Cours;
-import com.martinet.emplitude.MyApplication;
+import com.martinet.emplitude.Dialog.DialogPicker;
+import com.martinet.emplitude.Global;
+import com.martinet.emplitude.Models.Lesson;
+import com.martinet.emplitude.Models.Task;
 import com.martinet.emplitude.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
-import java.util.Vector;
 
 
 /**
- * Created by Flo on 04/11/15.
- */
- 
- /**
- * Classe permettant d'ajouter une tâche
+ * Created by piaud on 04/11/15.
  */
 public class Ajouter extends AppCompatActivity {
 
@@ -43,17 +41,16 @@ public class Ajouter extends AppCompatActivity {
     private FloatingActionButton suivant;
     private EditText nom, date;
     private Spinner matiere;
-    private Tache t;
+    private Task task;
     private int position;
     private Date datePicker;
-    private Vector<Cours> cours;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
 
         try{
-            t = (Tache) intent.getSerializableExtra("Tache");
+            task = (Task) intent.getSerializableExtra("Task");
             position = (int) intent.getSerializableExtra("position");
         }catch (Exception e){
             position = 0;
@@ -65,50 +62,56 @@ public class Ajouter extends AppCompatActivity {
         nom = (EditText) findViewById(R.id.nom);
         matiere = (Spinner) findViewById(R.id.matiere);
 
-        if (t != null) {
-            nom.setText(t.getNom());
+        if (task != null) {
+            nom.setText(task.getNom());
 
-            date.setText(simpleDateFormat.format(t.getDate()));
-            datePicker = t.getDate();
-            ADE_information ade = new ADE_information(t.getDate(), getApplicationContext());
-            cours = ade.getCours();
-
-            ArrayList listeCour = new ArrayList();
-            listeCour.add("Aucune");
-            for (int i = 0; i < cours.size(); i++) {
-                listeCour.add(cours.get(i).getMatiere());
+            date.setText(simpleDateFormat.format(task.getDate()));
+            datePicker = task.getDate();
+            ArrayList<String> listLessons = new ArrayList<>();
+            listLessons.add("Aucune");
+            List<Lesson> lessons = Lesson.getLessonsByDay(Global.global, datePicker);
+            if(lessons != null) {
+                for (Lesson lesson : lessons) {
+                    if (lesson.getDiscipline() != null) {
+                        listLessons.add(lesson.getDiscipline());
+                    }
+                }
             }
-            ArrayAdapter departement = new ArrayAdapter<>(Ajouter.this, android.R.layout.simple_spinner_dropdown_item, listeCour);
+            ArrayAdapter departement = new ArrayAdapter<>(Ajouter.this, android.R.layout.simple_spinner_dropdown_item, listLessons);
             matiere.setAdapter(departement);
-            matiere.setSelection(listeCour.indexOf(t.getCours()));
-        }else{
-            ArrayList listeCour = new ArrayList();
-            listeCour.add("Aucune");
-            ArrayAdapter departement = new ArrayAdapter<>(Ajouter.this, android.R.layout.simple_spinner_dropdown_item, listeCour);
+        } else {
+            ArrayList<String> listLessons = new ArrayList();
+            listLessons.add("Aucune");
+            ArrayAdapter departement = new ArrayAdapter<>(Ajouter.this, android.R.layout.simple_spinner_dropdown_item, listLessons);
             matiere.setAdapter(departement);
         }
 
 
-
-
         date.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                DialogDate dialogDate = DialogDate.newInstance(new Date(), new DatePickerDialog.OnDateSetListener() {
+                DialogPicker dialogPicker = DialogPicker.newInstance(new Date(), new DatePickerDialog.OnDateSetListener() {
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        datePicker = new Date(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.YEAR, view.getYear());
+                        calendar.set(Calendar.MONTH, view.getMonth());
+                        calendar.set(Calendar.DAY_OF_MONTH, view.getDayOfMonth());
+                        datePicker = calendar.getTime();
                         date.setText(simpleDateFormat.format(datePicker));
-                        ADE_information ade = new ADE_information(datePicker, getApplicationContext());
-                        cours = ade.getCours();
-                        ArrayList listeCour = new ArrayList();
-                        listeCour.add("Aucune");
-                        for (int i = 0; i < cours.size(); i++) {
-                            listeCour.add(cours.get(i).getMatiere());
+                        ArrayList<String> listLessons = new ArrayList<>();
+                        listLessons.add("Aucune");
+                        List<Lesson> lessons = Lesson.getLessonsByDay(Global.global, datePicker);
+                        if(lessons != null) {
+                            for (Lesson lesson : lessons) {
+                                if (lesson.getDiscipline() != null) {
+                                    listLessons.add(lesson.getDiscipline());
+                                }
+                            }
                         }
-                        ArrayAdapter departement = new ArrayAdapter<>(Ajouter.this, android.R.layout.simple_spinner_dropdown_item, listeCour);
+                        ArrayAdapter departement = new ArrayAdapter<>(Ajouter.this, android.R.layout.simple_spinner_dropdown_item, listLessons);
                         matiere.setAdapter(departement);
                     }
                 });
-                dialogDate.show(getFragmentManager(), "s");
+                dialogPicker.show(getFragmentManager(), "Select day");
             }
         });
 
@@ -118,20 +121,14 @@ public class Ajouter extends AppCompatActivity {
         suivant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(nom.getText() == null || datePicker == null){
+                if(datePicker == null || nom.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(), "Tous les champs n'ont pas été renseigné !", Toast.LENGTH_SHORT).show();
                 }else{
-                    if (t != null){
-                        System.out.println(position);
-                        ((MyApplication)getApplicationContext()).mesTaches.remove(position);
+                    if (task != null){
+                        Global.global.getTasks().remove(position);
                     }
-                    Tache tache;
-                    try{
-                        tache = new Tache(nom.getText().toString(), cours.get(matiere.getSelectedItemPosition()-1), datePicker);
-                    }catch (Exception e){
-                        tache = new Tache(nom.getText().toString(), null, datePicker);
-                    }
-                    ((MyApplication)getApplicationContext()).mesTaches.add(tache);
+                    Task task = new Task(nom.getText().toString(), matiere.getSelectedItem().toString(), datePicker);
+                    Global.global.getTasks().add(task);
                     setResult(Activity.RESULT_OK);
                     finish();
                 }

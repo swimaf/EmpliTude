@@ -13,10 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#384248">
-            <com.balysv.materialripple.MaterialRippleLayout
-                android:id="@+id/ripple"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -31,7 +28,6 @@
                 android:paddingTop="15dp"
                 android:paddingRight="20dp"
                 android:paddingBottom="15dp" />
-            </com.balysv.materialripple.MaterialRippleLayout>
         </LinearLayout>
 
         <RelativeLayout

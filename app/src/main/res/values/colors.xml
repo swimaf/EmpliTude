@@ -3,11 +3,14 @@
     <color name="colorPrimary">#009688</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="grisDesactiv">#CECECE</color>
+    <color name="grisDesactiv">#696969</color>
+    <color name="grayDark">#1a1a1a</color>
+    <color name="active">#353535</color>
     <color name="colorPrimaryDark">#00695C</color>
     <color name="colorAccent">#FF9800</color>
     <color name="windowBackground">#fafafa</color>
     <color name="tacheGris">#1a000000</color>
+    <color name="gray_transparente">#4f000000</color>
     <array name="spinner">
         <item>#24c6d5</item>
         <item>#57dd86</item>

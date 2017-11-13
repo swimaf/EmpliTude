@@ -1,4 +1,4 @@
-package com.example.martinet.emplitude;
+package com.martinet.emplitude;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

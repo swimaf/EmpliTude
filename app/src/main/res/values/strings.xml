@@ -8,18 +8,19 @@
     <string name="action_settings">Paramètres</string>
     <string name="groupe">null</string>
     <string name="nom_appli">Empli\'tude</string>
-    <string name="description">Bienvenue sur la première application de gestion d\'emploi du temps de l\'IUT, cette application va vous permettre de gagner du temps et de ne plus rien oublier. Renseigner vite vos informations pour la tester !</string>
+    <string name="description">Bienvenue sur la première application de gestion d\'emploi du temps national, cette application va vous permettre de gagner du temps et de ne plus rien oublier. Renseigner vite vos informations pour la tester !</string>
     <string-array name="maj">
         <item>Tous les jours</item>
         <item>Tous les 3 jours</item>
         <item>Toutes les semaines</item>
-        <item>Toutes deux semaines</item>
+        <item>Toutes les deux semaines</item>
+        <item>Tous les mois</item>
     </string-array>
     <string-array name="notif">
-        <item>1 heure avant</item>
-        <item>4 heures avant</item>
         <item>1 jour avant</item>
         <item>2 jours avant</item>
+        <item>1 heure avant</item>
+        <item>4 heures avant</item>
     </string-array>
 
     <string-array name="heures">
@@ -37,13 +38,14 @@
         <item>19h00</item>
     </string-array>
 
+
     <string name="emploiTache">Tâche</string>
 
 
     <!-- EXemple de name : tvrMinutes [-> tv = textView -> r = reveil -> Minute = ce qu'il fait]-->
     <!--TextView -->
     <string name="tvrMinutes">Minutes</string>
-    <string name="tvrTempsPreparation">Temps de préparation :</string>
+    <string name="tvrTempsPreparation">Temps de préparation</string>
     <string name="tvrRepeter">Répéter</string>
     <string name="tvrRepeterDroite">0 fois 5 min</string><!--C'est un bouton... -->
     <string name="tvrTempo">Reporter</string>
@@ -67,7 +69,8 @@
 
     =======
     <string name="service_name">Je sais pas</string>
-    <string name="tache">Tâche</string>
+    <string name="valider">Valider</string>
+    <string name="task">Tâche</string>
     <string name="matiere">Matière :</string>
     <string name="date">Date :</string>
     <string name="description_tache">Description de la tâche</string>
@@ -77,11 +80,8 @@
     <string name="notification">Notification :</string>
     <string name="vibreur">Vibreur</string>
     <string name="logo">logo</string>
-    <string name="etudiant">Etudiant</string>
+    <string name="student">Etudiant</string>
     <string name="enseignant">Enseignant</string>
-    <string name="departement">DEPARTEMENT :</string>
-    <string name="groupe_choix">GROUPE :</string>
-    <string name="num_ensignant">N° D\'ENSEIGNANT</string>
     <string name="exp_num_groupe">Numéro</string>
     <string name="suivant">Suivant</string>
     <string name="annuler">Annuler</string>
@@ -105,7 +105,19 @@
     <string name="couleur">Supprimer les couleurs des cours</string>
     <string name="notification_tache">Notification de tâche</string>
     <string name="delai_notification">Délai de notification de tâche :</string>
-    <string name="description_appli">Application développée dans le cadre du projet de deuxieme année de DUT informatique.</string>
-    <string name="aucun_cours">Aucun cours</string>
+    <string name="description_appli">Application développée par Etienne Martinet, Arnaud Regnier, Florian Gosselin, Anthony Piaud, des étudiants en informatique.</string>
+    <string name="notConnected">Vous devez être connecté à internet !</string>
+    <string name="previous">Précedent</string>
+    <string name="selection_school_title">Sélectionner votre établissement</string>
+    <string name="selection_city_title">Sélectionner votre ville</string>
+    <string name="selectionCityNull">Il n\'existe aucune ville dans la base de données.</string>
+    <string name="selection_group_title">Sélectionner votre groupe</string>
+    <string name="selectionGroupNull">Aucun groupe n\'a été associé a cette ville.</string>
+    <string name="selectionSchoolNull">Aucun établissement n\'a été associé a cette ville.</string>
+    <string name="next">Suivant</string>
+    <string name="finish">Terminer</string>
+    <string name="title_activity_settings">Préference</string>
+    <string name="erreur">Erreur</string>
+
 
 </resources>

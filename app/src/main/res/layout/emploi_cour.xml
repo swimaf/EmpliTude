@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:weightSum="1">
@@ -37,116 +39,19 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.04"
                     android:gravity="fill_vertical"
-                    android:textSize="15sp"
+                    android:textSize="18sp"
                     android:paddingBottom="10dp"
                     android:autoText="false"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.04"
+                    android:id="@+id/llLessons">
 
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:text="@string/matiere"
-                        android:id="@+id/textView17"
-                        android:gravity="center_vertical"
-                        android:textStyle="bold|italic" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/rien"
-                        android:id="@+id/infoCour"
-                        android:maxLines="2"
-                        android:gravity="center_vertical" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:text="@string/heure_debut"
-                        android:gravity="center_vertical"
-                        android:id="@+id/textView18"
-                        android:textStyle="bold|italic" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/rien"
-                        android:id="@+id/infoHeureD"
-                        android:gravity="center_vertical" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:text="@string/heure_fin"
-                        android:gravity="center_vertical"
-                        android:id="@+id/textView20"
-                        android:textStyle="bold|italic" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/rien"
-                        android:id="@+id/infoHeureF"
-                        android:gravity="center_vertical" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:text="@string/salle"
-                        android:id="@+id/textView22"
-                        android:gravity="center_vertical"
-                        android:textStyle="bold|italic" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/rien"
-                        android:id="@+id/infoSalle"
-                        android:gravity="center_vertical" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:text="@string/enseignant_emploi"
-                        android:id="@+id/textView24"
-                        android:gravity="center_vertical"
-                        android:textStyle="bold|italic" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/rien"
-                        android:id="@+id/infoEnsei"
-                        android:gravity="center_vertical" />
                 </LinearLayout>
 
                 <TextView
@@ -157,7 +62,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.04"
                     android:gravity="fill_vertical"
-                    android:textSize="15sp"
+                    android:textSize="18sp"
                     android:paddingBottom="10dp"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
@@ -180,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/taches"
-                android:paddingBottom="30dp"></LinearLayout>
+                android:paddingBottom="30dp" />
 
         </LinearLayout>
     </ScrollView>
@@ -190,7 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:src="@drawable/ic_add"
+        app:srcCompat="@drawable/ic_add"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"

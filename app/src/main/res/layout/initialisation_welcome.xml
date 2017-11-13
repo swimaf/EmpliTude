@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+        android:text="@string/bienvenue"
+        android:id="@+id/bienvenue"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#ffffff"
+        android:gravity="center_vertical|center_horizontal"
+        android:textSize="45sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:fontFamily="sans-serif-thin" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/textView23"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/description"
+        android:gravity="center"
+        android:textIsSelectable="false"
+        android:layout_below="@+id/bienvenue"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#ffffff"
+        android:padding="20dp"
+        android:textStyle="italic"
+        android:fontFamily="sans-serif-thin" />
+
+</RelativeLayout>

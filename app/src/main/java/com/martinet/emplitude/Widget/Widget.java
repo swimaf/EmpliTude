@@ -2,6 +2,10 @@ package com.martinet.emplitude.Widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetProvider;
+
+/**
+ * Created by martinet on 06/12/15.
+ */
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
@@ -10,56 +14,52 @@ import android.os.Bundle;
 import android.widget.RemoteViews;
 
 
-import com.martinet.emplitude.Accueil;
-import com.martinet.emplitude.Constants;
-import com.martinet.emplitude.Emploi.ADE_information;
-import com.martinet.emplitude.Emploi.Cours;
-import com.martinet.emplitude.Emploi.Information;
+import com.martinet.emplitude.Global;
+import com.martinet.emplitude.Initialization.Initialisation;
+import com.martinet.emplitude.Schelude.Display.ActivityLesson;
+import com.martinet.emplitude.Schelude.FragmentLesson;
+import com.martinet.emplitude.Models.Lesson;
 import com.martinet.emplitude.R;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
-/**
- * Génère le widget qui affiche le prochain cours
- */
-
 public class Widget extends AppWidgetProvider {
 
+    private Lesson lesson;
     private static SimpleDateFormat h = new SimpleDateFormat("HH:mm");
+    private static final String PREFS_NAME = "Couleur";
+    public static int i =0;
+    private SharedPreferences settings;
 
-    private Cours cours;
-
+    @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
-        SharedPreferences settings = context.getSharedPreferences(Constants.PREFERENCE_COULEUR, Context.MODE_PRIVATE);
+        this.settings       = context.getSharedPreferences(PREFS_NAME,0);
         HashMap couleur = (HashMap) settings.getAll();
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
         Intent intent;
         try {
-            ADE_information fichier = new ADE_information(context);
-            this.cours = fichier.getNext();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            this.lesson = Lesson.getNext(Global.global);
+        }catch (Exception ignore) {}
 
-        if(this.cours != null) {
-            Object c = couleur.get(cours.getMatiere());
-            String contenu = this.cours.getResumer() + " \n" + this.cours.getSalle() + "\n" + h.format(cours.getDateD()) + " - " + h.format(cours.getDateF());
+        if(this.lesson != null) {
+            Object c = couleur.get(lesson.getDiscipline());
+            String contenu = this.lesson.getSummary() + " \n" + this.lesson.getLocation() + "\n" + h.format(lesson.getDateBegin()) + " - " + h.format(lesson.getDateEnd());
 
             views.setTextViewText(R.id.cours, contenu);
             if (c != null) {
                 views.setInt(R.id.cours, "setBackgroundColor", Integer.parseInt(c.toString()));
-                views.setInt(R.id.cours, "setTextColor", Constants.getColorWB(Integer.parseInt(c.toString())));
+                views.setInt(R.id.cours, "setTextColor", FragmentLesson.getColorWB(Integer.parseInt(c.toString())));
             }
 
             Bundle objetbunble = new Bundle();
-            intent = new Intent(context, Information.class);
-            objetbunble.putSerializable("emploi_cour", this.cours);
-            objetbunble.putBoolean("FIRST", true);
+            intent = new Intent(context, ActivityLesson.class);
+            objetbunble.putSerializable("emploi_cour", this.lesson);
+            objetbunble.putBoolean("widget", true);
             intent.putExtras(objetbunble);
         }else{
-            intent = new Intent(context, Accueil.class);
+            intent = new Intent(context, Initialisation.class);
         }
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);

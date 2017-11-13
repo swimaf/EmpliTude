@@ -1,33 +1,48 @@
 package com.martinet.emplitude;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 
-/**
- * Classe utilisé dans plusieurs autre classe
- */
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Constants {
-    final static public String COURS_FILE ="ADE.cours";
-    final static public String IDENTIFIANT_FILE = ".identifiant.txt";
-    final static public String PREFERENCE_SON = "PREFERENCE_SON";
-    final static public String PREFERENCE_ADE = "Ade";
-    final static public String PREFERENCE_COULEUR = "Couleur";
-    final static public String TACHE_FILE = "tache.txt";
-    final static public String SITE = "http://climax.heb3.org/Emplitude/recup/";
+
+    final static public String API_URL = "http://emplitude.info/api";
+
+    public static class Files {
+        final public static String STUDENT = ".student.txt";
+        final static public String TASK = ".task.txt";
+        final static public String LESSONS =".lessons.cours";
+    }
 
 
-    final static public int intervaleSonnerieRepeter = 1;
+    public static class Preference {
+        final public static String SCHELURE = "PREFERENCE_SCHELURE";
+        final public static String ALARM = "PREFERENCE_ALARM";
+        final static public String SOUND = "PREFERENCE_SOUND";
 
+    }
 
-
-    public static Boolean CONNECTED(Context context) {
-        ConnectivityManager cm =(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnected();
+    public static Boolean CONNECTED() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(Global.global);
+        if(preferences.getBoolean("preference_wifi", false)) {
+            WifiManager cm =(WifiManager) Global.global.getSystemService(Context.WIFI_SERVICE);
+            return cm.isWifiEnabled();
+        } else {
+            ConnectivityManager cm =(ConnectivityManager) Global.global.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            return activeNetwork != null && activeNetwork.isConnected();
+        }
     }
 
     public static int getHeight(Context context) {
@@ -42,17 +57,33 @@ public class Constants {
         return height;
     }
 
-    public static int getBrightness(int color) {
-        return (int) Math.sqrt(Color.red(color) * Color.red(color) * .241 +
-                Color.green(color) * Color.green(color) * .691 +
-                Color.blue(color) * Color.blue(color) * .068);
+    public static int getWidth(Context context) {
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        int width = metrics.widthPixels;
+        return width;
     }
 
-    public static int getColorWB(int color) {
-        if (getBrightness(color) < 130) {
-            return Color.WHITE;
-        } else {
-            return Color.BLACK;
+    public static void changeFragment(FragmentActivity context, int id, Fragment fragment){
+        FragmentTransaction transaction = context.getSupportFragmentManager().beginTransaction();
+        transaction.replace(id, fragment);
+        transaction.commit();
+    }
+    public static void changeFragment(FragmentActivity context, int id, Fragment fragment, int animIn, int animOut){
+        FragmentTransaction transaction = context.getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(animIn, animOut);
+        transaction.replace(id, fragment);
+        transaction.commit();
+    }
+
+    public interface Predicate<T> { boolean apply(T type); }
+
+    public static <T> List<T> filter(List<T> col, Predicate<T> predicate) {
+        List<T> result = new ArrayList<T>();
+        for (T element: col) {
+            if (predicate.apply(element)) {
+                result.add(element);
+            }
         }
+        return result;
     }
 }

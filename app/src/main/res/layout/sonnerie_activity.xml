@@ -6,8 +6,8 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:text="Arreter"
+        android:layout_height="170dp"
+        android:text="Arrêter"
         android:background="@color/colorPrimary"
         android:textColor="@color/white"
         android:id="@+id/brStop"
@@ -18,7 +18,18 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_weight="0.16" />
+        android:layout_weight="0.16"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:text="Bonjour"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView8"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:padding="10dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -27,14 +38,15 @@
         android:id="@+id/tvrHeure"
         android:textSize="70sp"
         android:layout_weight="0.88"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:fontFamily="sans-serif-thin" />
     <Button
         android:layout_width="match_parent"
-        android:layout_height="209dp"
-        android:text="Repeter"
+        android:layout_height="170dp"
+        android:text="Reporter"
         android:background="@color/colorPrimary"
         android:textColor="@color/white"
-        android:id="@+id/brRepeterFinal"
+        android:id="@+id/brReporter"
         android:textSize="32sp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -42,6 +54,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:foregroundGravity="bottom"
-        android:layout_weight="0.01" />
+        android:layout_weight="0.01"
+        android:textAllCaps="false" />
 
 </LinearLayout>

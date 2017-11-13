@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single"
+        android:id="@+id/nav">
         <item android:id="@+id/emploi" android:icon="@drawable/ic_event"
             android:title="Emploi du temps" />
         <item android:id="@+id/reveil" android:icon="@drawable/ic_alarm"
@@ -12,7 +13,8 @@
             android:title="Gestion des sons" />
     </group>
 
-    <item android:title="Autres">
+    <item android:title="Autres"
+        android:id="@+id/other">
         <menu>>
             <item android:id="@+id/propos" android:icon="@drawable/ic_detail"
                 android:title="A propos" />
@@ -20,5 +22,20 @@
                 android:title="Paramètres" />
         </menu>
     </item>
+    <group
+        android:id="@+id/listGroups"
+        android:checkableBehavior="single"
+        android:visible="false" />
+    <group android:checkableBehavior="single"
+        android:id="@+id/actionGroup"
+        android:menuCategory="container"
+        android:visible="false">
+        <item android:title="Ajouter un groupe"
+            android:icon="@drawable/ic_add_black"
+            android:id="@+id/addGroup" />
+        <item android:title="Gérer les groupes"
+            android:icon="@drawable/ic_build_black"
+            android:id="@+id/manageGroups" />
+    </group>
 
 </menu>

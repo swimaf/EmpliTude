@@ -12,41 +12,43 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.martinet.emplitude.Constants;
-import com.martinet.emplitude.MyApplication;
-import com.martinet.emplitude.Outil.Fichier;
-import com.martinet.emplitude.Outil.SwipeDismissListViewTouchListener;
+import com.martinet.emplitude.Global;
+import com.martinet.emplitude.Models.Task;
+import com.martinet.emplitude.Tool.SwipeDismissListViewTouchListener;
 import com.martinet.emplitude.R;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.Vector;
+import java.util.List;
 
 /**
- * Created by Flo on 13/11/15.
- */
- 
- /**
- * Classe principale qui gère la liste de tâches et l'affiche
+ * Created by florian on 13/11/15.
  */
 public class Todo extends Fragment{
 
-    public static Tache activeTache;
+    public static Task activeTask;
     private ListView list;
     private FloatingActionButton action;
     private TextView aucune;
     private View view;
-    private MyApplication monApplication;
+    public List<Task> tasks;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         this.getActivity().setTitle("TodoList");
 
+        this.tasks = Global.global.getTasks();
         this.view = inflater.inflate(R.layout.todo, container, false);
         this.list = (ListView) view.findViewById(R.id.taches);
         this.action = (FloatingActionButton) view.findViewById(R.id.fab);
         this.aucune = (TextView) view.findViewById(R.id.aucune);
-        this.monApplication = (MyApplication) (getActivity().getApplicationContext());
+
+        /*if(!tasks.isEmpty()) {
+            System.out.println(tasks.get(0).getMatiere()+" sdsd ");
+        }*/
+        System.out.println(tasks);
+
         this.creationListeTaches();
 
         action.setOnClickListener(new View.OnClickListener() {
@@ -65,14 +67,19 @@ public class Todo extends Fragment{
     }
 
     public void creationListeTaches (){
-        if (monApplication.mesTaches.size() == 0){
+        if (tasks.isEmpty()){
             aucune.setVisibility(View.VISIBLE);
             list.setVisibility(View.GONE);
         }else {
-            monApplication.trierTache();
+            Collections.sort(tasks, new Comparator<Object>() {
+                public int compare(Object m1, Object m2) {
+                    Date d = ((Task) m1).getDate();
+                    Date d2 = ((Task) m2).getDate();
+                    return d.compareTo(d2);
+                }
+            });
 
-            final Adapter adapter = new Adapter(getActivity(), monApplication.mesTaches);
-
+            final Adapter adapter = new Adapter(getActivity(), tasks);
 
             aucune.setVisibility(View.GONE);
             list.setVisibility(View.VISIBLE);
@@ -87,15 +94,15 @@ public class Todo extends Fragment{
                                 }
 
                                 public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-                                    Todo.activeTache = (Tache)monApplication.mesTaches.get(reverseSortedPositions[0]);
-                                    monApplication.mesTaches.remove(reverseSortedPositions[0]);
+                                    Todo.activeTask = tasks.get(reverseSortedPositions[0]);
+                                    tasks.remove(reverseSortedPositions[0]);
                                     creationListeTaches();
                                     Snackbar.make(getActivity().findViewById(android.R.id.content), "Tâche supprimé avec succès", Snackbar.LENGTH_LONG)
                                             .setAction("ANNULER", new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View view) {
                                                     Snackbar snackbar1 = Snackbar.make(getActivity().findViewById(android.R.id.content), "Tâche restauré", Snackbar.LENGTH_SHORT);
-                                                    monApplication.mesTaches.add(Todo.activeTache);
+                                                    tasks.add(Todo.activeTask);
                                                     creationListeTaches();
                                                     snackbar1.show();
                                                 }
@@ -117,9 +124,9 @@ public class Todo extends Fragment{
         }
     }
 
-    public void modifierTache(int position, Tache tache){
+    public void modifierTache(int position, Task task){
         Bundle objetbunble = new Bundle();
-        objetbunble.putSerializable("Tache", tache);
+        objetbunble.putSerializable("Task", task);
         Intent intent = new Intent(getContext(), Ajouter.class);
         intent.putExtras(objetbunble);
         intent.putExtra("position", position);
